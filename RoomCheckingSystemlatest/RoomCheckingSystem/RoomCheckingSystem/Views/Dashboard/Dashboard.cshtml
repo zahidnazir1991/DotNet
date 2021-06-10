@@ -94,12 +94,48 @@
     .cxm-clock-pad {
         padding-right: 65px;
     }
+    .small-box .inner {
+        padding: 5px 0;
+    }
+    .small-box {
+        text-align: center;
+    }
+    .small-box {
+        border-radius: 2px;
+        position: relative;
+        display: block;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+        .small-box .icon {
+            display: none;
+        }
+        .small-box .inner h3, .small-box .inner .make-text_bold {
+            margin-bottom: 3px;
+        }
+
+        .small-box h3 {
+            font-size: 19px;
+        }
+
+        .small-box h3, .small-box p {
+            z-index: 5px;
+        }
+
+        .small-box h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            padding: 0;
+        }
 </style>
 <link href="~/css/dashboard.css" rel="stylesheet" />
 <div id="maindiv" style="padding:15px;">
 
 
-    <div class="row cxm-card-1 margin-bottom hidden-xs pt-2">
+    <div class="row cxm-card-1 margin-bottom hidden-lg-down pt-2">
         <div class="col-sm-4 col-md-6" id="js-desktop_summary" style="padding-top:10px;">
             <div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
                 <div class="cxm-count-1">0</div>
@@ -233,6 +269,61 @@
         </div>
 
     </div>
+
+
+    <div class="hidden-md-up">
+        <div id="js-summary_boxes">
+            <div class="cxm-row">
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+                        <div class="inner">
+                            <h3>2</h3>
+                            <p class="make-text_bold">Total Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green " style="background-color:#008000 !important;">
+
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p class="make-text_bold">Completed Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green " style="background-color:#df9300 !important;">
+
+                        <div class="inner">
+                            <h3>2</h3>
+                            <p class="make-text_bold">Running Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cxm-row">
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green" style="background-color:#ff6666 !important; ">
+                        <div class="inner">
+                            <h3>2</h3>
+                            <p class="make-text_bold">Check Out</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-refresh"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <link href="~/css/loader.css" rel="stylesheet" />
     <div class="loading" id="full_screen_loader" style="display: none;">Loading…</div>
     <div class="row">
@@ -304,11 +395,12 @@
                                     icon = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).icon;
                                     statusname = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).StatusName;
 
-                                    if (mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).Cleaningtime != "-1") {
+                                    if (mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).Cleaningtime != "-1")
+                                    {
                                         clearningtime = Convert.ToDateTime(mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).Cleaningtime).ToString("hh:mm");
                                     }
-                                   
-                                    
+
+
                                     pStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).pStatus;
                                     cStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).cStatus;
 
@@ -335,7 +427,7 @@
                                         <div class="col-4  col-md-12 col-lg-12">
                                             <div class="cxm-room-count-1">
                                                 @mrooms.RoomName
-                                                <img class="hidden-sm hidden-md hidden-lg" src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-2.png" alt="Clock" width="25">
+                                                @*<img class="hidden-sm hidden-md hidden-lg" src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-2.png" alt="Clock" width="25">*@
                                             </div>
                                         </div>
 
@@ -344,11 +436,18 @@
                                             <div class="cxm-room-icon hidden-md-down" style="padding-top: 0px;">
                                                 <span class="@icon dashboardiconsize"></span>
                                             </div>
-                                            <div class="hidden-sm cxm-room-label cxm-clock-pad" style="margin-right:65px;">
+
+                                            <div class="hidden-sm cxm-room-label">
                                                 @statusname&nbsp;&nbsp;
                                                 <span class="fa fa-home cxm-room-icon-2 hidden-md-up"></span>
-                                                <span class="cxm-clock hidden-md hidden-lg"><img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-3.png" alt="Clock" width="20"><br>12:00</span>
+
                                             </div>
+
+                                            @*<div class="hidden-sm cxm-room-label cxm-clock-pad" style="margin-right:65px;">
+                                                    @statusname&nbsp;&nbsp;
+                                                    <span class="fa fa-home cxm-room-icon-2 hidden-md-up"></span>
+                                                    <span class="cxm-clock hidden-md hidden-lg d-none"><img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-3.png" alt="Clock" width="20"><br>12:00</span>
+                                                </div>*@
                                             @{
                                                 if (clearningtime.Length > 0)
                                                 {
@@ -437,14 +536,14 @@
             })
         }
 
-        function show_status_in_model(buildingname, buildingid, mrooms,roomid,ps,cs) {
+        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs) {
             $('#full_screen_loader').show();
             document.getElementById('hbuildingid').value = buildingid;
             document.getElementById('hroomid').value = roomid;
             Parentstatus = ps;
             ChildStatus = cs;
 
-            
+
 
             $.ajax({
                 url: '/Dashboard/Createdialog',
@@ -512,36 +611,36 @@
             var buildingid = document.getElementById('hbuildingid').value;
             var roomid = document.getElementById('hroomid').value;
             $checkboxvalue = $('#js-is_priority').prop('checked');
-     
 
 
-            
+
+
 
             var statusDetails = {
-                
+
                 intParentStatus: $parent,
                 intChildStatus: $child,
                 Cleaningtime: $clearningtime,
                 isproritysetting: $checkboxvalue,
-                intBuildingID: buildingid ,
+                intBuildingID: buildingid,
                 intRoomID: roomid,
                 intStatusID: status
 
 
             };
             //alert(JSON.stringify(statusDetails));
-       
+
             $.ajax({
                 url: '/Dashboard/SaveSelectedStatus',
                 type: 'POST',
-                data: { 'statusDetails': JSON.stringify(statusDetails)},
+                data: { 'statusDetails': JSON.stringify(statusDetails) },
                 dataType: 'json',
-              
+
                 success: function (d) {
                     $("#loginModal").modal('hide');
                     alert(d);
-                   
-                    
+
+
 
                 },
                 error: function (r) {

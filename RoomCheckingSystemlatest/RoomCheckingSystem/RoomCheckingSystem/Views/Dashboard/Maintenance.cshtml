@@ -7,6 +7,7 @@
 }
 <link href="~/css/accordin.css" rel="stylesheet" />
 <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+<link href="~/css/dashboard.css" rel="stylesheet" />
 <link href="~/css/maintenance.css" rel="stylesheet" />
 <style>
     #full_screen_loader {
@@ -108,13 +109,55 @@
         margin-right: 0;
         margin-left: 0;
     }
+    .cxm-col {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+    .small-box .icon {
+        display: none;
+    }
+    .small-box .inner {
+        padding: 5px 0;
+    }
+    .small-box {
+        text-align: center;
+    }
+    .small-box {
+        border-radius: 2px;
+        position: relative;
+       
+        margin-bottom: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+
+    .small-box .inner h3, .small-box .inner .make-text_bold {
+        margin-bottom: 3px;
+    }
+
+    .small-box h3 {
+        font-size: 19px;
+    }
+    small-box h3, .small-box p {
+        z-index: 5px;
+    }
+
+    .small-box h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        padding: 0;
+    }
+    
 </style>
 
 <div id="maindiv" style="padding:15px;">
 
 
-    <div class="row cxm-card-1 margin-bottom hidden-xs pt-2">
-        <div class="col-sm-4 col-md-6" id="js-desktop_summary">
+    <div class="row cxm-card-1 margin-bottom hidden-lg-down pt-2">
+        <div class="col-sm-4 col-md-6" id="js-desktop_summary" style="padding-top: 23px;">
             <div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
                 <div class="cxm-count-1">0</div>
                 <div class="cxm-ttl-1">Total Jobs</div>
@@ -243,6 +286,50 @@
         </div>
 
     </div>
+
+    <div class="hidden-md-up">
+        <div id="js-summary_boxes">
+            <div class="cxm-row">
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+                        <div class="inner">
+                            <h3>1</h3>
+                            <p class="make-text_bold">Total Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p class="make-text_bold">Completed Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+                        <div class="inner">
+                            <h3>1</h3>
+                            <p class="make-text_bold">Running Jobs</p>
+                        </div>
+
+                        <div class="icon"><i class="fa fa-suitcase"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cxm-row"></div>
+        </div>
+    </div>
+
     <link href="~/css/loader.css" rel="stylesheet" />
     <div class="loading" id="full_screen_loader" style="display: none;">Loading…</div>
     <div class="row">
@@ -362,7 +449,7 @@
                                         @{
                                             if (clearningtime.Length > 0)
                                             {
-                                                <div class="row cxm-no-gutters hidden-sm-down">
+                                                <div class="row cxm-no-gutters d-none">
                                                     <div class="col-sm-6" style="font-weight: bold;">@clearningtime</div>
                                                     <div class="col-sm-6 text-right">
                                                         <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-4.png" alt="Clock" width="22">
