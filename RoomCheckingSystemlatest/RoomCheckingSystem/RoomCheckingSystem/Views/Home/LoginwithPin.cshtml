@@ -1,0 +1,153 @@
+﻿@using RoomCheckingSystem.Models;
+@model User
+@*
+
+*@
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+
+    <!-- Stylesheets
+    ============================================= -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RoomCheckingSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/Sitetheme.css" rel="stylesheet" />
+
+
+    <title>Login - Roomchecking</title>
+
+</head>
+<style>
+
+    .checkbox label {
+        padding-left: 0;
+    }
+
+    .g-recaptcha {
+        margin-left: 9px;
+    }
+
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+    }
+</style>
+<body class="stretched">
+
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+        <div class="container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <a class="pagetitle" href="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/">Roomchecking</a>
+                </div>
+
+                <div class="login-box-body">
+
+                    <p class="login-box-msg">Staff Login with PIN</p>
+                    @using (Html.BeginForm(FormMethod.Post, new { id = "myform" }))
+                    {
+                        <input name="hs_pin_login " type="hidden" value="1">
+
+                        <div class="form-group has-feedback">
+                            @Html.PasswordFor(m => m.PinCode, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Please type your PIN here", })
+
+                            <span class="fa fa-lock form-control-feedback"> </span>
+
+                        </div>
+
+                        <div class="col-sm-12 text-center" style="display:none" id="loader">
+                            <img src="~/images/load-indicator.gif" />
+                        </div>
+                        <div class="col-sm-12 text-center" id="msg-box" style="color: rgb(255, 0, 0); display: block; cursor: pointer;">@ViewBag.error</div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label class="checkboxcon">
+                                    Remember me for today
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark1"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <button type="submit" id="btn-submit" onclick="cleardata();" class="btn btn-primary btn-block btn-flat">Login</button>
+                            </div>
+                        </div>
+
+                    }
+                    <a class="spacelines" style="font-size: 13px;" href="">Forgot password</a><br />
+                    <a class="spacelines" style="font-size:13px" href="/Home/Login">Do you have ID and Password? then login from here.</a><br>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- External JavaScripts
+    ============================================= -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @*<script>
+            $('#remember').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+                increaseArea: '20%' // optional
+            });
+
+            $(function () {
+                var obj = {
+                    'form': '#login-form',
+                    'msgbox': '#msg-box',
+                    'urlValidator': "https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/login-validate",
+                    'loadingImg': "https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/img/load-indicator.gif",
+                    'onFormError': function () {
+                        $('input').addClass('validation-fail');
+                    }
+                };
+                doFormValidation(obj);
+            });
+        </script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+          
+        $("#myform").submit(function (e) {
+            $("#loader").show();
+        });
+        });
+
+        function cleardata() {
+
+            var x = document.getElementById("msg-box");
+            x.innerHTML = "";
+            
+
+        }
+
+    </script>
+
+</body>
+</html>

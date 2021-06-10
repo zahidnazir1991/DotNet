@@ -1,0 +1,244 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+<style type="text/css">
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+
+    label {
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: bold;
+        font-size: 14px;
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+    }
+
+
+    /*.myButton {
+        box-shadow: inset 0px 1px 3px 0px #91b8b3;
+        background-color: #0062cc;
+        border-radius: 5px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 11px 23px;
+        text-decoration: none;
+        text-shadow: 0px -1px 0px #2b665e;
+    }
+
+        .myButton:hover {
+            background-color: #367fa9;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }*/
+
+    .myButton {
+        box-shadow: inset 0px 1px 0px 0px #0062cc;
+        background: linear-gradient(to bottom, #0062cc 5%, #0062cc 100%);
+        background-color: #0062cc;
+        border-radius: 6px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0px 1px 0px #0062cc;
+    }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #367fa9 5%, #0062cc 100%);
+            background-color: #367fa9;
+            color: #fff;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .cancelButton {
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #666666;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+    }
+
+        .cancelButton:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color: #f6f6f6;
+        }
+
+        .cancelButton:active {
+            position: relative;
+            top: 1px;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+    fieldset {
+        padding: .35em .625em .75em !important;
+        margin: 0 2px !important;
+        border: 1px solid #c0c0c0 !important;
+    }
+
+    fieldset {
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid #c0c0c0;
+    }
+    legend {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: inherit;
+        color: #333;
+        border: 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .small, small {
+        font-size: 70%;
+        font-weight: 400;
+    }
+</style>
+
+<div class="container-fluid-custom">
+    <div class="box ml-sm-1 mr-sm-1">
+        <div class="row">
+            <div class="col-sm-3">
+                <h1>
+                    Timestation Management
+
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>Timestation API:</legend>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                Timestation &nbsp;
+
+                                <select class="form-control nochosen" name="timestation_enable" id="timestation_enable">
+                                    <option value="0">Disabled</option>
+                                    <option value="1" selected="">Enable</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row js-tm_settings">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    Timestation API Key
+                                    <input type="text" class="form-control" name="timestation_api_key" id="timestation_api_key" value="qdg7vrko85m310zgdz2wpqnyj9dexlwg" placeholder="">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2"> <br><a href="javascript:void(0);" class="btn btn-primary btn-block margin-bottom" id="js-Test_Key">Test API Key Now</a> </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset class="js-tm_settings">
+                    <legend>Timestation Setting:</legend>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                Associate Login of the user groups, that you have set to login with timestation
+
+                                <select class="form-control nochosen" name="timestation_associate_login" id="timestation_associate_login">
+                                    <option value="0" selected="">Disabled</option>
+                                    <option value="1">Enable</option>
+                                </select>
+                                <small>
+                                    When it is enabled; then the user groups, that you have set to login with time station, will login only when they have checked-in to the Timestation and when they log-out from Timestation system will also log them out and will not allow them to login unless they again check-in.<br>
+                                    <strong>Notice</strong>: user can only be associated with Timestation when you have input his Timestation API ID in his account.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                Import Option in User section
+
+                                <select class="form-control nochosen" name="timestation_enable_import" id="timestation_enable_import">
+                                    <option value="0">Disabled</option>
+                                    <option value="1" selected="">Enable</option>
+
+                                </select>
+                                <small>When you enable it you can directly import users from time station. This feature will appear in user area after getting enabled.</small>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+            </div>
+
+        </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-sm-2 ml-auto mb-5"> 
+            <a href="javascript:void(0);" class="btn btn-primary btn-block margin-bottom js-form_btn">Save</a> </div>
+        </div>
+
+    </div>
+</div>

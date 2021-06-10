@@ -1,0 +1,27 @@
+﻿<div id="contentdiv">
+    
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <input type="text" placeholder="firstvalue" />
+
+                <!--@Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusmainList as SelectList, new { @id = "ParendStatus", @class = "form-control" })-->
+
+
+            </div>
+        </div>
+        <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
+        <div class="col-sm-5">
+            <div class="form-group">
+
+                <input type="text"  placeholder="secondvalue"/>
+                <!--@Html.DropDownListFor(model => model.intChildStatus, ViewBag.proritylist as SelectList, new { @id = "ChildStatus", @class = "form-control" })-->
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <textarea id="txtarea">helow</textarea>
+        <!--@Html.TextAreaFor(m => m.Description, new { @id = "texdes", required = "required", disabled = "disabled", @class = "form-control removeshadow", autocomplete = "off", placeholder = "Type job description..." })-->
+    </div>
+</div>

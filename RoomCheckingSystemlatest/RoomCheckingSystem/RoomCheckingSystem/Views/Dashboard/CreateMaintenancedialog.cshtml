@@ -1,0 +1,195 @@
+﻿@using RoomCheckingSystem.Models;
+@model StatusDetails
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "";
+}
+<style type="text/css">
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+
+</style>
+@using (Html.BeginForm())
+{
+<div id="divdynamic">
+    <div id="contentdiv" class="layout">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-sm-5">
+                <div class="form-group">
+
+                    @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusmainList as SelectList, new { @id = "ParendStatus", @class = "form-control" })
+
+
+                </div>
+            </div>
+            <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
+            <div class="col-sm-5">
+                <div class="form-group">
+
+                    @Html.DropDownListFor(model => model.intChildStatus, ViewBag.proritylist as SelectList, new { @id = "ChildStatus", @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.TextAreaFor(m => m.Description,  new { @Value = "12", @id = "texdes", required = "required", disabled = "disabled", @class = "form-control removeshadow", autocomplete = "off", placeholder = "Type job description..." })
+        </div>
+    </div>
+</div>
+
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadparentStatus();
+
+        $('body').on('change', '#ParendStatus', function () {
+
+            if ($(this).val() == "-1") {
+                $("#texdes").attr("disabled", "disabled");
+            }
+            else {
+                $("#texdes").removeAttr("disabled");
+            }
+            
+
+            //var customerID = $(this).val();
+            //var $option = $(this).find('option:selected');
+            //var isprority = $option.attr('isprority')
+            //showhideprority();
+            //showhidecheckout();
+            /* var checkouttime = $option.attr('isCheckoutTime')*/
+
+
+            //LoadCampaigns(customerID);
+
+
+        })
+    });
+
+    function showhideprority() {
+        var $option = $('#ParendStatus').find('option:selected');
+        var isprority = $option.attr('isprority')
+        if (isprority) {
+
+
+            document.getElementById("tvpro").style.display = "block";
+
+        }
+        else {
+
+            document.getElementById("tvpro").style.display = "none";
+
+        }
+    }
+
+    function showhidecheckout() {
+        var $option = $('#ParendStatus').find('option:selected');
+        var isprority = $option.attr('isCheckoutTime')
+        if (isprority) {
+
+
+            document.getElementById("tvtime").style.display = "block";
+
+        }
+        else {
+
+            document.getElementById("tvtime").style.display = "none";
+
+        }
+    }
+
+
+    function loadparentStatus() {
+        var $parent = $('#ParendStatus').val();
+
+        var id = $parent;
+        Parentstatus;
+        //ChildStatus
+
+
+        //var task = {
+        //    Title: $("#intParentID").val(),
+        //    Description: "zahid",
+        //    Owner: "Tax Asaan"
+        //};
+        ////alert(JSON.stringify(task));
+
+        $.ajax({
+            url: '/Dashboard/GetmainparentList',
+            type: 'GET',
+            data: { 'id': id },
+            dataType: 'json',
+            success: function (d) {
+                var s = '<option value="-1">--Select main status--</option>';
+
+                for (var i = 0; i < d.length; i++) {
+
+                    if (d[i].intSeqID == Parentstatus) {
+                        var selected = "selected";
+                        s += '<option ' + selected + ' style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+                    else {
+                        s += '<option style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+
+                }
+                $("#ParendStatus").html(s);
+
+                if ($("#ParendStatus").val() > 0) {
+                    // LoadCampaigns($("#ParendStatus").val())
+                }
+                //showhideprority();
+                //showhidecheckout()
+
+            },
+            error: function (r) {
+
+                alert(r);
+            }
+        });
+    }
+
+    function LoadCampaigns(customerID) {
+
+
+        $.ajax({
+            url: '/Dashboard/GetList',
+            type: 'GET',
+            data: { 'customerID': customerID },
+            dataType: 'json',
+            success: function (d) {
+                var s = '<option value="-1">--Select sub status--</option>';
+
+                for (var i = 0; i < d.length; i++) {
+
+                    if (d[i].intSeqID == ChildStatus) {
+
+                        var selected = "selected";
+                        s += '<option ' + selected + ' style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+                    else {
+
+                        s += '<option style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+
+                    }
+                }
+                $("#ChildStatus").html(s);
+                //showhideprority();
+                //showhidecheckout()
+
+            },
+            error: function (r) {
+
+                alert(r);
+            }
+        });
+    }
+
+</script>

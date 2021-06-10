@@ -1,0 +1,403 @@
+﻿@using RoomCheckingSystem.Models;
+@model UserGroup
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style type="text/css">
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: inline-block;
+        float: left;
+    }
+
+    /*.myButton {
+        box-shadow: inset 0px 1px 3px 0px #91b8b3;
+        background-color: #0062cc;
+        border-radius: 5px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 11px 23px;
+        text-decoration: none;
+        text-shadow: 0px -1px 0px #2b665e;
+    }
+
+        .myButton:hover {
+            background-color: #367fa9;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }*/
+
+    .myButton {
+        box-shadow: inset 0px 1px 0px 0px #0062cc;
+        background: linear-gradient(to bottom, #0062cc 5%, #0062cc 100%);
+        background-color: #0062cc;
+        border-radius: 6px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0px 1px 0px #0062cc;
+    }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #367fa9 5%, #0062cc 100%);
+            background-color: #367fa9;
+            color: #fff;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .cancelButton {
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #666666;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+    }
+
+        .cancelButton:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color: #f6f6f6;
+        }
+
+        .cancelButton:active {
+            position: relative;
+            top: 1px;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+
+    fieldset {
+        padding: .35em .625em .75em !important;
+        margin: 0 2px !important;
+        border: 1px solid #c0c0c0 !important;
+    }
+
+    fieldset {
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+
+    fieldset {
+        padding: .35em .625em .75em;
+        margin: 0 2px;
+        border: 1px solid #c0c0c0;
+    }
+
+    legend {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: inherit;
+        color: #333;
+        border: 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+</style>
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+<div class="container-fluid-custom">
+    <div class="box ml-sm-1 mr-sm-1">
+        <div class="row">
+            <div class="col-sm-2">
+                <h1>
+                    User Groups
+                    <small>Add</small>
+                </h1>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    
+                        <div class="form-group ml-1 mr-1">
+                            <label class="customlabel" for="building_name">User Groups Title</label>
+                            @Html.TextBoxFor(m => m.GroupTitle, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "User Groups Title", })
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style="text-align: center">
+                    <div class="col-md-5 offset-md-3">
+
+                        <div class="form-group ml-1 mr-1">
+
+                            <label for="superadmin">
+
+                                @Html.CheckBoxFor(model => model.isSupperAdmin, new { @id = "chkadmin"})
+                                <b> Is super admin? </b>
+                            </label>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-5 offset-md-3">
+
+                        <fieldset>
+                            <legend>Room work settings</legend>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="is_timeline_on">
+
+                                            @Html.CheckBoxFor(model => model.isTimeline, new { @id = "chktimelines" })
+                                            <b>Is timeline to show on room-work?</b>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="is_chat_on">
+
+                                            @Html.CheckBoxFor(model => model.isChat, new { @id = "chkchat" })
+                                            <b>Is chat to show on room-work?</b>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="is_task_count_on">
+
+                                            @Html.CheckBoxFor(model => model.isTask, new { @id = "chktask" })
+                                            <b>Is task count to show on room-work?</b>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
+                <div class="row" style="text-align: left">
+                    <div class="col-md-2 offset-md-3 mb-5">
+                        <div class="custom-control custom-checkbox mb-3 removeshadow">
+
+                            @Html.CheckBoxFor(model => model.isActive, new { @id = "chkactive", @class = "custom-control-input" })
+                            <label class="custom-control-label" for="chkactive">Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align: center">
+                    <div class="col-md-5 offset-md-3">
+
+                        <div class="row js-not-superadmin">
+                            <div class="col-sm-12">
+
+                                <h2>User Rights</h2>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_1">
+
+                                                @Html.CheckBoxFor(model => model.isHandoverNotes, new { @id = "chkhandovernotes" })
+                                                Handover Notes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_2">
+                                                @Html.CheckBoxFor(model => model.isRoomStatus, new { @id = "chkroomstatus" })
+
+                                                Room Status
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_3">
+
+                                                @Html.CheckBoxFor(model => model.isUsers, new { @id = "chkusers" })
+                                                Users
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_4">
+
+                                                @Html.CheckBoxFor(model => model.isWhoIsOnline, new { @id = "chkonline" })
+                                                Who Is Online
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_5">
+                                                @Html.CheckBoxFor(model => model.isBuilding, new { @id = "building" })
+
+                                                Building
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_6">
+                                                @Html.CheckBoxFor(model => model.isUserGroup, new { @id = "chkusergroup" })
+
+                                                User Group
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_7">
+
+                                                @Html.CheckBoxFor(model => model.isActivityLog, new { @id = "chklog" })
+                                                Activity Log
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_8">
+                                                @Html.CheckBoxFor(model => model.isShift, new { @id = "chkshift" })
+                                                Shift
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_9">
+                                                @Html.CheckBoxFor(model => model.isBuildingRoom, new { @id = "chkrooms" })
+                                                Building Room
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_10">
+
+                                                @Html.CheckBoxFor(model => model.isHandoverNotesReports, new { @id = "chkhandovernotes" })
+                                                Handover Notes Reports
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_11">
+
+                                                @Html.CheckBoxFor(model => model.isTimestationManagement, new { @id = "chktimestation" })
+                                                Timestation Management
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_12">
+
+                                                @Html.CheckBoxFor(model => model.isBuildingRoomCsvSetup, new { @id = "chkcsv" })
+                                                Building Room Csv Setup
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="rights_13">
+                                                @Html.CheckBoxFor(model => model.isRoomWork, new { @id = "chkroomwork" })
+
+                                                Room Work
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="row" style="text-align: center">
+                    <div class="col-md-5 offset-md-3 mb-5">
+                        <button type="button" class="btn btn-default cancelButton">Cancel</button>
+                        <button type="submit" id="btnSave" class="btn btn-primary myButton">Save</button>
+
+
+                    </div>
+                </div>
+            }
+
+
+
+                </div>
+
+</div>

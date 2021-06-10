@@ -1,0 +1,115 @@
+﻿@using RoomCheckingSystem.Models;
+@model Rooms
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/css/webthemes.css" rel="stylesheet" />
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+
+<div class="container-fluid-custom">
+    <div class="box ml-sm-1 mr-sm-1">
+        <div class="row">
+            <div class="col-sm-2">
+                <h1>
+                    Building Room
+                    <small>Add</small>
+                </h1>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Building</label>
+                        @Html.DropDownListFor(model => model.BuildingID, ViewBag.RoomsList as SelectList, "Select Building", new { @class = "form-control" })
+
+                        @*<select class="form-control removeshadow" name="building_id" id="building_id">
+                                <option value=""> - Select Building -</option>
+                                <option value="10">81-83</option>
+                                <option value="11">77-79</option>
+                                <option value="12">55</option>
+                                <option value="13">34</option>
+                                <option value="15">888</option>
+                            </select>*@
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Room Name</label>
+                        @Html.TextBoxFor(m => m.RoomName, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Room Name", })
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Room Floor</label>
+                        @Html.TextBoxFor(m => m.RoomFloor, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Room Floor", })
+
+                    </div>
+
+                </div>
+                <div class="col-md-3 m-auto" style="padding:10px; line-height: .9em;"><small style="font-size:12px;text-align:left; margin-right: 10px;">0 means Ground Floor, positive number means above ground floor, value in negative means basement floor and anything as string will be considered as floor name</small></div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Room Type</label>
+                        @Html.TextBoxFor(m => m.RoomType, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Room Type", })
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_description">Room Description</label>
+                        @Html.TextAreaFor(m => m.RoomDescription, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Room Description", })
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style=" text-align: left;height: 30px;">
+                <div class="col-md-2 offset-md-3 mb-5">
+                    <div class="custom-control custom-checkbox mb-3 removeshadow">
+
+                        @Html.CheckBoxFor(model => model.isActive, new { @id = "chkactive", @class = "custom-control-input" })
+                        <label class="custom-control-label" for="chkactive">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3 mb-5">
+                    <button type="button" class="btn btn-default cancelButton">Back</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary myButton">Save</button>
+
+
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+</div>

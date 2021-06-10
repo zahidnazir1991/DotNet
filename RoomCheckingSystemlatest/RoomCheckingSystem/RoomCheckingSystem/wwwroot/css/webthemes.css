@@ -1,0 +1,99 @@
+﻿.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    float: left;
+}
+
+/*.myButton {
+        box-shadow: inset 0px 1px 3px 0px #91b8b3;
+        background-color: #0062cc;
+        border-radius: 5px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 11px 23px;
+        text-decoration: none;
+        text-shadow: 0px -1px 0px #2b665e;
+    }
+
+        .myButton:hover {
+            background-color: #367fa9;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }*/
+
+.myButton {
+    box-shadow: inset 0px 1px 0px 0px #0062cc;
+    background: linear-gradient(to bottom, #0062cc 5%, #0062cc 100%);
+    background-color: #0062cc;
+    border-radius: 6px;
+    border: 1px solid #0062cc;
+    display: inline-block;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 0px 1px 0px #0062cc;
+}
+
+    .myButton:hover {
+        background: linear-gradient(to bottom, #367fa9 5%, #0062cc 100%);
+        background-color: #367fa9;
+        color: #fff;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+        color: #fff;
+        text-decoration: none;
+        box-shadow: none !important;
+    }
+
+.cancelButton {
+    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    cursor: pointer;
+    color: #666666;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffffff;
+}
+
+    .cancelButton:hover {
+        background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        background-color: #f6f6f6;
+    }
+
+    .cancelButton:active {
+        position: relative;
+        top: 1px;
+        text-decoration: none;
+        box-shadow: none !important;
+    }
+
+.removeshadow {
+    text-decoration: none;
+    box-shadow: none !important;
+    font-size: 14px;
+}

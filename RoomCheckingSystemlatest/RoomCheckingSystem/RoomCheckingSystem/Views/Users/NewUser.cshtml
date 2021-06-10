@@ -1,0 +1,197 @@
+﻿@using RoomCheckingSystem.Models;
+@model User
+@*
+
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style type="text/css">
+    .btn-default {
+        background-color: #f4f4f4;
+        color: #444;
+        border-color: #ddd;
+    }
+
+</style>
+
+<link href="~/css/webthemes.css" rel="stylesheet" />
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+
+<div class="container-fluid-custom">
+    <div class="box ml-sm-1 mr-sm-1">
+        <div class="row">
+            <div class="col-sm-2">
+                <h1>
+                    User
+                    <small>Add</small>
+                </h1>
+            </div>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">First Name</label>
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "First Name", })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        @*<input type="text" class="form-control removeshadow" name="building_name" id="building_name" placeholder="First Name">*@
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Last Name</label>
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Last Name", })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Email", })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Phone</label>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Phone", })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="text-align: left; height:40px;">
+                <div class="col-md-2 offset-md-3 mb-5">
+                    <div class="custom-control custom-checkbox mb-3 removeshadow">
+                        @Html.CheckBoxFor(model => model.isAllowpin, new { @id = "chkallowpin", @class = "custom-control-input" })
+                        <label class="custom-control-label" for="chkallowpin">Allow PIN Login </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="divpincode" class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    <div class="input-group ml-1 mr-1">
+                        @Html.PasswordFor(m => m.PinCode, new { @id = "txtpin", @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "PIN", })
+                        
+                        <span class="input-group-btn">
+                            <button onclick="showhidepassword()" class="btn btn-default reveal" style="z-index: 2; margin-left: -1px" type="button"><i id="lieye" class="fa fa-eye" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Password</label>
+                        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Password", })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+                    <div class="form-group ml-1 mr-1">
+                        <label class="customlabel" for="building_name">Confirm Password</label>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control removeshadow", autocomplete = "off", required = "required", placeholder = "Confirm Password", })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3">
+
+                    <div class="form-group ml-1 mr-1">
+                        <label for="user_group_id">User Group</label>
+                        @Html.DropDownListFor(model => model.UserGroup, ViewBag.CityList as SelectList, "Select Group", new { @class = "form-control" })
+
+
+                        @*<select class="form-control" name="user_group_id" id="user_group_id">
+                            <option value=""> - Select User Group -</option>
+                            <option value="1" associate-login="1">Administrador </option>
+                            <option value="2" associate-login="1">Reception </option>
+                            <option value="3" associate-login="1">House Keeping </option>
+                            <option value="4" associate-login="1">Supervisor </option>
+                            <option value="5" associate-login="1">Maintenance </option>
+                        </select>*@
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row" style="text-align: left">
+                <div class="col-md-2 offset-md-3 mb-5">
+                    <div class="custom-control custom-checkbox mb-3 removeshadow">
+                        @Html.CheckBoxFor(model => model.isActive, new { @id = "chkactive", @class = "custom-control-input" })
+                        <label class="custom-control-label" for="chkactive">Active</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3 mb-5">
+                    <button type="button" class="btn btn-default cancelButton">Cancel</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary myButton">Save</button>
+
+
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divpincode").hide();
+        $('#chkallowpin').click(function () {
+            
+            if ($(this).is(":checked")) {
+              
+                $("#divpincode").show();
+            }
+            else if ($(this).is(":not(:checked)")) {
+                $("#divpincode").hide();
+            }
+        });
+    });
+
+    function showhidepassword() {
+        var x = document.getElementById("txtpin");
+        var li = document.getElementById("lieye");
+        if (x.type === "password") {
+            x.type = "text";
+            $('#lieye').removeClass('fa fa-eye');
+            $("#lieye").addClass("fa fa-eye-slash");
+      
+        } else {
+            x.type = "password";
+            $('#lieye').removeClass('fa fa-eye-slash');
+            $("#lieye").addClass("fa fa-eye");
+            
+        }
+    }
+
+</script>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,170 @@
+﻿@using RoomCheckingSystem.Models;
+@model IEnumerable<sploadmenu>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+
+@{
+    if (Model.Count() > 0)
+    {
+        sploadmenu obj = Model.ElementAt(0);
+
+        <aside>
+            <div class="sidebar left fliph sidenav">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="~/images/man.jpg" class="rounded-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>Zahid Nazir</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <ul class="list-sidebar bg-defoult">
+
+                    @{ if (obj.isSupperAdmin == true)
+                        {
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-labelheading nav-bar-header"> Menu </span> </a>
+
+                            </li>
+
+                            <li> <a href="/Dashboard/Dashboard"><i class="fa fa-female"></i> <span class="nav-label">House keeping</span></a> </li>
+                            <li> <a href="/Dashboard/Maintenance"><i class="fa fa-wrench"></i> <span class="nav-label">Maintenance</span></a> </li>
+
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Users </span> </a>
+
+                            </li>
+                            <li> <a href="/Users/UserGrouplist"><i class="fa fa-users"></i> <span class="nav-label">User Groups</span></a> </li>
+                            <li> <a href="/Users/UserManagement"><i class="fa fa-user"></i> <span class="nav-label">Users</span></a> </li>
+                            <li> <a href="/Shift/Shiftlist"><i class="fa fa-shirtsinbulk"></i> <span class="nav-label">Shift</span></a> </li>
+
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Room Status </span> </a>
+
+                            </li>
+                            <li> <a href="/Status/index/1"><i class="fa fa-bicycle"></i> <span class="nav-label">Room Status - House Keeping</span> </a></li>
+                            <li> <a href="/Status/index/2"><i class="fa fa-gavel"></i> <span class="nav-label">Room Status - Maintenance</span></a> </li>
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Building Management </span> </a>
+
+                            </li>
+                            <li> <a href="/Building/Index"><i class="fa fa-building"></i> <span class="nav-label">Buildings</span></a> </li>
+                            <li> <a href="/Rooms/Roomslist"><i class="fa fa-building-o"></i> <span class="nav-label">Building rooms</span></a> </li>
+                            <li class="nav-li">
+                                <a href="/Handovernotes/Handoverlist" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Handover Notes </span> </a>
+
+                            </li>
+                            <li> <a href="/Handovernotes/Handoverlist"><i class="fa fa-handshake-o"></i> <span class="nav-label">Handover Notes</span></a> </li>
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Third party </span> </a>
+
+                            </li>
+                            <li> <a href="/TimeStation/GetTimeStation"><i class="fa fa-server"></i> <span class="nav-label">Timestation Management</span></a> </li>
+                            <li class="nav-li">
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Reports </span> </a>
+
+                            </li>
+                            <li> <a href="/LoginActivity/GetAtivitylist"><i class="fa fa-clock-o"></i> <span class="nav-label">Login Activity Log</span></a> </li>
+                            <li> <a href="/LoginActivity/GetWhois"><i class="fa fa-eye"></i> <span class="nav-label">Who is online</span></a> </li>
+                        }
+                        else
+                        {
+                            if (obj.isUsers == true || obj.isUserGroup == true || obj.isShift == true)
+                            {
+
+                                <li class="nav-li">
+                                    <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-labelheading nav-bar-header"> Menu </span> </a>
+
+                                </li>
+
+                                <li> <a href="/Dashboard/Dashboard"><i class="fa fa-female"></i> <span class="nav-label">House keeping</span></a> </li>
+                                <li> <a href="/Dashboard/Maintenance"><i class="fa fa-wrench"></i> <span class="nav-label">Maintenance</span></a> </li>
+
+                                <li class="nav-li">
+                                    <a href="https://go.microsoft.com/fwlink/?LinkID=397860" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Users </span> </a>
+                                </li>
+                                if (obj.isUserGroup == true)
+                                {
+                                    <li> <a href="/Users/UserGrouplist"><i class="fa fa-users"></i> <span class="nav-label">User Groups</span></a> </li>
+                                }
+                                if (obj.isUsers == true)
+                                {
+                                    <li> <a href="/Users/UserManagement"><i class="fa fa-user"></i> <span class="nav-label">Users</span></a> </li>
+                                }
+
+                                if (obj.isShift == true)
+                                {
+                                    <li> <a href="/Shift/Shiftlist"><i class="fa fa-shirtsinbulk"></i> <span class="nav-label">Shift</span></a> </li>
+                                }
+                            }
+
+                            if (obj.isRoomStatus == true)
+                            {
+
+                                <li class="nav-li">
+                                    <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Room Status </span> </a>
+
+                                </li>
+                                <li> <a href="/Status/index/1"><i class="fa fa-bicycle"></i> <span class="nav-label">Room Status - House Keeping</span> </a></li>
+                                <li> <a href="/Status/index/2"><i class="fa fa-gavel"></i> <span class="nav-label">Room Status - Maintenance</span></a> </li>
+                            }
+
+                            if (obj.isBuilding == true || obj.isBuildingRoom == true || obj.isBuildingRoomCsvSetup == true)
+                            {
+
+
+
+                                <li class="nav-li">
+                                    <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Building Management </span> </a>
+                                </li>
+                                if (obj.isBuilding == true)
+                                {
+                                    <li> <a href="/Building/Index"><i class="fa fa-building"></i> <span class="nav-label">Buildings</span></a> </li>
+                                }
+                                if (obj.isBuildingRoom)
+                                {
+                                    <li> <a href="/Rooms/Roomslist"><i class="fa fa-building-o"></i> <span class="nav-label">Building rooms</span></a> </li>
+                                }
+
+
+                            }
+
+
+                            if (obj.isActivityLog == true || obj.isWhoIsOnline == true)
+                            {
+
+
+                                <li class="nav-li">
+                                    <a href="" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Reports </span> </a>
+                                </li>
+                                if (obj.isBuilding == true)
+                                {
+                                    <li> <a href="/LoginActivity/GetAtivitylist"><i class="fa fa-clock-o"></i> <span class="nav-label">Login Activity Log</span></a> </li>
+                                }
+                                if (obj.isBuildingRoom)
+                                {
+                                    <li> <a href="/LoginActivity/GetWhois"><i class="fa fa-eye"></i> <span class="nav-label">Who is online</span></a> </li>
+                                }
+
+
+                            }
+                        }
+
+
+                    }
+                </ul>
+            </div>
+
+
+        </aside>
+    }
+}
+
+
+

@@ -1,0 +1,324 @@
+﻿@using RoomCheckingSystem.Models;
+@model RoomStatus
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{ 
+
+}
+
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+<link href="~/lib/bootstrap/dist/css/fontawesome-iconpicker.min.css" rel="stylesheet" />
+
+<link href="~/css/webthemes.css" rel="stylesheet" />
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+<style type="text/css">
+
+    .h1, h1 {
+        font-size: 1.4rem;
+        margin-left: 5px;
+    }
+
+    .h1, h1 {
+        font-size: 2.5rem;
+    }
+
+    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+        margin-bottom: .5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.1;
+        color: inherit;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0px;
+        margin-bottom: .5rem;
+    }
+
+    h1 {
+        font-size: 1.4em;
+        margin: .67em 0;
+        margin: .67em 0;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0px;
+        margin-top: -0.33em;
+        margin-bottom: 0.67em;
+        margin-left: 0px;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: bold;
+        font-size: 14px;
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
+
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(3.15rem + 0px);
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: .5rem .75rem;
+        color: #464a4c;
+        background-color: #fff;
+        background-image: none;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        font-size: 14px;
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    }
+</style>
+<div class="container-fluid-custom" style="margin-left:20px;">
+    <div class="box ml-sm-1 mr-sm-1" style="padding: 10px;">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h1>
+                    Room Status ( HOUSE-KEEPING )
+                    <small>Add</small>
+                </h1>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="active">
+
+                            @Html.CheckBoxFor(model => model.isActive, new { @id = "chkactive" })
+                            Active
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="is_on_dashboard">
+
+                            @Html.CheckBoxFor(model => model.isShowCount, new { @id = "chkactive" })
+                            Show count box in dashboard summary area
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="is_to_count_in_total">
+
+                            @Html.CheckBoxFor(model => model.isRunningCount, new { @id = "chkactive" })
+                            Count in running and total boxes of dashboard
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="is_note_time_spent">
+                            @Html.CheckBoxFor(model => model.isTimeSpent, new { @id = "chkactive" })
+
+                            Note time spent
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="is_to_note_priority">
+
+                            @Html.CheckBoxFor(model => model.isPriority, new { @id = "chkactive" })
+                            Note priority in this status
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="is_to_note_checkout_time">
+
+                            @Html.CheckBoxFor(model => model.isCheckoutTime, new { @id = "chkactive" })
+                            Note checkout time in this status
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="status_label">Status Label</label>
+                        @Html.TextBoxFor(m => m.StatusName, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Status Name", })
+                        @*<input type="text" class="form-control" name="status_label" id="status_label" placeholder="Status Label">*@
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="parent_id">Is Sequence Status? If yes, then what is its parent status</label>
+                        @Html.DropDownListFor(model => model.intParentID, ViewBag.statusList as SelectList, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="status_color">Status Color</label>
+                        @Html.TextBoxFor(m => m.StatusColor, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Status color", @type = "color" })
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="status_icon_type">Status Icon Type</label>
+                        @Html.DropDownListFor(model => model.intParentID, ViewBag.icontypelist as SelectList, new { @class = "form-control", onchange = "Showhideicondiv();", id = "drpicon" })
+                       
+                    </div>
+                </div>
+                <div class="col-sm-4" id="js-status_img_icon" style="display: none;">
+                    <label for="status_icon_img">Status Image Icon (Recommended size is 38 x 38)</label>
+                    <div class="input-group">
+                        <input type="hidden" name="status_icon_img_data" value="">
+                        <input name="status_icon_img" id="status_icon_img" class="form-control" type="file" accept=".jpg,.png,.jpeg">
+                    </div>
+                </div>
+                <div class="col-sm-4" id="js-status_fa_icon" style="display:block">
+                    <label for="status_color">Select Icon</label>
+                    <div class="input-group">
+                        @*<input data-placement="bottomRight" class="form-control icp icp-auto" value="fas fa-archive"
+                            type="text" />*@
+                        @Html.TextBoxFor(m => m.icon, new { id = "txticon", @value = "fas fa-archive", @class = "form-control removeshadow icp icp-auto", autocomplete = "off", placeholder = "Status Name", @type = "text" })
+                        <span class="input-group-addon"></span>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="task_score">Task Score</label>
+                        @Html.TextBoxFor(m => m.TaskScore, new { @class = "form-control removeshadow", autocomplete = "off", placeholder = "Task Score", id = "txticon" })
+                        @*<input type="text" class="form-control" name="task_score" id="task_score" placeholder="Task Score" value="2">*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" name="room_status_right" style="margin-top:20px;">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="room_status_right">Choose Who can change room status to this right</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" name="room_status_right" style="margin-top:0px;">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="room_status_right_2">
+
+                            @Html.CheckBoxFor(model => model.isReception, new { @id = "chkactive" })
+                            Reception
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" name="room_status_right" style="margin-top:0px;">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="room_status_right_3">
+
+                            @Html.CheckBoxFor(model => model.isHouseKeeping, new { @id = "chkactive" })
+                            House Keeping
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" name="room_status_right" style="margin-top:0px;">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="room_status_right_4">
+
+                            @Html.CheckBoxFor(model => model.isSupervisor, new { @id = "chkactive" })
+                            Supervisor
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" name="room_status_right" style="margin-top:0px; ">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="room_status_right_5">
+                            @Html.CheckBoxFor(model => model.isMaintenance, new { @id = "chkactive" })
+
+                            Maintenance
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col-md-5 offset-md-3 mb-5">
+                    <button type="button" class="btn btn-default cancelButton">Back</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary myButton">Save</button>
+
+
+                </div>
+            </div>
+        }
+
+        </div>
+
+        <script type="text/javascript">
+            function Showhideicondiv() {
+                
+                var x = document.getElementById("drpicon").value;
+          
+                if (x == "1") {
+                    document.getElementById("js-status_img_icon").style.display = "block";
+                    document.getElementById("js-status_fa_icon").style.display = "none";
+                } else {
+                    document.getElementById("js-status_fa_icon").style.display = "block";
+                    document.getElementById("js-status_img_icon").style.display = "none";
+                }
+
+                //document.getElementById("demo").innerHTML = "You selected: " + x;
+
+            }
+            //$('.demo').iconpicker(
+
+
+            //);
+
+        </script>
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/fontawesome-iconpicker.js"></script>
+        <script type="text/javascript">
+            document.getElementById("txticon").value = "fas fa-archive";
+            $('.icp-auto').iconpicker();
+                                                    // here social-icon is the input class name, you can change the class name, give same class name which class name have in your input box.
+        </script>
+
+
+
+
+
+
+    </div>

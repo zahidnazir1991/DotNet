@@ -1,0 +1,212 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+ 
+}
+<style type="text/css">
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+
+    label {
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: bold;
+        font-size: 14px;
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+    }
+
+
+    /*.myButton {
+        box-shadow: inset 0px 1px 3px 0px #91b8b3;
+        background-color: #0062cc;
+        border-radius: 5px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 11px 23px;
+        text-decoration: none;
+        text-shadow: 0px -1px 0px #2b665e;
+    }
+
+        .myButton:hover {
+            background-color: #367fa9;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }*/
+
+    .myButton {
+        box-shadow: inset 0px 1px 0px 0px #0062cc;
+        background: linear-gradient(to bottom, #0062cc 5%, #0062cc 100%);
+        background-color: #0062cc;
+        border-radius: 6px;
+        border: 1px solid #0062cc;
+        display: inline-block;
+        cursor: pointer;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        color: #fff;
+        text-shadow: 0px 1px 0px #0062cc;
+    }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #367fa9 5%, #0062cc 100%);
+            background-color: #367fa9;
+            color: #fff;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .cancelButton {
+        box-shadow: inset 0px 1px 0px 0px #ffffff;
+        background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #666666;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 6px 24px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #ffffff;
+    }
+
+        .cancelButton:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color: #f6f6f6;
+        }
+
+        .cancelButton:active {
+            position: relative;
+            top: 1px;
+            text-decoration: none;
+            box-shadow: none !important;
+        }
+
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+</style>
+<link href="~/css/gridstyleing.css" rel="stylesheet" />
+<div class="container-fluid-custom">
+    <div class="box ml-sm-1 mr-sm-1">
+        <div class="row">
+            <div class="col-sm-3">
+                <h1>
+                    Handover Notes
+                    <small>Add</small>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="user_id">Select User</label>
+                    <select class="form-control" name="user_id" id="user_id">
+                        <option value=""> - Select User -</option>
+
+                        <option value="1">
+                            Super Admin Super.admin@email.com
+                        </option>
+
+                        <option value="2">
+                            Nabeel Naser Nabeel@newkentaparts.com
+                        </option>
+
+                        <option value="47">
+                            Ali Mo Haidar@haidar.com
+                        </option>
+
+                        <option value="19">
+                            Mahdi Receptionist
+                        </option>
+
+                        <option value="23">
+                            Mohammad Al Dabaggh Reception
+                        </option>
+
+                        <option value="24">
+                            Mudassir Syed Receptionist
+                        </option>
+
+                        <option value="40">
+                            Arif Test
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="created_at">Created At</label>
+                    <input type="date" class="form-control" name="created_at" id="created_at" placeholder="Created At">
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="height:30px;">
+
+            <div class="col-sm-12">
+                <label for="note_text">Note text</label>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-12">
+
+                <div class="form-group">
+
+                    <textarea name="note_text" class="form-control" id="note_text" placeholder="Note text" style="visibility: hidden; display: none;"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-10 ml-auto">
+                <a href="javascript:void(0);" class="btn btn-primary btn-block margin-bottom js-form_btn">Save</a>
+            </div>
+        </div>
+
+    </div>
+
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script>
+
+                $(document).ready(function () {       //Error happens here, $ is not defined.
+
+                    CKEDITOR.replace('note_text');
+
+                });
+
+            </script>
+
+        </div>

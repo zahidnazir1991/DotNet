@@ -1,0 +1,26 @@
+﻿.box {
+    position: relative;
+    border-radius: 5px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    padding-top: 5px;
+}
+
+.h1, h1 {
+    font-size: 1.4rem;
+    margin-left: 5px;
+}
+
+.btn-block {
+    display: block;
+    width: 96%;
+    
+}
+.small, small {
+    font-size: 50%;
+    font-weight: 400;
+}

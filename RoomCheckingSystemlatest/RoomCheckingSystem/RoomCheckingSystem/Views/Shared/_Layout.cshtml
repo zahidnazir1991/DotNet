@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RoomCheckingSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/menuthemes.css" rel="stylesheet" />
+    <link href="~/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/css/default.min.css" rel="stylesheet" />
+
+
+</head>
+<body style="background-color: #ecf0f5;">
+
+    <!--===================
+    Header
+    =======================-->
+    <header class="header">
+        <div class="container-fluid navbar-dark container-fluid-custom  h-100">
+            <div class="row h-100">
+
+
+                <div class="col-2 my-auto">
+                    <div class="navbar-brand hidden-md-down">
+                        <a class="" href="#"><span class="logo-lg">Roomchecking</span></a>
+                    </div>
+                </div>
+                <div class="col-1 my-auto">
+                    <div class="float-left"> <a href="#" class="button-left "><span class="fa fa-fw fa-bars"></span></a> </div>
+                </div>
+
+                <div class="col-5 my-auto text-center">
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="/Dashboard/Dashboard">
+                                    <div>
+                                        <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clean.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
+                                    </div>
+                                    <div class="tdstyle">
+                                        HouseKeeping
+                                    </div>
+
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="/Dashboard/Maintenance">
+                                    <div>
+                                        <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-tool-2.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
+                                    </div>
+                                    <div class="tdstyle">
+                                        Maintenance
+                                    </div>
+
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <div>
+                                        <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/shift-handover.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
+                                    </div>
+                                    <div class="tdstyle">
+                                        Shift Handover
+                                    </div>
+
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-2 my-auto ">
+                    <span class="labels">Workout of 23 Apr. 2021</span>
+                </div>
+
+                <div class="col-2 my-auto">
+
+                    <div id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item dropdown  user-menu">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="~/images/man.jpg" class="user-image ml-auto" alt="User Image">
+                                    <span class="hidden-md-down">Zahid Nazir</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Profile</a>
+                                    @Html.ActionLink("Log Out", "logout", "Home", null, htmlAttributes: new { @class = "dropdown-item" })
+                                    @*<a class="dropdown-item">@Html.ActionLink("Log Out", "logout", "Home")</a>*@
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div id="leftslider" class="main">
+        @*<aside>
+                <div class="sidebar left fliph sidenav">
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="~/images/man.jpg" class="rounded-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p>Zahid Nazir</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+                    <ul class="list-sidebar bg-defoult">
+
+
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-labelheading nav-bar-header"> Menu </span> </a>
+
+                        </li>
+
+                        <li> <a href="/Dashboard/Dashboard"><i class="fa fa-female"></i> <span class="nav-label">House keeping</span></a> </li>
+                        <li> <a href="/Dashboard/Maintenance"><i class="fa fa-wrench"></i> <span class="nav-label">Maintenance</span></a> </li>
+
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Users </span> </a>
+
+                        </li>
+                        <li> <a href="/Users/UserGrouplist"><i class="fa fa-users"></i> <span class="nav-label">User Groups</span></a> </li>
+                        <li> <a href="/Users/UserManagement"><i class="fa fa-user"></i> <span class="nav-label">Users</span></a> </li>
+                        <li> <a href="/Shift/Shiftlist"><i class="fa fa-shirtsinbulk"></i> <span class="nav-label">Shift</span></a> </li>
+
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Room Status </span> </a>
+
+                        </li>
+                        <li> <a href="/Status/index/1"><i class="fa fa-bicycle"></i> <span class="nav-label">Room Status - House Keeping</span> </a></li>
+                        <li> <a href="/Status/index/2"><i class="fa fa-gavel"></i> <span class="nav-label">Room Status - Maintenance</span></a> </li>
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Building Management </span> </a>
+
+                        </li>
+                        <li> <a href="/Building/Index"><i class="fa fa-building"></i> <span class="nav-label">Buildings</span></a> </li>
+                        <li> <a href="/Rooms/Roomslist"><i class="fa fa-building-o"></i> <span class="nav-label">Building rooms</span></a> </li>
+                        <li class="nav-li">
+                            <a href="/Handovernotes/Handoverlist" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Handover Notes </span> </a>
+
+                        </li>
+                        <li> <a href="/Handovernotes/Handoverlist"><i class="fa fa-handshake-o"></i> <span class="nav-label">Handover Notes</span></a> </li>
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Third party </span> </a>
+
+                        </li>
+                        <li> <a href="/TimeStation/GetTimeStation"><i class="fa fa-server"></i> <span class="nav-label">Timestation Management</span></a> </li>
+                        <li class="nav-li">
+                            <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <span class="nav-label nav-bar-header"> Reports </span> </a>
+
+                        </li>
+                        <li> <a href="/LoginActivity/GetAtivitylist"><i class="fa fa-clock-o"></i> <span class="nav-label">Login Activity Log</span></a> </li>
+                        <li> <a href="/LoginActivity/GetWhois"><i class="fa fa-eye"></i> <span class="nav-label">Who is online</span></a> </li>
+                    </ul>
+                </div>
+
+
+            </aside>*@
+
+
+    </div>
+
+
+
+    <div class="container-fluid pl-5">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted d-none">
+        <div class="container">
+            &copy; 2021 - RoomCheckingSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/js/alertify.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#leftslider").load('@Url.Content("/Dashboard/LoadMenu")');
+
+            $('.button-left').click(function () {
+                $('.sidebar').toggleClass('fliph');
+                $("maindiv").css({
+                    marginLeft: '200px',
+
+                });
+
+
+            });
+
+        });
+    </script>
+</body>
+</html>

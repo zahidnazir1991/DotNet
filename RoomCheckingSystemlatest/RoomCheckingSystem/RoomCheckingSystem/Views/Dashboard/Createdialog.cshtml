@@ -1,0 +1,220 @@
+﻿@using RoomCheckingSystem.Models;
+@model StatusDetails
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "";
+}
+@using (Html.BeginForm())
+{
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-5">
+            <div class="form-group">
+
+                @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusList as SelectList, new { @id = "ParendStatus", @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
+        <div class="col-sm-5">
+            <div class="form-group">
+
+                @Html.DropDownListFor(model => model.intChildStatus, ViewBag.childstatusList as SelectList, new { @id = "ChildStatus", @class = "form-control" })
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="js-priority_div">
+
+        <div class="col-sm-6 margin-bottom js-is_priority_div" id="tvpro" style="display:none">
+            <div class="row" style="">
+                <div class="col-sm-12">
+                    <label>
+                        <input type="checkbox" id="js-is_priority" value="1" data-selected_status="" data-selected="" onclick="show_save_btn ();"> Mark with priority
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 margin-bottom js-priority_time_div" id="tvtime" style="display:none">
+            <div class="row" style="">
+                <div class="col-sm-6"><label for="cxmChkout" class="control-label">Cleaning Time</label></div>
+                <div class="col-sm-6">
+
+                    <select class="form-control" id="js-priority_time" data-selected_status="" data-selected="" onchange="show_save_btn ();$('#js-is_priority').prop('checked',false);">
+                        <option value="-1"> - Select - </option>
+
+                        <option value="11:30:00">11:30</option>
+                        <option value="12:00:00">12:00</option>
+                        <option value="12:30:00">12:30</option>
+                        <option value="13:00:00">13:00</option>
+                        <option value="13:30:00">13:30</option>
+                        <option value="14:00:00">14:00</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadparentStatus();
+
+        $('body').on('change', '#ParendStatus', function () {
+            
+            var customerID = $(this).val();
+            var $option = $(this).find('option:selected');
+            var isprority = $option.attr('isprority')
+            showhideprority();
+            showhidecheckout();
+           /* var checkouttime = $option.attr('isCheckoutTime')*/
+
+            
+            LoadCampaigns(customerID);
+
+
+        })
+    });
+
+    function showhideprority() {
+        var $option = $('#ParendStatus').find('option:selected');
+        var isprority = $option.attr('isprority')
+        if (isprority) {
+
+           
+            document.getElementById("tvpro").style.display = "block";
+
+        }
+        else {
+           
+            document.getElementById("tvpro").style.display = "none";
+
+        }
+    }
+
+    function showhidecheckout() {
+        var $option = $('#ParendStatus').find('option:selected');
+        var isprority = $option.attr('isCheckoutTime')
+        if (isprority) {
+
+
+            document.getElementById("tvtime").style.display = "block";
+
+        }
+        else {
+
+            document.getElementById("tvtime").style.display = "none";
+
+        }
+    }
+    //function LoadCampaigns(customerID) {
+    //    var $campaign = $('#intSeqID');
+    //    alert($campaign);
+
+    //    $.ajax({
+    //        url: '/Dashboard/GetList',
+    //        type: 'GET',
+    //        data: { 'customerID': customerID },
+    //        dataType: 'json',
+    //        success: function (d) {
+    //            $campaign.empty();
+    //            $campaign.append($('<option></option>').val('').html("-- Select --"));
+    //            $.each(d, function (i, val) {
+
+    //                $state.append($('<option></option>').val(val.intSeqID).html(val.StatusName));
+    //            });
+    //        }
+    //    });
+    //}
+
+    function loadparentStatus() {
+       
+        var $parent = $('#ParendStatus').val();
+        
+        var id = $parent;
+        Parentstatus;
+        //ChildStatus
+      
+
+        //var task = {
+        //    Title: $("#intParentID").val(),
+        //    Description: "zahid",
+        //    Owner: "Tax Asaan"
+        //};
+        ////alert(JSON.stringify(task));
+      
+        $.ajax({
+            url: '/Dashboard/GetparentList',
+            type: 'GET',
+            data: { 'id': id },
+            dataType: 'json',
+            success: function (d) {
+                var s = '<option value="-1">--Select main status--</option>';
+
+                for (var i = 0; i < d.length; i++) {
+
+                    if (d[i].intSeqID == Parentstatus) {
+                        var selected = "selected";
+                        s += '<option ' + selected + ' style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+                    else{
+                        s += '<option style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+                    
+                }
+                $("#ParendStatus").html(s);
+                
+                if ($("#ParendStatus").val() > 0) {
+                    LoadCampaigns($("#ParendStatus").val())
+                }
+                showhideprority();
+                showhidecheckout()
+               
+            },
+            error: function (r) {
+
+                alert(r);
+            }
+        });
+    }
+
+    function LoadCampaigns(customerID) {
+      
+     
+        $.ajax({
+            url: '/Dashboard/GetList',
+            type: 'GET',
+            data: { 'customerID': customerID },
+            dataType: 'json',
+            success: function (d) {
+                var s = '<option value="-1">--Select sub status--</option>';
+
+                for (var i = 0; i < d.length; i++) {
+
+                    if (d[i].intSeqID == ChildStatus) {
+                        
+                        var selected = "selected";
+                        s += '<option ' + selected + ' style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+                    }
+                    else {
+
+                        s += '<option style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
+
+                    }}
+                $("#ChildStatus").html(s);
+                showhideprority();
+                showhidecheckout()
+                
+            },
+            error: function (r) {
+
+                alert(r);
+            }
+        });
+    }
+
+</script>
