@@ -15,6 +15,10 @@
 .cxm-room-status {font-size:11px;}
 
 .cxm-room a {color:#FFF;}
+.cxm-ttl-1 {
+	font-size: 15px;
+	font-weight: bold;
+}
 .box-body a {color:#FFF;}
 
 #full_screen_loader { z-index: 10001; }
@@ -80,7 +84,7 @@
 	
 }
 .cxm-count-1 {font-size:20px; font-weight:bold; padding-top:14px;}
-.cxm-ttl-1 {font-size:16px; font-weight:bold;}
+.cxm-ttl-1 {font-size:15px; font-weight:bold;}
 
 .cxm-row {display:-ms-flexbox; display:flex; -ms-flex-wrap:wrap; flex-wrap:wrap;}
 .cxm-col {-ms-flex-preferred-size:0; flex-basis:0; -ms-flex-positive:1; flex-grow:1; max-width:100%;}
