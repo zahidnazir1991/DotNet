@@ -13,8 +13,10 @@
     #full_screen_loader {
         z-index: 10001;
     }
+
     .layout {
     }
+
     .modal-header {
         background-color: #999;
         color: #FFF;
@@ -91,6 +93,7 @@
         top: 50% !important;
         transform: translate(-50%, -50%);
     }
+
     .cxm-room-bx-square {
         display: inline-block;
         padding: 5px 7px;
@@ -99,58 +102,64 @@
         font-size: 15px;
         margin: 0px 2px 6px 0px;
     }
+
     .cxm-room-bx {
         font-size: 18px;
         margin-bottom: 10px;
         position: relative;
         overflow: hidden;
     }
+
     .cxm-no-gutters {
         margin-right: 0;
         margin-left: 0;
     }
+
     .cxm-col {
         flex-basis: 0;
         flex-grow: 1;
         max-width: 100%;
     }
+
     .small-box .icon {
         display: none;
     }
+
     .small-box .inner {
         padding: 5px 0;
     }
+
     .small-box {
         text-align: center;
     }
+
     .small-box {
         border-radius: 2px;
         position: relative;
-       
         margin-bottom: 20px;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     }
 
-    .small-box .inner h3, .small-box .inner .make-text_bold {
-        margin-bottom: 3px;
-    }
+        .small-box .inner h3, .small-box .inner .make-text_bold {
+            margin-bottom: 3px;
+        }
 
-    .small-box h3 {
-        font-size: 19px;
-    }
-    small-box h3, .small-box p {
-        z-index: 5px;
-    }
+        .small-box h3 {
+            font-size: 19px;
+        }
 
-    .small-box h3 {
-        font-size: 16px;
-        font-weight: bold;
-        margin: 0 0 10px 0;
-        margin-bottom: 10px;
-        white-space: nowrap;
-        padding: 0;
-    }
-    
+        small-box h3, .small-box p {
+            z-index: 5px;
+        }
+
+        .small-box h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            padding: 0;
+        }
 </style>
 
 <div id="maindiv" style="padding:15px;">
@@ -559,21 +568,15 @@
             //alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
 
             var templete = $("#contentdiv").html();
-           
+
             $("#divdynamic").append("<div id='contentdiv' class='layout'>" + templete + "</div>");
 
-            
 
-            var div = $(".layout");
-           
-            $(div).find('select, textarea')
-                .each(function () {
-                    alert($(this).val());
-                    
-                });
 
-            
-            
+
+
+
+
         });
 
     });
@@ -649,6 +652,71 @@
     }
     function savestatus() {
 
+        var div = $(".layout");
+        alert('total div' + div.length);
+        var index = 0;
+        var list = [];
+
+        var mainstatus = -1;
+        var prorityst = 0;
+        var totalctrl = 3;
+        var statusDetails = {
+            intParentStatus: -1,
+            intprority: 0,
+            des: ""
+        };
+
+        for (i = 0; i < div.length; i++) {
+            index = 0;
+            statusDetails = {
+                intParentStatus: -1,
+                intprority: 0,
+                des: ""
+            };
+
+            $(div[i]).find('select, textarea')
+                .each(function () {
+                    //alert($(this).val());
+
+                    if (index == 0) {
+                        statusDetails.intParentStatus = $(this).val()
+                    } else if (index == 1) {
+                        statusDetails.intprority = $(this).val()
+
+                    }
+                    else {
+                        statusDetails.Description = $(this).val()
+
+                    }
+
+                    index++;
+
+                    if (index == 3) {
+
+                        list.push(statusDetails);
+                        // alert(list);
+                       
+                       // alert(statusDetails);
+                    }
+
+
+
+                    //if (index < 2) {
+                    //    index++;
+                    //} else {
+                    //    index = 0;
+                    //    statusDetails = {};
+                    //}
+                    //list.push(statusDetails);
+                    //alert(JSON.stringify(list));
+
+
+                });
+        }
+        alert(JSON.stringify(list));
+        return;
+
+
         if ($('#texdes').val() == "-1") {
             alert("Please Enter Description.");
             return;
@@ -672,6 +740,7 @@
 
         var statusDetails = {
 
+
             intParentStatus: $parent,
             intChildStatus: $child,
             //Cleaningtime: $clearningtime,
@@ -683,10 +752,11 @@
 
 
         };
+
         //alert(JSON.stringify(statusDetails));
 
         $.ajax({
-            url: '/Dashboard/SaveSelectedMaintenanceStatus',
+            url: '/Dashboard/SaveSelectedMaintenanceStatusa',
             type: 'POST',
             data: { 'statusDetails': JSON.stringify(statusDetails) },
             dataType: 'json',
