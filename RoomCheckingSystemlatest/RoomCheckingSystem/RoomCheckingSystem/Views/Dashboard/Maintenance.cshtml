@@ -10,6 +10,9 @@
 <link href="~/css/dashboard.css" rel="stylesheet" />
 <link href="~/css/maintenance.css" rel="stylesheet" />
 <style>
+    .text-red {
+        color: #dd4b39 !important;
+    }
     #full_screen_loader {
         z-index: 10001;
     }
@@ -160,6 +163,11 @@
             white-space: nowrap;
             padding: 0;
         }
+
+    .validation-failed {
+        border: 1px solid #eb340a !important;
+        background-color: #faebe7 !important;
+    }
 </style>
 
 <div id="maindiv" style="padding:15px;">
@@ -567,19 +575,49 @@
             //alertify.success("helow")
             //alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
 
-            var templete = $("#contentdiv").html();
-
-            $("#divdynamic").append("<div id='contentdiv' class='layout'>" + templete + "</div>");
-
-
-
-
-
-
+            var templete = $("#contentdiv_1").html();
+            var divno = $(".layout");
+            var nodiv = divno.length;
+            nodiv = nodiv + 1;
+            
+            $("#divdynamic").append("<div id='contentdiv_" + nodiv + "'  class='layout'>" + templete + "</div>");
+            setcontrolid(nodiv);
+            if ($(".js-maintenance_combo_remove_task").length > 1) {
+                $(".js-maintenance_combo_remove_task").show();
+            }
 
         });
 
     });
+
+
+    function setcontrolid(id) {
+        var index = 0;
+        $("#contentdiv_" + id).find('select, textarea,span')
+            .each(function () {
+                
+                if (index == 0) {
+                    $(this).attr('id', 'ParendStatus_' + id)
+                } else if (index == 2) {
+                    $(this).attr('id', 'ChildStatus_' + id)
+
+                }
+                else if (index == 3) {
+                    $(this).attr('id', 'btndelete_' + id)
+
+                }
+                 else if (index == 5) {
+                    $(this).attr('id', 'texdes_' + id)
+                }
+
+                index++;
+                
+            });
+
+
+
+
+    }
 
 
     var AddRooms = function () {
@@ -587,6 +625,7 @@
             $("#create-room").modal("show");
         })
     }
+
 
     function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs) {
         $('#full_screen_loader').show();
@@ -613,7 +652,7 @@
             },
             error: function (xhr, status) {
                 $('#full_screen_loader').hide();
-                alert("call");
+              
                 alert(status);
             },
             complete: function () { }
@@ -652,69 +691,34 @@
     }
     function savestatus() {
 
+       // $('.comments').removeClass("validation-failed");
         var div = $(".layout");
-        alert('total div' + div.length);
-        var index = 0;
         var list = [];
-
-        var mainstatus = -1;
-        var prorityst = 0;
-        var totalctrl = 3;
-        var statusDetails = {
-            intParentStatus: -1,
-            intprority: 0,
-            des: ""
-        };
-
+        
         for (i = 0; i < div.length; i++) {
-            index = 0;
-            statusDetails = {
+            statussave = {
                 intParentStatus: -1,
                 intprority: 0,
-                des: ""
+                Description: ""
             };
+            var id = $(div[i]).attr("id").split("_");
+            statussave.intParentStatus = $("#ParendStatus_" + id[1]).val();
+            statussave.intprority = $("#ChildStatus_" + id[1]).val();
+            if ($("#texdes_" + id[1]).val().length > 0) {
+                statussave.Description = $("#texdes_" + id[1]).val();
+            }
+            else {
 
-            $(div[i]).find('select, textarea')
-                .each(function () {
-                    //alert($(this).val());
-
-                    if (index == 0) {
-                        statusDetails.intParentStatus = $(this).val()
-                    } else if (index == 1) {
-                        statusDetails.intprority = $(this).val()
-
-                    }
-                    else {
-                        statusDetails.Description = $(this).val()
-
-                    }
-
-                    index++;
-
-                    if (index == 3) {
-
-                        list.push(statusDetails);
-                        // alert(list);
-                       
-                       // alert(statusDetails);
-                    }
-
-
-
-                    //if (index < 2) {
-                    //    index++;
-                    //} else {
-                    //    index = 0;
-                    //    statusDetails = {};
-                    //}
-                    //list.push(statusDetails);
-                    //alert(JSON.stringify(list));
-
-
-                });
+                $("#texdes_" + id[1]).addClass("validation-failed");
+                return;
+            }
+            
+            list.push(statussave);
         }
-        alert(JSON.stringify(list));
-        return;
+
+    
+        //alert(JSON.stringify(list));
+        //return;
 
 
         if ($('#texdes').val() == "-1") {
@@ -733,10 +737,6 @@
         var buildingid = document.getElementById('hbuildingid').value;
         var roomid = document.getElementById('hroomid').value;
         $checkboxvalue = $('#js-is_priority').prop('checked');
-
-
-
-
 
         var statusDetails = {
 
@@ -775,4 +775,7 @@
         });
 
     }
+
+
+
 </script>
