@@ -540,6 +540,7 @@
     var date;
     var rows = 0;
     var editemplate = "";
+    const mroomid = -1;
 
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -591,13 +592,27 @@
         });
     }
 
-    function editcontrols() {
+    function editcontrols(roomid) {
         
         var templete = editemplate;
+        
         if (rows > 1) { 
         for (i = 1; i < rows; i++) {
             $("#divdynamic").append("<div id='contentdiv_" + (i + 1) + "'  class='layout'>" + templete + "</div>");
             setcontrolid((i + 1));
+            var message = document.getElementById('hiv_' + roomid).value;
+           
+            if (message != "") {
+                const myArray = JSON.parse(message);
+                if (myArray.length > 0) {
+                    $('#ParendStatus_' + (i + 1) + ' option[value=' + myArray[i].pStatus + ']').attr('selected', 'selected');
+                    $('#ChildStatus_' + (i + 1) + ' option[value=' + myArray[i].cStatus + ']').attr('selected', 'selected');
+                    $('#texdes_' + (i + 1)).val(myArray[i].Description);
+                    $("#texdes_" + (i + 1)).removeAttr("disabled");
+                    $("#ChildStatus_" + (i + 1)).removeAttr("disabled");
+                }
+            }
+
             if ($(".js-maintenance_combo_remove_task").length > 1) {
                 $(".js-maintenance_combo_remove_task").show();
             }
@@ -718,6 +733,7 @@
         $('#full_screen_loader').show();
         document.getElementById('hbuildingid').value = buildingid;
         document.getElementById('hroomid').value = roomid;
+        
         Parentstatus = ps;
         ChildStatus = cs;
         cstatusid = id;
@@ -733,16 +749,29 @@
             success: function (result) {
                 $('#full_screen_loader').hide();
                 $('#dialogbody').html(result);
-
-                editemplate = result;
+                
+                editemplate = $("#contentdiv_1").html();
+                
+                
                 document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-                $('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
-                $('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
-
                 var message = document.getElementById('hiv_' + roomid).value;
-                alert(message);
-                $("#loginModal").modal('show');               
-                    editcontrols();
+                
+                if (message != "") {
+                    const myArray = JSON.parse(message);
+                    if (myArray.length > 0) {
+                        $('#ParendStatus_1 option[value=' + myArray[0].pStatus + ']').attr('selected', 'selected');
+                        $('#ChildStatus_1 option[value=' + myArray[0].cStatus + ']').attr('selected', 'selected');
+                        $('#texdes_1 ').val(myArray[0].Description);
+                        $("#texdes_1").removeAttr("disabled");
+                        $("#ChildStatus_1").removeAttr("disabled");
+                    }
+                }
+                //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
+                //$('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
+
+                
+                $("#loginModal").modal('show');
+                editcontrols(roomid);
                 
             },
             error: function (xhr, status) {
@@ -789,6 +818,7 @@
 
        // $('.comments').removeClass("validation-failed");
         var div = $(".layout");
+        
         var list = [];
         
         for (i = 0; i < div.length; i++) {
@@ -823,7 +853,7 @@
             list.push(statussave);
         }
 
-        
+       // alert(JSON.stringify(list));
 
         $.ajax({
             url: '/Dashboard/SaveSelectedMaintenanceStatus',

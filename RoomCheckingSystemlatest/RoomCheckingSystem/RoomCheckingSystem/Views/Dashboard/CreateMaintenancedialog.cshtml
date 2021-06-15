@@ -97,11 +97,50 @@
     function deleterow(id) {
         var sp = id.split("_");
         var myobj = document.getElementById("contentdiv_" + sp[1]);
+       
         if (confirm('Are you sure you want to Delete?')) {
-            myobj.remove();
-            if ($(".js-maintenance_combo_remove_task").length == 1) {
-                $(".js-maintenance_combo_remove_task").hide();
+            var $hidden = $('#hroomid').val();
+
+            var message = document.getElementById('hiv_' + $hidden).value;
+            var seqid = "-1";
+            if (message != "") {
+                const myArray = JSON.parse(message);
+                if (myArray.length > 0) {
+                    seqid = myArray[(sp[1] - 1)].statusid;
+                }
             }
+            
+
+            
+
+           
+            $('#full_screen_loader').show();
+            $.ajax({
+                url: '/Dashboard/deleterow',
+               
+                type: 'POST',
+                data: { 'id': seqid},
+                dataType: 'json',
+                success: function (result) {
+                    $('#full_screen_loader').hide();
+                    myobj.remove();
+                    if ($(".js-maintenance_combo_remove_task").length == 1) {
+                        $(".js-maintenance_combo_remove_task").hide();
+                    }
+                    loadgrid();
+                    //openalltabs();
+
+                },
+                error: function (xhr, status) {
+                    $('#full_screen_loader').hide();
+
+                    alert(status);
+                },
+                complete: function () { }
+
+            });
+
+          
         }
         
 

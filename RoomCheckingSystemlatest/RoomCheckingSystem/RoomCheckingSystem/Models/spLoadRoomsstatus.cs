@@ -11,6 +11,7 @@ namespace RoomCheckingSystem.Models
     {
         public int statusid { get; set; }
         public string StatusColor { get; set; }
+        public string Description { get; set; }
         public string Cleaningtime { get; set; }
         public string StatusName { get; set; }
         public string icon { get; set; }
