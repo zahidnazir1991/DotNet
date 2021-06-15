@@ -197,7 +197,7 @@ namespace RoomCheckingSystem.Controllers
         public void icontypedropdown()
         {
             var dropdownlist = util.TostatusprorityhList();
-            var obj = dropdownlist.ElementAt(1);
+            var obj = dropdownlist.ElementAt(0);
             obj.Selected = true;
             
             ViewBag.proritylist = dropdownlist;
