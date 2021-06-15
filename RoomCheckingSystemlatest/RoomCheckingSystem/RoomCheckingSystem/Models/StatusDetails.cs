@@ -20,5 +20,6 @@ namespace RoomCheckingSystem.Models
         public string? Description { get; set; }
         public int? isGroupID { get; set; }
         public int? intCatID { get; set; }
+        public DateTime? dtDate { get; set;}
     }
 }

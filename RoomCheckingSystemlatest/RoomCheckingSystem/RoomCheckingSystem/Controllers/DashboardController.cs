@@ -85,6 +85,44 @@ namespace RoomCheckingSystem.Controllers
         }
         public ActionResult Maintenance(int? id)
         {
+   //         if (id == null)
+   //         {
+   //             id = 2;
+   //         }
+   //         HttpContext.Session.SetcatData("stafftype", id.ToString());
+
+   //         var Listbulidings = dBContext.spLoadDashboard
+   // .FromSqlRaw("EXECUTE dbo.spLoadDashboard")
+   // .ToList();
+
+
+   //         foreach (sploadbuildings obj in Listbulidings)
+   //         {
+   //             SqlParameter[] parameters = { new SqlParameter("@buildingID", obj.BuildingID) };
+   //             var Listrooms = dBContext.spLoadDashboardrooms
+   //          .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID", parameters)
+   //.ToList();
+   //             foreach (sploadrooms roomdetails in Listrooms)
+   //             {
+   //                 SqlParameter[] parametersstatus = { new SqlParameter("@buildingID", obj.BuildingID),
+   //                 new SqlParameter("@roomID", roomdetails.RoomID),
+   //                 new SqlParameter("@CatID", Convert.ToInt32(HttpContext.Session.GetCatData("stafftype")))
+   //                 };
+   //                 var Listroomsstatus = dBContext.spLoadRoomsstatus
+   //              .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
+   //    .ToList();
+   //                 roomdetails.listofRooms = Listroomsstatus;
+   //             }
+
+   //             obj.listofRooms = Listrooms;
+   //         }
+   //         icontypedropdown();
+
+            return View();
+        }
+
+        public PartialViewResult Maintenancedata(int? id) {
+
             if (id == null)
             {
                 id = 2;
@@ -118,8 +156,8 @@ namespace RoomCheckingSystem.Controllers
             }
             icontypedropdown();
 
-            return View(Listbulidings);
-        }
+            return PartialView("Maintenancedata", Listbulidings);
+            }
 
         public ActionResult Createdialog()
         {
@@ -236,25 +274,56 @@ namespace RoomCheckingSystem.Controllers
             return Json(securedInfo); 
         }
 
-        public JsonResult SaveSelectedMaintenanceStatus(string statusDetails)
+        public JsonResult SaveSelectedMaintenanceStatus(string statusDetails,int? statusid,string dt)
         {
             string securedInfo = "";
-
-            StatusDetails reqObj = JsonConvert.DeserializeObject<StatusDetails>(statusDetails);
-            int? intIdt = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
-            if (intIdt == null || intIdt == 0)
+            List<StatusDetails> reqObj = JsonConvert.DeserializeObject<List<StatusDetails>>(statusDetails);
+            int? groupid = dBContext.tblStatusDetails.Max(u => (int?)u.isGroupID);
+            if (groupid == null || groupid == 0)
             {
-                intIdt = 1;
+                groupid = 1;
             }
             else
             {
-                intIdt = intIdt + 1;
+                groupid = groupid + 1;
             }
-            reqObj.intSeqID = (int)intIdt;
-            reqObj.intCatID = 2;
-            //shift.dtCreationDate = DateTime.Now.ToString();
-            dBContext.tblStatusDetails.Add(reqObj);
-            dBContext.SaveChanges();
+            foreach (StatusDetails obj in reqObj) {
+                if (statusid == -1 || statusid == 0)
+                {
+                    int? primarykey = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
+                    if (primarykey == null || primarykey == 0)
+                    {
+                        primarykey = 1;
+                    }
+                    else
+                    {
+                        primarykey = primarykey + 1;
+                    }
+
+                    obj.intSeqID = (int)primarykey;
+                    obj.intCatID = 2;
+                    obj.dtDate = DateTime.Now;
+                    obj.isGroupID = groupid;
+                    dBContext.tblStatusDetails.Add(obj);
+                    dBContext.SaveChanges();
+
+
+                }
+                else {
+                    var data = dBContext.tblStatusDetails.Find(statusid);
+                    if (data != null)
+                    {
+                        obj.intCatID = 2;
+                        obj.dtDate = Convert.ToDateTime(dt);
+                        obj.intSeqID = (int)statusid;
+                        dBContext.Entry(data).CurrentValues.SetValues(obj);
+                        dBContext.SaveChanges();
+                    }
+                }
+                
+            }
+            
+            
             securedInfo = "Saved Successfully";
 
 

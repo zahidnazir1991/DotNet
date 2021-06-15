@@ -12,34 +12,44 @@
         box-shadow: none !important;
         font-size: 14px;
     }
+    .comments {
+    
+    }
 
 </style>
 @using (Html.BeginForm())
 {
 <div id="divdynamic">
-    <div id="contentdiv" class="layout">
+    <div id="contentdiv_1" class="layout">
         <div class="row" style="margin-top:20px;">
             <div class="col-sm-5">
                 <div class="form-group">
 
-                    @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusmainList as SelectList, new { @id = "ParendStatus", @class = "form-control" })
+                    @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusmainList as SelectList, new { @id = "ParendStatus_1", @class = "form-control", @onchange = "changedropdown(this.value,this.id)" })
 
 
                 </div>
             </div>
             <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <div class="form-group">
 
-                    @Html.DropDownListFor(model => model.intChildStatus, ViewBag.proritylist as SelectList, new { @id = "ChildStatus", @class = "form-control" })
+                    @Html.DropDownListFor(model => model.intChildStatus, ViewBag.proritylist as SelectList, new { @id = "ChildStatus_1", @class = "form-control", @disabled = "disabled" })
 
                 </div>
             </div>
+
+            <span id="btndelete_1" onclick="deleterow(this.id)" class="col-sm-1 col-lg-1 text-center mb-2 js-maintenance_combo_remove_task">
+                <a href="#"><span class="fa fa-times-circle text-red" style="font-size:20px; margin:6px 0;"></span></a>
+            </span>
+
         </div>
         <div class="form-group">
-            @Html.TextAreaFor(m => m.Description,  new { @Value = "12", @id = "texdes", required = "required", disabled = "disabled", @class = "form-control removeshadow", autocomplete = "off", placeholder = "Type job description..." })
+            @Html.TextAreaFor(m => m.Description, new { @Value = "12", @id = "texdes_1", required = "required", disabled = "disabled", @class = "form-control removeshadow comments", autocomplete = "off", placeholder = "Type job description..." })
         </div>
+        <div style="height:4px; background-color:#555;"></div>
     </div>
+
 </div>
 
 
@@ -47,16 +57,24 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        if ($(".js-maintenance_combo_remove_task").length > 1) {
+            $(".js-maintenance_combo_remove_task").show();
+        } else {
+            $(".js-maintenance_combo_remove_task").hide();
+        }
+
         loadparentStatus();
 
         $('body').on('change', '#ParendStatus', function () {
-
-            if ($(this).val() == "-1") {
-                $("#texdes").attr("disabled", "disabled");
-            }
-            else {
-                $("#texdes").removeAttr("disabled");
-            }
+            
+            //if ($(this).val() == "-1") {
+                
+            //    $("#texdes").attr("disabled", "disabled");
+            //}
+            //else {
+                
+            //    $("#texdes").removeAttr("disabled");
+            //}
             
 
             //var customerID = $(this).val();
@@ -71,7 +89,39 @@
 
 
         })
+
+
+       
     });
+
+    function deleterow(id) {
+        var sp = id.split("_");
+        var myobj = document.getElementById("contentdiv_" + sp[1]);
+        if (confirm('Are you sure you want to Delete?')) {
+            myobj.remove();
+            if ($(".js-maintenance_combo_remove_task").length == 1) {
+                $(".js-maintenance_combo_remove_task").hide();
+            }
+        }
+        
+
+    }
+    function changedropdown(value,id) {
+
+        var splitedvalue = id.split("_");
+
+        if ($("#ParendStatus_" + splitedvalue[1]).val() == "-1") {
+           
+             $("#texdes_" + splitedvalue[1]).attr("disabled", "disabled");
+            $("#ChildStatus_" + splitedvalue[1]).attr("disabled", "disabled");
+            }
+        else {
+            
+             $("#texdes_" + splitedvalue[1]).removeAttr("disabled");
+            $("#ChildStatus_" + splitedvalue[1]).removeAttr("disabled");
+            }
+        
+    }
 
     function showhideprority() {
         var $option = $('#ParendStatus').find('option:selected');
