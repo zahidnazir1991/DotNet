@@ -215,6 +215,19 @@ namespace RoomCheckingSystem.Controllers
 
         }
 
+
+        public JsonResult deleterow(int id)
+        {
+            var del = dBContext.tblStatusDetails.Where(x => x.intSeqID == id).SingleOrDefault();
+            if (del != null)
+            {
+                dBContext.tblStatusDetails.Remove(del);
+                dBContext.SaveChanges();
+            }
+            
+            return Json("Deleted");
+        }
+
         public JsonResult GetList(int customerID)
         {
             var list = loadchildDropdown(customerID);
