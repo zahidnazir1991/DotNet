@@ -177,6 +177,7 @@
                 <div class="col-sm-6 col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-2 offset-2">
                     <div class="bg-blue p-2 rounded mb-2">
                         <div class="row">
+
                             <div class="col-sm-9">
                                 <span class="fa fa-calendar"></span> Today
                             </div>
@@ -387,7 +388,11 @@
     </div>
 
     <div id="dashboardview">
+
+        <div id="js-dashboard_table" style="text-align: center; margin-top: 10px;">
+            <center> Working please wait... </center>
         </div>
+    </div>
      
     </div>
 
@@ -445,8 +450,11 @@
 
         });
 
+
         function loadgrid() {
 
+            var menu_container = $('#js-dashboard_table');
+            $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
             $.ajax({
                 url: '/Dashboard/Housekeepingdata',
                 contentType: 'application/html; charset=utf-8',
@@ -461,8 +469,8 @@
                 },
                 error: function (xhr, status) {
                     $('#full_screen_loader').hide();
-
-                    alert(status);
+                    $('#js-dashboard_table').hide();
+                    alertify.error('OOp! something went wrong...');	
                 },
                 complete: function () { }
 
@@ -485,7 +493,7 @@
             mprority = prority;
             mcleaningtime = cleaningtime;
             statusID = sid;
-  
+
             $.ajax({
                 url: '/Dashboard/Createdialog',
                 contentType: 'application/html; charset=utf-8',
@@ -501,19 +509,19 @@
                             $('#js-is_priority').prop('checked', true);
                             $("#js-priority_time").val("-1").change();
                         }
-                        else { 
+                        else {
                             if (mcleaningtime != "-1" && mcleaningtime != "") {
                             $("#js-priority_time").val(cleaningtime + ':00').change();
                             $('#js-is_priority').prop('checked', false);
                         }
                     }
-                       
+
                     }
 
                 },
                 error: function (xhr, status) {
                     $('#full_screen_loader').hide();
-                    alert(status);
+                    alertify.error('OOp! something went wrong...');	
                 },
                 complete: function () { }
 
@@ -582,15 +590,15 @@
 
             };
             //alert(JSON.stringify(statusDetails));
-
+            alertify.notify('Working please wait...');	
             $.ajax({
                 url: '/Dashboard/SaveSelectedStatus',
                 type: 'POST',
-                data: { 'statusDetails': JSON.stringify(statusDetails) },
+                data: { 'statusDetails': JSON.stringify(statusDetails), 'id': statusID },
                 dataType: 'json',
 
                 success: function (d) {
-                    
+
                     $("#loginModal").modal('hide');
                     alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
                     loadgrid();
@@ -599,8 +607,8 @@
 
                 },
                 error: function (r) {
-
-                    alert(r);
+                    alertify.error('OOp! something went wrong...');	
+                    //alert(r);
                 }
             });
 

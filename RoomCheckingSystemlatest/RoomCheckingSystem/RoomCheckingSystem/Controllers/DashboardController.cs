@@ -271,25 +271,47 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
-        public JsonResult SaveSelectedStatus(string statusDetails)
+        public JsonResult SaveSelectedStatus(string statusDetails,int? id)
         {
             string securedInfo = "";
            
+
+
                 StatusDetails reqObj = JsonConvert.DeserializeObject<StatusDetails>(statusDetails);
+
+            if (id < 0)
+            {
                 int? intIdt = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
                 if (intIdt == null || intIdt == 0)
                 {
                     intIdt = 1;
                 }
-                else {
+                else
+                {
                     intIdt = intIdt + 1;
                 }
                 reqObj.intSeqID = (int)intIdt;
-            reqObj.dtDate = DateTime.Now;
-            reqObj.intCatID = 1;
-            //shift.dtCreationDate = DateTime.Now.ToString();
-            dBContext.tblStatusDetails.Add(reqObj);
+                reqObj.dtDate = DateTime.Now;
+                reqObj.intCatID = 1;
+                //shift.dtCreationDate = DateTime.Now.ToString();
+                dBContext.tblStatusDetails.Add(reqObj);
                 dBContext.SaveChanges();
+            }
+            else {
+
+                var data = dBContext.tblStatusDetails.Find(id);
+                if (data != null)
+                {
+                    //reqObj.intCatID = 1;
+                    //reqObj.dtDate = Convert.ToDateTime(dt);
+                    reqObj.intSeqID = (int)id;
+                    reqObj.dtDate = data.dtDate;
+                    reqObj.intCatID = 1;
+                    dBContext.Entry(data).CurrentValues.SetValues(reqObj);
+                    dBContext.SaveChanges();
+                }
+
+            }
                 securedInfo = "Saved Successfully";
           
           
@@ -337,7 +359,8 @@ namespace RoomCheckingSystem.Controllers
                     if (data != null)
                     {
                         obj.intCatID = 2;
-                        obj.dtDate = Convert.ToDateTime(dt);
+                        obj.dtDate = data.dtDate;
+
                         obj.intSeqID = (int)statusid;
                         dBContext.Entry(data).CurrentValues.SetValues(obj);
                         dBContext.SaveChanges();

@@ -396,6 +396,9 @@
 
     </div>
     <div id="dashboardview">
+        <div id="js-dashboard_table" style="text-align: center; margin-top: 10px;">
+        <center> Working please wait... </center>
+    </div>
         @*<div class="row" style="margin-top:15px;">
             <div class="col-sm-12">
                 <input type="hidden" id="hbuildingid">
@@ -569,7 +572,8 @@
     }
 
     function loadgrid() {
-
+        var menu_container = $('#js-dashboard_table');
+        $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
         $.ajax({
             url: '/Dashboard/Maintenancedata',
             contentType: 'application/html; charset=utf-8',
@@ -584,8 +588,8 @@
             },
             error: function (xhr, status) {
                 $('#full_screen_loader').hide();
-
-                alert(status);
+                alertify.error('OOp! something went wrong...');	
+                //alert(status);
             },
             complete: function () { }
 
@@ -776,8 +780,8 @@
             },
             error: function (xhr, status) {
                 $('#full_screen_loader').hide();
-
-                alert(status);
+                alertify.error('OOp! something went wrong...');	
+                //alert(status);
             },
             complete: function () { }
 
