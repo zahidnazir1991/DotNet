@@ -51,37 +51,9 @@ namespace RoomCheckingSystem.Controllers
         // GET: DashboardController
         public ActionResult Dashboard(int? id)
         {
-            if (id == null) {
-                id = 1;
-            }
-            HttpContext.Session.SetcatData("stafftype", id.ToString());
-            var Listbulidings = dBContext.spLoadDashboard
-    .FromSqlRaw("EXECUTE dbo.spLoadDashboard")
-    .ToList();
+           
 
-
-            foreach (sploadbuildings obj in Listbulidings)
-            {
-                SqlParameter[] parameters = { new SqlParameter("@buildingID", obj.BuildingID) };
-                var Listrooms = dBContext.spLoadDashboardrooms
-             .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID", parameters)
-   .ToList();
-                foreach (sploadrooms roomdetails in Listrooms)
-                {
-                    SqlParameter[] parametersstatus = { new SqlParameter("@buildingID", obj.BuildingID),
-                    new SqlParameter("@roomID", roomdetails.RoomID),
-                     new SqlParameter("@CatID", Convert.ToInt32(HttpContext.Session.GetCatData("stafftype")))
-                    };
-                    var Listroomsstatus = dBContext.spLoadRoomsstatus
-                 .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
-       .ToList();
-                    roomdetails.listofRooms = Listroomsstatus;
-                }
-
-                    obj.listofRooms = Listrooms;
-            }
-
-            return View(Listbulidings);
+            return View();
         }
         public ActionResult Maintenance(int? id)
         {
@@ -121,7 +93,44 @@ namespace RoomCheckingSystem.Controllers
             return View();
         }
 
-        public PartialViewResult Maintenancedata(int? id) {
+
+        public PartialViewResult Housekeepingdata(int? id)
+        {
+
+             if (id == null) {
+                id = 1;
+            }
+            HttpContext.Session.SetcatData("stafftype", id.ToString());
+            var Listbulidings = dBContext.spLoadDashboard
+    .FromSqlRaw("EXECUTE dbo.spLoadDashboard")
+    .ToList();
+
+
+            foreach (sploadbuildings obj in Listbulidings)
+            {
+                SqlParameter[] parameters = { new SqlParameter("@buildingID", obj.BuildingID) };
+                var Listrooms = dBContext.spLoadDashboardrooms
+             .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID", parameters)
+   .ToList();
+                foreach (sploadrooms roomdetails in Listrooms)
+                {
+                    SqlParameter[] parametersstatus = { new SqlParameter("@buildingID", obj.BuildingID),
+                    new SqlParameter("@roomID", roomdetails.RoomID),
+                     new SqlParameter("@CatID", Convert.ToInt32(HttpContext.Session.GetCatData("stafftype")))
+                    };
+                    var Listroomsstatus = dBContext.spLoadRoomsstatus
+                 .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
+       .ToList();
+                    roomdetails.listofRooms = Listroomsstatus;
+                }
+
+                    obj.listofRooms = Listrooms;
+            }
+
+            return PartialView("Housekeepingdata", Listbulidings);
+        }
+
+            public PartialViewResult Maintenancedata(int? id) {
 
             if (id == null)
             {
@@ -276,6 +285,7 @@ namespace RoomCheckingSystem.Controllers
                     intIdt = intIdt + 1;
                 }
                 reqObj.intSeqID = (int)intIdt;
+            reqObj.dtDate = DateTime.Now;
             reqObj.intCatID = 1;
             //shift.dtCreationDate = DateTime.Now.ToString();
             dBContext.tblStatusDetails.Add(reqObj);

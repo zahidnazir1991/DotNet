@@ -91,15 +91,19 @@
         text-align: center;
         color: #555;
     }
+
     .cxm-clock-pad {
         padding-right: 65px;
     }
+
     .small-box .inner {
         padding: 5px 0;
     }
+
     .small-box {
         text-align: center;
     }
+
     .small-box {
         border-radius: 2px;
         position: relative;
@@ -107,9 +111,11 @@
         margin-bottom: 20px;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     }
+
         .small-box .icon {
             display: none;
         }
+
         .small-box .inner h3, .small-box .inner .make-text_bold {
             margin-bottom: 3px;
         }
@@ -130,7 +136,15 @@
             white-space: nowrap;
             padding: 0;
         }
+
+        .small-box p {
+            font-size: 12px;
+        }
+       
+    
 </style>
+ 
+
 <link href="~/css/dashboard.css" rel="stylesheet" />
 <div id="maindiv" style="padding:15px;">
 
@@ -370,122 +384,20 @@
 
             </div>
         </div>
+    </div>
 
-
-        <div class="row" style="margin-top:15px;">
-            <div class="col-sm-12">
-                <input type="hidden" id="hbuildingid">
-                <input type="hidden" id="hroomid">
-                @foreach (sploadbuildings mbuilding in Model)
-                {
-                    <button class="accordion">@mbuilding.BuildingName </button>
-                    <div class="panel">
-                        <div class="subpanel">
-                            @foreach (sploadrooms mrooms in mbuilding.listofRooms)
-                            {
-                                var color = "";
-                                var icon = "";
-                                var statusname = "";
-                                var clearningtime = "";
-                                var pStatus = -1;
-                                var cStatus = -1;
-                                if (mrooms.listofRooms.Count() > 0)
-                                {
-                                    color = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).StatusColor;
-                                    icon = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).icon;
-                                    statusname = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).StatusName;
-
-                                    if (mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).Cleaningtime != "-1")
-                                    {
-                                        clearningtime = Convert.ToDateTime(mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).Cleaningtime).ToString("hh:mm");
-                                    }
-
-
-                                    pStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).pStatus;
-                                    cStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).cStatus;
-
-
-                                }
-                                else
-                                {
-                                    color = "#bababa";
-                                    icon = "fa fa-home";
-                                    statusname = "";
-                                    clearningtime = "";
-                                    pStatus = -1;
-                                    cStatus = -1;
-
-
-                                }
-
-
-
-
-                                <div class="cxm-room js-room_div bg-green col-sm-12" oncontextmenu="on_room_contextmenu(this,event);return false;" onclick="show_status_in_model('@mbuilding.BuildingName', '@mbuilding.BuildingID', '@mrooms.RoomName', '@mrooms.RoomID',@pStatus,@cStatus);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor: pointer; background-color: @color !important;">
-
-                                    <div class="row cxm-no-gutters">
-                                        <div class="col-4  col-md-12 col-lg-12">
-                                            <div class="cxm-room-count-1">
-                                                @mrooms.RoomName
-                                                @*<img class="hidden-sm hidden-md hidden-lg" src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-2.png" alt="Clock" width="25">*@
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-8 col-md-12 col-lg-12 cxm-text-align">
-                                            <div class="cxm-room-icon hidden-md-down" style="padding-top: 0px;">
-                                                <span class="@icon dashboardiconsize"></span>
-                                            </div>
-
-                                            <div class="hidden-sm cxm-room-label">
-                                                @statusname&nbsp;&nbsp;
-                                                <span class="fa fa-home cxm-room-icon-2 hidden-md-up"></span>
-
-                                            </div>
-
-                                            @*<div class="hidden-sm cxm-room-label cxm-clock-pad" style="margin-right:65px;">
-                                                    @statusname&nbsp;&nbsp;
-                                                    <span class="fa fa-home cxm-room-icon-2 hidden-md-up"></span>
-                                                    <span class="cxm-clock hidden-md hidden-lg d-none"><img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-3.png" alt="Clock" width="20"><br>12:00</span>
-                                                </div>*@
-                                            @{
-                                                if (clearningtime.Length > 0)
-                                                {
-                                                    <div class="row cxm-no-gutters hidden-sm-down">
-                                                        <div class="col-sm-6" style="font-weight: bold; text-align: justify;">@clearningtime</div>
-                                                        <div class="col-sm-6 text-right">
-                                                            <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clock-4.png" alt="Clock" width="25">
-                                                        </div>
-                                                    </div>
-                                                }
-
-                                            }
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-
-                            }
-                        </div>
-
-
-                    </div>
-
-                }
-
-
-            </div>
+    <div id="dashboardview">
         </div>
+     
     </div>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
         var Parentstatus = -1;
         var ChildStatus = -1;
+        var mprority = false;
+        var mcleaningtime = "";
+        var statusID = -1;
 
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -515,10 +427,14 @@
 
         $(document).ready(function () {       //Error happens here, $ is not defined.
 
-            openalltabs();
+           // openalltabs();
             //$("#btnShowModal").click(function () {
             //    $("#loginModal").modal('show');
             //});
+            alertify.set('notifier', 'position', 'top-center');
+            //$("#dashboardview").load('@Url.Content("/Dashboard/Maintenancedata")');
+
+            loadgrid();
 
             $("#btnHideModal").click(function () {
                 $("#loginModal").modal('hide');
@@ -529,6 +445,30 @@
 
         });
 
+        function loadgrid() {
+
+            $.ajax({
+                url: '/Dashboard/Housekeepingdata',
+                contentType: 'application/html; charset=utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    $('#full_screen_loader').hide();
+                    $('#dashboardview').empty();
+                    $('#dashboardview').html(result);
+                    //openalltabs();
+
+                },
+                error: function (xhr, status) {
+                    $('#full_screen_loader').hide();
+
+                    alert(status);
+                },
+                complete: function () { }
+
+            });
+        }
+
 
         var AddRooms = function () {
             $("#roomModalBody").load("/Home/CreateRoom", function () {
@@ -536,15 +476,16 @@
             })
         }
 
-        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs) {
+        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs,prority,cleaningtime,sid) {
             $('#full_screen_loader').show();
             document.getElementById('hbuildingid').value = buildingid;
             document.getElementById('hroomid').value = roomid;
             Parentstatus = ps;
             ChildStatus = cs;
-
-
-
+            mprority = prority;
+            mcleaningtime = cleaningtime;
+            statusID = sid;
+  
             $.ajax({
                 url: '/Dashboard/Createdialog',
                 contentType: 'application/html; charset=utf-8',
@@ -554,8 +495,20 @@
                     $('#full_screen_loader').hide();
                     $('#dialogbody').html(result);
                     document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-
                     $("#loginModal").modal('show');
+                    if (statusID > 0) {
+                        if (prority == 'True') {
+                            $('#js-is_priority').prop('checked', true);
+                            $("#js-priority_time").val("-1").change();
+                        }
+                        else { 
+                            if (mcleaningtime != "-1" && mcleaningtime != "") {
+                            $("#js-priority_time").val(cleaningtime + ':00').change();
+                            $('#js-is_priority').prop('checked', false);
+                        }
+                    }
+                       
+                    }
 
                 },
                 error: function (xhr, status) {
@@ -637,8 +590,10 @@
                 dataType: 'json',
 
                 success: function (d) {
+                    
                     $("#loginModal").modal('hide');
-                    alert(d);
+                    alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                    loadgrid();
 
 
 
