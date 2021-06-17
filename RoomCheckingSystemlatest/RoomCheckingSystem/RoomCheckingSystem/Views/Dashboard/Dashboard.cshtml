@@ -166,6 +166,20 @@
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         }
 
+
+    .box {
+        position: relative;
+        border-radius: 5px;
+        background: #ffffff;
+        background-color: rgb(255, 255, 255);
+        border-top: 3px solid #d2d6de;
+        margin-bottom: 20px;
+        width: 100%;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        margin-top: 0px;
+        padding-top: 5px;
+    }
+
 </style>
  
 
@@ -367,8 +381,6 @@
     <div class="loading" id="full_screen_loader" style="display: none;">Loading…</div>
     <div class="row">
         <div class="col-sm-12">
-
-
             <div role="dialog" class="modal fade in reveal-modal" tabindex="-1" id="loginModal"
                  data-keyboard="false" data-backdrop="static">
                 <div class="modal-dialog modal-lg">
@@ -378,13 +390,9 @@
                             <button type="button" class="close" data-dismiss="modal">
                                 ×
                             </button>
-
                         </div>
 
                         <div class="modal-body" id="dialogbody">
-
-
-
 
                         </div>
 
@@ -435,32 +443,10 @@
         var mprority = false;
         var mcleaningtime = "";
         var statusID = -1;
+        var bulidname;
+        var Roomname;
 
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                    panel.classList.add("panelhide");
-
-
-                } else {
-
-                    panel.classList.add("panel");
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-
-
-                }
-            });
-
-
-
-        }
+        
 
         $(document).ready(function () {       //Error happens here, $ is not defined.
 
@@ -528,6 +514,8 @@
             mprority = prority;
             mcleaningtime = cleaningtime;
             statusID = sid;
+            bulidname = buildingname;
+            Roomname = mrooms;
             if (dialog == 1) {
 
                 $.ajax({

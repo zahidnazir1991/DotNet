@@ -79,12 +79,8 @@
 
                     LoadCampaigns(customerID);
 
-
                 });
 
-
-
-           
             });
 
             $("#js-is_priority").change(function () {
@@ -108,10 +104,7 @@
                 var $option = $('#ParendStatus').find('option:selected');
                 var isprority = $option.attr('isprority')
                 if (isprority) {
-
-
                     document.getElementById("tvpro").style.display = "block";
-
                 }
                 else {
 
@@ -156,21 +149,17 @@
             //}
 
             function loadparentStatus() {
-
                 var $parent = $('#ParendStatus').val();
 
                 var id = $parent;
                 Parentstatus;
                 //ChildStatus
-
-
                 //var task = {
                 //    Title: $("#intParentID").val(),
                 //    Description: "zahid",
                 //    Owner: "Tax Asaan"
                 //};
                 ////alert(JSON.stringify(task));
-
                 $.ajax({
                     url: '/Dashboard/GetparentList',
                     type: 'GET',
@@ -207,8 +196,6 @@
             }
 
             function LoadCampaigns(customerID) {
-
-
                 $.ajax({
                     url: '/Dashboard/GetList',
                     type: 'GET',
@@ -220,7 +207,6 @@
                         for (var i = 0; i < d.length; i++) {
 
                             if (d[i].intSeqID == ChildStatus) {
-
                                 var selected = "selected";
                                 s += '<option ' + selected + ' style="color:' + d[i].color + '" value="' + d[i].intSeqID + '" isprority="' + d[i].isPriority + '" isCheckoutTime="' + d[i].isCheckoutTime + '">' + d[i].text + '</option>';
                             }
