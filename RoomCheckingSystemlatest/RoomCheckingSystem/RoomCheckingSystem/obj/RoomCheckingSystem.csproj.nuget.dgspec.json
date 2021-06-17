@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Home\\workspace\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj": {}
+    "E:\\gitrepos\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj": {}
   },
   "projects": {
-    "D:\\Home\\workspace\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj": {
+    "E:\\gitrepos\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Home\\workspace\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj",
+        "projectUniqueName": "E:\\gitrepos\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj",
         "projectName": "RoomCheckingSystem",
-        "projectPath": "D:\\Home\\workspace\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj",
-        "packagesPath": "C:\\Users\\Zahid\\.nuget\\packages\\",
-        "outputPath": "D:\\Home\\workspace\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\obj\\",
+        "projectPath": "E:\\gitrepos\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\RoomCheckingSystem.csproj",
+        "packagesPath": "C:\\Users\\pral\\.nuget\\packages\\",
+        "outputPath": "E:\\gitrepos\\RoomCheckingSystemlatest\\RoomCheckingSystem\\RoomCheckingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Zahid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pral\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

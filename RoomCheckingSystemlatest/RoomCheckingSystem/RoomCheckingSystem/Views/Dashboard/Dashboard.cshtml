@@ -140,8 +140,32 @@
         .small-box p {
             font-size: 12px;
         }
-       
-    
+
+        .animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 2s;
+  animation-name: animatebottom;
+  animation-duration: 2s
+}
+@@-webkit-keyframes animatebottom {
+  from { bottom:-50px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+@@keyframes animatebottom {
+  from{ bottom:-50px; opacity:0 }
+  to{ bottom:0; opacity:1 }
+}
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 100%;
+    }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
 </style>
  
 
@@ -393,8 +417,16 @@
             <center> Working please wait... </center>
         </div>
     </div>
-     
+
+    <div id="dashboardviewmob" class="card animate-bottom">
+
+
     </div>
+
+
+
+
+</div>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
@@ -484,7 +516,10 @@
             })
         }
 
-        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs,prority,cleaningtime,sid) {
+        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, prority, cleaningtime, sid, dialog) {
+
+
+
             $('#full_screen_loader').show();
             document.getElementById('hbuildingid').value = buildingid;
             document.getElementById('hroomid').value = roomid;
@@ -493,39 +528,67 @@
             mprority = prority;
             mcleaningtime = cleaningtime;
             statusID = sid;
+            if (dialog == 1) {
 
-            $.ajax({
-                url: '/Dashboard/Createdialog',
-                contentType: 'application/html; charset=utf-8',
-                type: 'GET',
-                dataType: 'html',
-                success: function (result) {
-                    $('#full_screen_loader').hide();
-                    $('#dialogbody').html(result);
-                    document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-                    $("#loginModal").modal('show');
-                    if (statusID > 0) {
-                        if (prority == 'True') {
-                            $('#js-is_priority').prop('checked', true);
-                            $("#js-priority_time").val("-1").change();
+                $.ajax({
+                    url: '/Dashboard/mobdialog',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        $('#full_screen_loader').hide();
+                        
+                        $('#dashboardviewmob').html(result);
+                        $('#dashboardview').hide();
+                        //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                        //$("#loginModal").modal('show');
+                       
+                    },
+                    error: function (xhr, status) {
+                        $('#full_screen_loader').hide();
+                        alertify.error('OOp! something went wrong...');
+                    },
+                    complete: function () { }
+
+                });
+
+
+
+            } else {
+
+                $.ajax({
+                    url: '/Dashboard/Createdialog',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        $('#full_screen_loader').hide();
+                        $('#dialogbody').html(result);
+                        document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                        $("#loginModal").modal('show');
+                        if (statusID > 0) {
+                            if (prority == 'True') {
+                                $('#js-is_priority').prop('checked', true);
+                                $("#js-priority_time").val("-1").change();
+                            }
+                            else {
+                                if (mcleaningtime != "-1" && mcleaningtime != "") {
+                                    $("#js-priority_time").val(cleaningtime + ':00').change();
+                                    $('#js-is_priority').prop('checked', false);
+                                }
+                            }
+
                         }
-                        else {
-                            if (mcleaningtime != "-1" && mcleaningtime != "") {
-                            $("#js-priority_time").val(cleaningtime + ':00').change();
-                            $('#js-is_priority').prop('checked', false);
-                        }
-                    }
 
-                    }
+                    },
+                    error: function (xhr, status) {
+                        $('#full_screen_loader').hide();
+                        alertify.error('OOp! something went wrong...');
+                    },
+                    complete: function () { }
 
-                },
-                error: function (xhr, status) {
-                    $('#full_screen_loader').hide();
-                    alertify.error('OOp! something went wrong...');	
-                },
-                complete: function () { }
-
-            });
+                });
+            }
             //.done()(function (result) {
             //    alert(result);
             //    $('#dialogbody').html(result);
