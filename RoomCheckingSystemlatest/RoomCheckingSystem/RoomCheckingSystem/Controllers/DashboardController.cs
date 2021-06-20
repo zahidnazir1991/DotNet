@@ -55,7 +55,7 @@ namespace RoomCheckingSystem.Controllers
 
         public PartialViewResult Housekeepingdata(int? id)
         {
-            ViewBag.dialog = 1;
+            ViewBag.dialog = 2;
             if (id == null)
             {
                 id = 1;
