@@ -446,7 +446,9 @@
         var bulidname;
         var Roomname;
 
-        
+        $(window).resize(function () {
+            
+        });
 
         $(document).ready(function () {       //Error happens here, $ is not defined.
 
@@ -504,7 +506,7 @@
 
         function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, prority, cleaningtime, sid, dialog) {
 
-
+            
 
             $('#full_screen_loader').show();
             document.getElementById('hbuildingid').value = buildingid;
@@ -516,8 +518,8 @@
             statusID = sid;
             bulidname = buildingname;
             Roomname = mrooms;
-            if (dialog == 1) {
-
+        
+            if ($(document).width() <= 750) {
                 $.ajax({
                     url: '/Dashboard/mobdialog',
                     contentType: 'application/html; charset=utf-8',

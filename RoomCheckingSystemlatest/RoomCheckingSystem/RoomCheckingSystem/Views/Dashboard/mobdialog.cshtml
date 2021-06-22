@@ -11,7 +11,7 @@
         <button type="submit" id="btnSave" class="btn btn-primary myButton"> << Back</button>
     </div>
     <div class="col-6">
-        <h3 class="js-heading" style="margin-top:13px; font-size:20px;">81-83&nbsp;&nbsp;&gt;&gt;&nbsp;&nbsp;1D</h3>
+        <h3 id="titledialog" class="js-heading" style="margin-top:13px; font-size:20px;">81-83&nbsp;&nbsp;&gt;&gt;&nbsp;&nbsp;1D</h3>
     </div>
     </div>
 
@@ -31,10 +31,11 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {       //Error happens here, $ is not defined.
-            
 
-            alert(bulidname);
-            alert(Roomname);
+            var titleheading = bulidname + '&nbsp;&nbsp;&gt;&gt;&nbsp;&nbsp;' + Roomname;
+            
+            //alert(bulidname);
+            $('#titledialog').html(titleheading)
 
         });
 
