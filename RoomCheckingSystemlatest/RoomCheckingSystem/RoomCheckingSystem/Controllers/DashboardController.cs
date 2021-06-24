@@ -60,17 +60,21 @@ namespace RoomCheckingSystem.Controllers
             {
                 id = 1;
             }
+            int usertype = 0;
             HttpContext.Session.SetcatData("stafftype", id.ToString());
+            SqlParameter[] parms = { new SqlParameter("@userType", usertype) };
             var Listbulidings = dBContext.spLoadDashboard
-    .FromSqlRaw("EXECUTE dbo.spLoadDashboard")
+    .FromSqlRaw("EXECUTE dbo.spLoadDashboard @userType", parms)
     .ToList();
 
 
             foreach (sploadbuildings obj in Listbulidings)
             {
-                SqlParameter[] parameters = { new SqlParameter("@buildingID", obj.BuildingID) };
+                SqlParameter[] parameters =
+                   { new SqlParameter("@buildingID", obj.BuildingID) ,
+                     new SqlParameter("@userType", usertype)};
                 var Listrooms = dBContext.spLoadDashboardrooms
-             .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID", parameters)
+             .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID, @userType", parameters)
    .ToList();
                 foreach (sploadrooms roomdetails in Listrooms)
                 {
