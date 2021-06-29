@@ -60,7 +60,7 @@ namespace RoomCheckingSystem.Controllers
             {
                 id = 1;
             }
-            int usertype = 0;
+            int usertype = 1;
             HttpContext.Session.SetcatData("stafftype", id.ToString());
             SqlParameter[] parms = { new SqlParameter("@userType", usertype) };
             var Listbulidings = dBContext.spLoadDashboard
@@ -101,12 +101,41 @@ namespace RoomCheckingSystem.Controllers
             return PartialView("Createdialog");
         }
 
-
-        public PartialViewResult mobdialog()
+        public JsonResult updatenextStatus(int? id , int? stid)
         {
-       
+            string securedInfo = "";
 
-            return PartialView("mobdialog");
+            String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(" update tblStatusDetails set intStatusID  = '"+ stid + "' , intChildStatus = '" + stid + "' where intSeqID = '" + id + "'", connection);
+            try
+            {
+                command.ExecuteNonQuery();
+                
+            }
+            catch (Exception)
+            {
+                
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Json(securedInfo);
+        }
+
+
+            public PartialViewResult mobdialog(int? id)
+        {
+
+            SqlParameter[] parms = { new SqlParameter("@currentstatusID", id) };
+            var nextstatus = dBContext.spLoadnextRoomsstatus
+    .FromSqlRaw("EXECUTE dbo.spLoadnextRoomsstatus @currentstatusID", parms)
+    .ToList();
+
+            return PartialView("mobdialog", nextstatus);
         }
 
         public JsonResult SaveSelectedStatus(string statusDetails, int? id)
@@ -269,7 +298,6 @@ namespace RoomCheckingSystem.Controllers
             var dropdownlist = util.TostatusprorityhList();
             var obj = dropdownlist.ElementAt(0);
             obj.Selected = true;
-            
             ViewBag.proritylist = dropdownlist;
 
         }

@@ -29,5 +29,6 @@ namespace RoomCheckingSystem.Repo
         public DbSet<StatusDetails> tblStatusDetails { get; set; }
         public DbSet<spLoadRoomsstatus> spLoadRoomsstatus { get; set; }
         public DbSet<sploadmenu> spLoadMenu { get; set; }
+        public DbSet<spNextStatus> spLoadnextRoomsstatus { get; set; }
     }
 }
