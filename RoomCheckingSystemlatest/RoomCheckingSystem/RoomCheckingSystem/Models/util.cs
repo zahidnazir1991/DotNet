@@ -126,9 +126,12 @@ namespace RoomCheckingSystem.Models
                 list.Add(new SelectListItem()
                 {
                     Text = de.Key.ToString(),
-                    Value = de.Value.ToString()
+                    Value = de.Value.ToString(),
+                   
                 });
             }
+
+            list = list.OrderBy(n => n.Text).ToList();
             return new SelectList(list, "Text", "Value");
         }
 

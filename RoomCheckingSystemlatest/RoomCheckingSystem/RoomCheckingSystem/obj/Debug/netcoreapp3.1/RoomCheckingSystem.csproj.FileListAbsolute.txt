@@ -1827,6 +1827,7 @@ E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\D
 E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.genruntimeconfig.cache
 E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Maintenancedata.cshtml.g.cs
 E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Housekeepingdata.cshtml.g.cs
+E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\mobdialog.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\wwwroot\ckeditor\samples\toolbarconfigurator\font\config.json
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\web.config
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -2227,6 +2228,7 @@ D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.csprojAssemblyReference.cache
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.AssemblyInfoInputs.cache
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.AssemblyInfo.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.csproj.CoreCompileInputs.cache
@@ -2250,6 +2252,7 @@ D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\LoadMenu.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Maintenance.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Maintenancedata.cshtml.g.cs
+D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\mobdialog.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Handovernotes\CreateNote.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Handovernotes\Handoverlist.cshtml.g.cs
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -2285,6 +2288,3 @@ D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.dll
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.pdb
 D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.genruntimeconfig.cache
-D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\RoomCheckingSystem.csprojAssemblyReference.cache
-E:\gitrepos\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\mobdialog.cshtml.g.cs
-D:\Home\workspace\RoomCheckingSystemlatest\RoomCheckingSystem\RoomCheckingSystem\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\mobdialog.cshtml.g.cs

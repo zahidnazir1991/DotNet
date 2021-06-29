@@ -42,6 +42,27 @@
         color: #555;
     }
 
+    .cxm-clock1 {
+        font-size:15px;
+        position: absolute;
+        bottom: -13px;
+        right: -7px;
+        padding: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-bottom: 13px;
+        padding-top: 0px;
+        padding-bottom: 8px;
+        padding-right: 10px;
+        display: inline-block;
+        background-color: #EEE;
+        text-align: center;
+        color: #555;
+    }
+
     .reveal-modal {
         position: fixed;
         margin: 0 auto;
@@ -445,6 +466,7 @@
         var statusID = -1;
         var bulidname;
         var Roomname;
+        var stid;
 
         $(window).resize(function () {
             
@@ -504,7 +526,7 @@
             })
         }
 
-        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, prority, cleaningtime, sid, dialog) {
+        function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, prority, cleaningtime, sid, dialog,stID) {
 
             
 
@@ -518,10 +540,10 @@
             statusID = sid;
             bulidname = buildingname;
             Roomname = mrooms;
-        
+            stid = stID
             if ($(document).width() <= 750) {
                 $.ajax({
-                    url: '/Dashboard/mobdialog',
+                    url: '/Dashboard/mobdialog/' + stID,
                     contentType: 'application/html; charset=utf-8',
                     type: 'GET',
                     dataType: 'html',
@@ -529,6 +551,7 @@
                         $('#full_screen_loader').hide();
                         
                         $('#dashboardviewmob').html(result);
+                        $('#dashboardviewmob').show();
                         $('#dashboardview').hide();
                         //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
                         //$("#loginModal").modal('show');
@@ -663,6 +686,38 @@
                     alertify.error('OOp! something went wrong...');	
                     //alert(r);
                 }
+            });
+
+        }
+        function showhidediv() {
+            $('#dashboardviewmob').hide();
+            $('#dashboardview').show();
+
+        }
+
+        function ajaxrequest(sid) {
+
+            $.ajax({
+                url: '/Dashboard/updatenextStatus',
+                contentType: 'application/html; charset=utf-8',
+                data: { 'id': statusID, 'stid': sid },
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+                    $('#full_screen_loader').hide();
+                    $('#dashboardviewmob').hide();
+                    $('#dashboardview').show();
+                    window.location.reload();
+                    //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                    //$("#loginModal").modal('show');
+
+                },
+                error: function (xhr, status) {
+                    $('#full_screen_loader').hide();
+                    alertify.error('OOp! something went wrong...');
+                },
+                complete: function () { }
+
             });
 
         }
