@@ -401,11 +401,30 @@ namespace RoomCheckingSystem.Controllers
                     var data = dBContext.tblStatusDetails.Find(statusid);
                     if (data != null)
                     {
+                        groupid = data.isGroupID;
                         obj.intCatID = 2;
                         obj.dtDate = data.dtDate;
 
                         obj.intSeqID = (int)statusid;
                         dBContext.Entry(data).CurrentValues.SetValues(obj);
+                        //dBContext.SaveChanges();
+                    }
+                    else {
+                        int? primarykey = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
+                        if (primarykey == null || primarykey == 0)
+                        {
+                            primarykey = 1;
+                        }
+                        else
+                        {
+                            primarykey = primarykey + 1;
+                        }
+
+                        obj.intSeqID = (int)primarykey;
+                        obj.intCatID = 2;
+                        obj.dtDate = DateTime.Now;
+                        obj.isGroupID = groupid;
+                        dBContext.tblStatusDetails.Add(obj);
                         dBContext.SaveChanges();
                     }
                 }

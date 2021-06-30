@@ -498,7 +498,10 @@
     }
 
     function createcontrols() {
-        var templete = $("#contentdiv_1").html();
+
+        //its mean we have temple to add new task
+        //var templete = $("#contentdiv_1").html();
+        var templete = editemplate;
         var divno = $(".layout");
         var nodiv = divno.length;
         nodiv = nodiv + 1;
@@ -627,7 +630,6 @@
                 
                 editemplate = $("#contentdiv_1").html();
                 
-                
                 document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
                 var message = document.getElementById('hiv_' + roomid).value;
                 
@@ -706,9 +708,6 @@
                 intStatusID: "-1",
                 isGroupID: pgroupid,
                
-                
-
-
             };
             var id = $(div[i]).attr("id").split("_");
             statussave.intParentStatus = $("#ParendStatus_" + id[1]).val();
