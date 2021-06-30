@@ -189,39 +189,7 @@ namespace RoomCheckingSystem.Controllers
 
         public ActionResult Maintenance(int? id)
         {
-   //         if (id == null)
-   //         {
-   //             id = 2;
-   //         }
-   //         HttpContext.Session.SetcatData("stafftype", id.ToString());
-
-   //         var Listbulidings = dBContext.spLoadDashboard
-   // .FromSqlRaw("EXECUTE dbo.spLoadDashboard")
-   // .ToList();
-
-
-   //         foreach (sploadbuildings obj in Listbulidings)
-   //         {
-   //             SqlParameter[] parameters = { new SqlParameter("@buildingID", obj.BuildingID) };
-   //             var Listrooms = dBContext.spLoadDashboardrooms
-   //          .FromSqlRaw("EXECUTE dbo.spLoadDashboardrooms  @buildingID", parameters)
-   //.ToList();
-   //             foreach (sploadrooms roomdetails in Listrooms)
-   //             {
-   //                 SqlParameter[] parametersstatus = { new SqlParameter("@buildingID", obj.BuildingID),
-   //                 new SqlParameter("@roomID", roomdetails.RoomID),
-   //                 new SqlParameter("@CatID", Convert.ToInt32(HttpContext.Session.GetCatData("stafftype")))
-   //                 };
-   //                 var Listroomsstatus = dBContext.spLoadRoomsstatus
-   //              .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
-   //    .ToList();
-   //                 roomdetails.listofRooms = Listroomsstatus;
-   //             }
-
-   //             obj.listofRooms = Listrooms;
-   //         }
-   //         icontypedropdown();
-
+   
             return View();
         }
 
@@ -376,7 +344,7 @@ namespace RoomCheckingSystem.Controllers
                 groupid = groupid + 1;
             }
             foreach (StatusDetails obj in reqObj) {
-                if (statusid == -1 || statusid == 0)
+                if (obj.intSeqID == -1 || obj.intSeqID == 0)
                 {
                     int? primarykey = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
                     if (primarykey == null || primarykey == 0)
@@ -398,35 +366,18 @@ namespace RoomCheckingSystem.Controllers
 
                 }
                 else {
-                    var data = dBContext.tblStatusDetails.Find(statusid);
+                    var data = dBContext.tblStatusDetails.Find(obj.intSeqID);
                     if (data != null)
                     {
                         groupid = data.isGroupID;
                         obj.intCatID = 2;
                         obj.dtDate = data.dtDate;
 
-                        obj.intSeqID = (int)statusid;
+                        obj.intSeqID = obj.intSeqID;
                         dBContext.Entry(data).CurrentValues.SetValues(obj);
-                        //dBContext.SaveChanges();
-                    }
-                    else {
-                        int? primarykey = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
-                        if (primarykey == null || primarykey == 0)
-                        {
-                            primarykey = 1;
-                        }
-                        else
-                        {
-                            primarykey = primarykey + 1;
-                        }
-
-                        obj.intSeqID = (int)primarykey;
-                        obj.intCatID = 2;
-                        obj.dtDate = DateTime.Now;
-                        obj.isGroupID = groupid;
-                        dBContext.tblStatusDetails.Add(obj);
                         dBContext.SaveChanges();
                     }
+                   
                 }
                 
             }

@@ -485,6 +485,7 @@
                     $('#texdes_' + (i + 1)).val(myArray[i].Description);
                     $("#texdes_" + (i + 1)).removeAttr("disabled");
                     $("#ChildStatus_" + (i + 1)).removeAttr("disabled");
+                    $('#hivid_' + (i + 1)).val(myArray[i].statusid);
                 }
             }
 
@@ -572,7 +573,7 @@
 
     function setcontrolid(id) {
         var index = 0;
-        $("#contentdiv_" + id).find('select, textarea,span')
+        $("#contentdiv_" + id).find('select, textarea,span,input:hidden')
             .each(function () {
 
                 if (index == 0) {
@@ -588,6 +589,13 @@
                  else if (index == 5) {
                     $(this).attr('id', 'texdes_' + id)
                 }
+                
+                else if (index == 6) {
+                    $(this).attr('id', 'hivid_' + id)
+                }
+                
+                //alert(index);
+
 
                 index++;
 
@@ -641,6 +649,7 @@
                         $('#texdes_1 ').val(myArray[0].Description);
                         $("#texdes_1").removeAttr("disabled");
                         $("#ChildStatus_1").removeAttr("disabled");
+                        $('#hivid_1 ').val(myArray[0].statusid);
                     }
                 }
                 //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
@@ -707,6 +716,7 @@
                 intRoomID : document.getElementById('hroomid').value,
                 intStatusID: "-1",
                 isGroupID: pgroupid,
+                intSeqID : "-1",
                
             };
             var id = $(div[i]).attr("id").split("_");
@@ -715,6 +725,8 @@
                 statussave.intStatusID = $("#ParendStatus_" + id[1]).val();
             }
             statussave.intChildStatus = $("#ChildStatus_" + id[1]).val();
+            statussave.intSeqID = $("#hivid_" + id[1]).val();
+            
             if ($("#texdes_" + id[1]).val().length > 0) {
                 statussave.Description = $("#texdes_" + id[1]).val();
             }
