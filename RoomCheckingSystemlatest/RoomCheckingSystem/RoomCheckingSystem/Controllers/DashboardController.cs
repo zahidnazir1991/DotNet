@@ -85,7 +85,11 @@ namespace RoomCheckingSystem.Controllers
                     var Listroomsstatus = dBContext.spLoadRoomsstatus
                  .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
        .ToList();
+
+              
+
                     roomdetails.listofRooms = Listroomsstatus;
+                    
                 }
 
                 obj.listofRooms = Listrooms;
@@ -223,6 +227,14 @@ namespace RoomCheckingSystem.Controllers
                  .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
        .ToList();
                     roomdetails.listofRooms = Listroomsstatus;
+
+
+                    parametersstatus.ElementAt(2).Value = 1;
+                    var Listhousekeepingstatus = dBContext.spLoadRoomsstatus
+              .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
+               .ToList();
+
+                    roomdetails.HousekeepingRooms = Listhousekeepingstatus;
                 }
 
                 obj.listofRooms = Listrooms;

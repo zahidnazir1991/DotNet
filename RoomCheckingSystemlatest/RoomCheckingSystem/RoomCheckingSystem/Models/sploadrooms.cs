@@ -12,6 +12,7 @@ namespace RoomCheckingSystem.Models
         public int RoomID { get; set; }
         public string RoomName { get; set; }
         public IEnumerable<spLoadRoomsstatus> listofRooms { get; set; }
+        public IEnumerable<spLoadRoomsstatus> HousekeepingRooms { get; set; }
 
     }
 }

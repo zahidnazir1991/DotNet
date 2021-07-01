@@ -36,9 +36,10 @@
                         DateTime? dtdate;
                         string json = "";
 
+
                         if (mrooms.listofRooms.Count() > 0)
                         {
-                          //mrooms.listofRooms.Where(o => o.isGroupID == 1);
+                            //mrooms.listofRooms.Where(o => o.isGroupID == 1);
                             color = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).StatusColor;
                             dtdate = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).dtDate;
                             Groupid = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).isGroupID;
@@ -57,6 +58,7 @@
 
                             pStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).pStatus;
                             cStatus = mrooms.listofRooms.ElementAt(mrooms.listofRooms.Count() - 1).cStatus;
+
 
 
                         }
@@ -132,56 +134,68 @@
 
                         </div>
 
-                        <div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model(this, true);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important;">
 
-                            <div class="row cxm-no-gutters">
-                                <div class="col-3">
-                                    <div class="cxm-p-1 text-bold cxm-mob_roomname" style="border-left:2px #FFF solid;">
-
-
-                                        @mrooms.RoomName
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="cxm-p-1 text-bold js-div_foucs_label">&nbsp; @statusname</div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="text-right cxm-p-1 cxm-mob_icon_change">
-
-                                        <span class="js-div_foucs_icon_mob">
-                                            @{
-                                                if (statusid != -1 && statusid != 0)
-                                                {
-
-                                                    <span class="@icon dashboardiconsize"></span>
-                                                }
-                                                else
-                                                {
-
-                                                    <img class="js-maintenance_icon" src="~/images/cxm-icon-tool.png" alt="Tool" width="25">
-                                                }
-
-                                            }
+                        @if (mrooms.HousekeepingRooms.Count() > 0)
+                        {
+                            @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model(this, true);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important; border-left: 12px @mrooms.HousekeepingRooms.ElementAt(0).StatusColor solid;">
+                            }
+                            else
+                            {
+                                @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model(this, true);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important;">
+                                }
 
 
-                                        </span>
 
-                                        <span class="js-div_foucs_priority_mob">
-                                        </span>
 
-                                    </div>
+
+                        <div class="row cxm-no-gutters">
+                            <div class="col-3">
+                                <div class="cxm-p-1 text-bold cxm-mob_roomname" style="border-left:2px #FFF solid;">
+
+
+                                    @mrooms.RoomName
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="cxm-p-1 text-bold js-div_foucs_label">&nbsp; @statusname</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-right cxm-p-1 cxm-mob_icon_change">
+
+                                    <span class="js-div_foucs_icon_mob">
+                                        @{
+                                            if (statusid != -1 && statusid != 0)
+                                            {
+
+                                                <span class="@icon dashboardiconsize"></span>
+                                            }
+                                            else
+                                            {
+
+                                                <img class="js-maintenance_icon" src="~/images/cxm-icon-tool.png" alt="Tool" width="25">
+                                            }
+
+                                        }
 
 
+                                    </span>
+
+                                    <span class="js-div_foucs_priority_mob">
+                                    </span>
+
+                                </div>
+                            </div>
                         </div>
-                        
 
-                    }
+
+                    @:</div>
+
+
+                }
                 </div>
 
 
-            </div>
+                </div>
 
         }
 
