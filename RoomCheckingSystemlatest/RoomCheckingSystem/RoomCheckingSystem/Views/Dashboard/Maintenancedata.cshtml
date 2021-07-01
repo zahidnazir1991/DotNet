@@ -11,7 +11,6 @@
         border: 1px #333 solid;
         color: #333;
     }
-
 </style>
 <div class="row" style="margin-top:15px;">
     <div class="col-sm-12">
@@ -119,83 +118,155 @@
 
 
                                 </div>
-                                @{
-                                    if (count > 1)
-                                    {
-                                        <div class="row cxm-no-gutters text-left">
-                                            <span class="badge cxm-badge-2">2</span>
-
-                                        </div>
-                                    }
-
-                                }
-
-                            </div>
-
-                        </div>
-
-
-                        @if (mrooms.HousekeepingRooms.Count() > 0)
-                        {
-                            @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model(this, true);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important; border-left: 12px @mrooms.HousekeepingRooms.ElementAt(0).StatusColor solid;">
-                            }
-                            else
-                            {
-                                @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model(this, true);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important;">
-                                }
-
-
-
-
-
-                        <div class="row cxm-no-gutters">
-                            <div class="col-3">
-                                <div class="cxm-p-1 text-bold cxm-mob_roomname" style="border-left:2px #FFF solid;">
-
-
-                                    @mrooms.RoomName
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="cxm-p-1 text-bold js-div_foucs_label">&nbsp; @statusname</div>
-                            </div>
-                            <div class="col-3">
-                                <div class="text-right cxm-p-1 cxm-mob_icon_change">
-
-                                    <span class="js-div_foucs_icon_mob">
+                                <div class="row cxm-no-gutters" style="min-width: 102%;">
+                                    <div class="col-1 text-left">
                                         @{
-                                            if (statusid != -1 && statusid != 0)
+
+                                            if (count > 1)
                                             {
+                                                    <span class="badge cxm-badge-2">2</span>
 
-                                                <span class="@icon dashboardiconsize"></span>
                                             }
-                                            else
+                                        }
+                                    </div>
+                                    <div class="col-9" style="padding-right: 9px;">
+                                        @{
+                                            if (cStatus == 2)
                                             {
+                                                <div class="text-right">
 
-                                                <img class="js-maintenance_icon" src="~/images/cxm-icon-tool.png" alt="Tool" width="25">
+                                                    <img src="~/images/p2.png" title="High" style="width:20px;z-index:200" />
+                                                </div>
                                             }
 
+                                            else if (cStatus == 3)
+                                            {
+                                                <div class="text-right">
+                                                    <img src="~/images/p3.png" title="Urgent" style="width:20px;" />
+                                                </div>
+                                                }
+                                            }
+                                        </div>
+
+                                </div>
+                                    @*@{
+                                        if (count > 1)
+                                        {
+                                            <div class="row cxm-no-gutters text-left">
+                                                <span class="badge cxm-badge-2">2</span>
+
+                                            </div>
                                         }
 
+                                   
 
-                                    </span>
-
-                                    <span class="js-div_foucs_priority_mob">
-                                    </span>
+                                    }*@
 
                                 </div>
+                               
+
                             </div>
-                        </div>
 
 
-                    @:</div>
+                                    @if (mrooms.HousekeepingRooms.Count() > 0)
+                                    {
+                                        @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model_mob('@mbuilding.BuildingName', '@mbuilding.BuildingID', '@mrooms.RoomName', '@mrooms.RoomID',@pStatus,@cStatus,@statusid,@Groupid, '@dtdate',@count);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important; border-left: 12px @mrooms.HousekeepingRooms.ElementAt(0).StatusColor solid;">
+                                        }
+                                        else
+                                        {
+                                            @:<div class="cxm-room-bx cxm-bg-teal js-div_foucs_main fc1 hidden-md-up d-md-block" onclick="show_status_in_model_mob('@mbuilding.BuildingName', '@mbuilding.BuildingID', '@mrooms.RoomName', '@mrooms.RoomID',@pStatus,@cStatus,@statusid,@Groupid, '@dtdate',@count);" js-data="{&quot;model_title&quot;:&quot;81-83&amp;nbsp;&amp;nbsp;&amp;gt;&amp;gt;&amp;nbsp;&amp;nbsp;1A&quot;,&quot;room_id&quot;:&quot;c2f0e190b9bcb3c92d02f4968994d71c&quot;,&quot;building_id&quot;:&quot;96cfbc9de3f0ca3f93c8c13abc420ccd&quot;,&quot;current_status_id&quot;:null}" title="Change Status" style="cursor:pointer;background-color:@color !important;">
+                                            }
 
 
-                }
-                </div>
 
 
-                </div>
+
+                                    <div class="row cxm-no-gutters">
+                                        <div class="col-3">
+                                            <div class="cxm-p-1 text-bold cxm-mob_roomname" style="border-left:2px #FFF solid;">
+
+
+                                                @mrooms.RoomName
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="cxm-p-1 text-bold js-div_foucs_label">&nbsp; @statusname</div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="text-right cxm-p-1 cxm-mob_icon_change">
+
+
+                                                <span class="js-div_foucs_priority_mob">
+                                                    @{
+                                                        if (cStatus == 2)
+                                                        {
+
+
+                                                            <img src="~/images/p2.png" title="High" style="width:20px;z-index:200" />
+
+                                                        }
+
+                                                        else if (cStatus == 3)
+                                                        {
+
+                                                            <img src="~/images/p3.png" title="Urgent" style="width:20px;" />
+
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <span class="js-div_foucs_icon_mob">
+                                                                @{
+                                                                    if (statusid != -1 && statusid != 0)
+                                                                    {
+
+                                                                        <span class="@icon dashboardiconsize"></span>
+                                                                    }
+                                                                    else
+                                                                    {
+
+                                                                        <img class="js-maintenance_icon" src="~/images/cxm-icon-tool.png" alt="Tool" width="25">
+                                                                    }
+
+                                                                }
+
+
+                                                            </span>
+                                                            @*<img src="" title="Urgent" style="width:20px; background-color:transparent" />*@
+
+                                                        }
+
+                                                    }
+
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                @:</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                }
+                            </div>
+
+
+                            </div>
 
         }
 
@@ -228,7 +299,7 @@
         }
 
         $(document).ready(function () {
-            
+
             openalltabs();
         });
 

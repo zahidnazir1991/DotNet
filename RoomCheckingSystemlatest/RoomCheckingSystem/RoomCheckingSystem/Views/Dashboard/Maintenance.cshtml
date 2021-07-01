@@ -56,6 +56,11 @@
     .modal-lg {
         max-width: 45% !important;
     }
+    .modal_mob-lg {
+        max-width: 100% !important;
+        height:500px !important;
+    }
+
 
     .modal-header {
         padding: 12px;
@@ -395,11 +400,61 @@
         </div>
 
     </div>
+
+    @*// mobile dialog*@
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div role="dialog" class="modal fade in reveal-modal" tabindex="-1" id="mobloginModal"
+                 data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-scrollable modal_mob-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="h4"> </h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                ×
+                            </button>
+
+                        </div>
+
+                        <div class="modal-body" id="mobdialogbody">
+
+
+
+
+                        </div>
+
+                        @*<div class="modal-footer">
+                            <div class="row m-auto w-100">
+
+                                <div class="col-lg-3 col-md-2 text-left cxm-mb-3">
+                                    <button type="button" id="btnsave" onclick="savestatus();" class="btn btn-success btn-block cxm-btn-1">Save</button>
+                                </div>
+                                <div class="col-lg-6 cxm-mb-3 text-left">
+                                    <button type="button" id="js-maintenance_addtask_btn" class="btn btn-link btn-block text-black no-padding text-sm" style="display:flex; align-items:center; "><span class="fa fa-plus-circle text-green" style="font-size:28px; margin-right:3px; text-decoration:none;"></span> Add Task</button>
+
+                                </div>
+                                <div class="col-sm-3 cxm-mb-3 ">
+                                    <button type="button" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+
+                        </div>*@
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
     <div id="dashboardview">
         <div id="js-dashboard_table" style="text-align: center; margin-top: 10px;">
-        <center> Working please wait... </center>
-    </div>
-        
+            <center> Working please wait... </center>
+        </div>
+
     </div>
 </div>
 
@@ -685,6 +740,78 @@
 
     }
 
+
+    function show_status_in_model_mob(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid, dt, count) {
+
+        $('#full_screen_loader').show();
+        document.getElementById('hbuildingid').value = buildingid;
+        document.getElementById('hroomid').value = roomid;
+
+        Parentstatus = ps;
+        ChildStatus = cs;
+        cstatusid = id;
+        pgroupid = groupid;
+        date = dt;
+        rows = count;
+
+        $.ajax({
+            url: '/Dashboard/CreateMaintenancedialog',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            success: function (result) {
+                $('#full_screen_loader').hide();
+       
+                $('#mobdialogbody').html(result);
+
+                editemplate = $("#contentdiv_1").html();
+
+                document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                var message = document.getElementById('hiv_' + roomid).value;
+
+                if (message != "") {
+                    const myArray = JSON.parse(message);
+                    if (myArray.length > 0) {
+                        $('#ParendStatus_1 option[value=' + myArray[0].pStatus + ']').attr('selected', 'selected');
+                        $('#ChildStatus_1 option[value=' + myArray[0].cStatus + ']').attr('selected', 'selected');
+                        $('#texdes_1 ').val(myArray[0].Description);
+                        $("#texdes_1").removeAttr("disabled");
+                        $("#ChildStatus_1").removeAttr("disabled");
+                        $('#hivid_1 ').val(myArray[0].statusid);
+                    }
+                }
+                //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
+                //$('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
+
+
+                $("#mobloginModal").modal('show');
+                editcontrols(roomid);
+
+            },
+            error: function (xhr, status) {
+                $('#full_screen_loader').hide();
+                alertify.error('OOp! something went wrong...');
+                //alert(status);
+            },
+            complete: function () { }
+
+        });
+        //.done()(function (result) {
+        //    alert(result);
+        //    $('#dialogbody').html(result);
+        //    $("#loginModal").modal('show');
+        //})
+        //    .fail()(function (xhr, status) {
+        //    alert(status);
+        //})
+
+
+        //$("#dialogbody").load("/Dashboard/Createdialog", function () {
+        //    $("#loginModal").modal('show');
+        //})
+
+
+    }
 
     // custom function open the tabs
     function openalltabs() {
