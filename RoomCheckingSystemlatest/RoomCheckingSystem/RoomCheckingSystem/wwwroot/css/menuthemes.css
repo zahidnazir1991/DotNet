@@ -1125,7 +1125,7 @@ pre {
 }
 
 .row {
-    display: -webkit-box;
+   /* display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -1133,7 +1133,7 @@ pre {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px
+    margin-left: -15px*/
 }
 
 @media (min-width:576px) {

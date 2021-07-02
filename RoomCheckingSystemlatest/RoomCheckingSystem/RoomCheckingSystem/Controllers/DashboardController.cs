@@ -255,6 +255,13 @@ namespace RoomCheckingSystem.Controllers
             return PartialView("CreateMaintenancedialog");
         }
 
+        public ActionResult CreateMaintenancedialogmob()
+        {
+            
+
+            return PartialView("CreateMaintenancedialogmob");
+        }
+
         public void Statusdropdown()
         {
             var dropdownlist = util.SelectListstatus(loadDropdown(), "Value", "Text", "-Select main status-");

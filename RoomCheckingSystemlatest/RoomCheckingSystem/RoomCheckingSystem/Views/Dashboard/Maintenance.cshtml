@@ -410,7 +410,7 @@
                 <div class="modal-dialog modal-dialog-scrollable modal_mob-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="h4"> </h4>
+                            <h4 class="modal-title" id="h4_mob"> </h4>
                             <button type="button" class="close" data-dismiss="modal">
                                 ×
                             </button>
@@ -755,37 +755,17 @@
         rows = count;
 
         $.ajax({
-            url: '/Dashboard/CreateMaintenancedialog',
+            url: '/Dashboard/CreateMaintenancedialogmob',
             contentType: 'application/html; charset=utf-8',
             type: 'GET',
             dataType: 'html',
             success: function (result) {
-                $('#full_screen_loader').hide();
-       
+                $('#full_screen_loader').hide();       
                 $('#mobdialogbody').html(result);
-
-                editemplate = $("#contentdiv_1").html();
-
-                document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-                var message = document.getElementById('hiv_' + roomid).value;
-
-                if (message != "") {
-                    const myArray = JSON.parse(message);
-                    if (myArray.length > 0) {
-                        $('#ParendStatus_1 option[value=' + myArray[0].pStatus + ']').attr('selected', 'selected');
-                        $('#ChildStatus_1 option[value=' + myArray[0].cStatus + ']').attr('selected', 'selected');
-                        $('#texdes_1 ').val(myArray[0].Description);
-                        $("#texdes_1").removeAttr("disabled");
-                        $("#ChildStatus_1").removeAttr("disabled");
-                        $('#hivid_1 ').val(myArray[0].statusid);
-                    }
-                }
-                //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
-                //$('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
-
-
+                document.getElementById('h4_mob').innerHTML = buildingname + " >> " + mrooms;
+              
                 $("#mobloginModal").modal('show');
-                editcontrols(roomid);
+                
 
             },
             error: function (xhr, status) {

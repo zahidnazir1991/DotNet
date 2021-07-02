@@ -17,76 +17,81 @@
     <!--===================
     Header
     =======================-->
-    <header class="header">
+    <header class="header" style="background-color:white">
         <div class="container-fluid navbar-dark container-fluid-custom  h-100">
-            <div class="row h-100">
+            <div class="row h-100" style="display: flex; align-items: stretch; -ms-flex-wrap: wrap; flex-wrap: nowrap; margin-right: -15px; margin-left: -15px; align-self: stretch; justify-content: space-between; ">
 
 
-                <div class="col-2 my-auto">
+                <div class="col-md-2 my-auto hidden-md-down" style=" max-width: 6%; min-width: 140px">
                     <div class="navbar-brand hidden-md-down">
-                        <a class="" href="#"><span class="logo-lg">Roomchecking</span></a>
+                        <a class="" href="#"><span class="logo-lg ajs-no-padding" style="color:black">Roomchecking</span></a>
                     </div>
                 </div>
-                <div class="col-1 my-auto">
-                    <div class="float-left"> <a href="#" class="button-left "><span class="fa fa-fw fa-bars"></span></a> </div>
+                <div class="col-md-1 col-sm-1 my-auto">
+                    <div class="float-left"> <a href="#" class="button-left "><span class="fa fa-fw fa-bars" style="color:black; font-size:24px"></span></a> </div>
                 </div>
 
-                <div class="col-5 my-auto text-center">
-                    <table>
-                        <tr>
-                            <td>
+                <div class="col-md-5 col-sm-8 my-auto text-center">
+                    
+                    <div  >
+                        <div class="" style="padding: 4px 0px; justify-content: center; display: flex;">
+                            <div class="col-sm-4 col-md-3">
                                 <a href="/Dashboard/Dashboard">
                                     <div>
                                         <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-clean.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
                                     </div>
-                                    <div class="tdstyle">
+                                    <div class="hidden-md-down tdstyle" style="color: black;">
                                         HouseKeeping
                                     </div>
 
                                 </a>
-                            </td>
-
-                            <td>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
                                 <a href="/Dashboard/Maintenance">
                                     <div>
                                         <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/cxm-icon-tool-2.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
                                     </div>
-                                    <div class="tdstyle">
+                                    <div class="hidden-md-down tdstyle" style="color: black;">
                                         Maintenance
                                     </div>
 
                                 </a>
-                            </td>
-                            <td>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+
                                 <a href="#">
                                     <div>
                                         <img src="https://www.hydeparkaparts.com/dev.roomchecking.hydeparkaparts.com/assets/admin/ssaq-data/media/shift-handover.png" alt="House Keeping" class="img-responsive" style="margin:0 auto; width:25px; height:25px">
                                     </div>
-                                    <div class="tdstyle">
+                                    <div class="tdstyle hidden-md-down" style="color:black;">
                                         Shift Handover
                                     </div>
 
                                 </a>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+             
+            
+         
+                    </div>
+                    
 
                 </div>
-                <div class="col-2 my-auto ">
-                    <span class="labels">Workout of 23 Apr. 2021</span>
+                <div class="col-md-2 my-auto hidden-md-down">
+                    <span class="labels " style="color:black">Workout of 23 Apr. 2021</span>
                 </div>
 
-                <div class="col-2 my-auto">
+                <div class="col-md-2 col-sm-2 my-auto">
 
                     <div id="navbarNavDropdown">
                         <ul class="navbar-nav">
 
                             <li class="nav-item dropdown  user-menu">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="~/images/man.jpg" class="user-image ml-auto" alt="User Image">
-                                    <span class="hidden-md-down">Zahid Nazir</span>
+                                    <span style="float: right;color: #999" class="hidden-md-down">Zahid Nazir</span>
+                                    <img  style="float:right" src="~/images/man.jpg" class="user-image" alt="User Image">
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div  class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="#">Profile</a>
                                     @Html.ActionLink("Log Out", "logout", "Home", null, htmlAttributes: new { @class = "dropdown-item" })
                                     @*<a class="dropdown-item">@Html.ActionLink("Log Out", "logout", "Home")</a>*@
