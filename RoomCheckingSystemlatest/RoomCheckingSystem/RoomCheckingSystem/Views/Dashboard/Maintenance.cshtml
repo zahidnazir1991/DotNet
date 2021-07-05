@@ -173,6 +173,15 @@
         border: 1px solid #eb340a !important;
         background-color: #faebe7 !important;
     }
+    .chatfooter {
+        margin-bottom: 10px;
+        padding-left: 0px;
+        padding-right: 35px;
+    }
+    .padnew {
+        padding: 10px;
+    }
+    
 </style>
 
 <div id="maindiv" style="padding:15px;">
@@ -407,7 +416,7 @@
         <div class="col-sm-12">
             <div role="dialog" class="modal fade in reveal-modal" tabindex="-1" id="mobloginModal"
                  data-keyboard="false" data-backdrop="static">
-                <div class="modal-dialog modal-dialog-scrollable modal_mob-lg">
+                <div class="modal-dialog modal_mob-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="h4_mob"> </h4>
@@ -424,454 +433,461 @@
 
                         </div>
 
-                        @*<div class="modal-footer">
-                            <div class="row m-auto w-100">
+                        <div class="modal-footer">
+                            @*<div class="row m-auto w-100">
 
-                                <div class="col-lg-3 col-md-2 text-left cxm-mb-3">
-                                    <button type="button" id="btnsave" onclick="savestatus();" class="btn btn-success btn-block cxm-btn-1">Save</button>
-                                </div>
-                                <div class="col-lg-6 cxm-mb-3 text-left">
-                                    <button type="button" id="js-maintenance_addtask_btn" class="btn btn-link btn-block text-black no-padding text-sm" style="display:flex; align-items:center; "><span class="fa fa-plus-circle text-green" style="font-size:28px; margin-right:3px; text-decoration:none;"></span> Add Task</button>
+            <div class="col-lg-3 col-md-2 text-left cxm-mb-3">
+                <button type="button" id="btnsave" onclick="savestatus();" class="btn btn-success btn-block cxm-btn-1">Save</button>
+            </div>
+            <div class="col-lg-6 cxm-mb-3 text-left">
+                <button type="button" id="js-maintenance_addtask_btn" class="btn btn-link btn-block text-black no-padding text-sm" style="display:flex; align-items:center; "><span class="fa fa-plus-circle text-green" style="font-size:28px; margin-right:3px; text-decoration:none;"></span> Add Task</button>
 
-                                </div>
-                                <div class="col-sm-3 cxm-mb-3 ">
-                                    <button type="button" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
+            </div>
+            <div class="col-sm-3 cxm-mb-3 ">
+                <button type="button" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>*@
+                            <div id="divchatfooter" class="row m-auto w-100">
+                                    <div class="col-12 chatfooter">
+                                        <textarea class="form-control" id="js-chat_maintenance_txt" autocomplete="off" placeholder="Type message..."></textarea>
+                                        <a class="btn-primary" style="position: absolute; right: 2px; bottom: 0; padding: 17px 6px 17px 6px;" onclick="open_image_upload ();"><span class="fa fa-camera" style="color:white;"></span></a>
+                                    </div>
+
+                                    <div class="col-12 padnew bg-green fc1 btn-block text-center" style="background-color: #00a65a !important; height: 50px; font-size: 20px;" onclick="$('#js-chat_txt').val( $('#js-chat_maintenance_txt').val() ); window.chatbox.postComments(); $('#js-chat_maintenance_txt').val ('');  $('#js-chat_txt').val ('');">Send <span class="fa fa-paper-plane"></span></div>
+                                    </div>
                                 </div>
 
                             </div>
-
-                        </div>*@
+                        </div>
 
                     </div>
                 </div>
 
             </div>
+
+            <div id="dashboardview">
+                <div id="js-dashboard_table" style="text-align: center; margin-top: 10px;">
+                    <center> Working please wait... </center>
+                </div>
+
+            </div>
         </div>
 
-    </div>
-
-    <div id="dashboardview">
-        <div id="js-dashboard_table" style="text-align: center; margin-top: 10px;">
-            <center> Working please wait... </center>
-        </div>
-
-    </div>
-</div>
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
 
 
-<script type="text/javascript">
-    var Parentstatus = -1;
-    var ChildStatus = -1;
-    var cstatusid = -1;
-    var pgroupid = -1;
-    var date;
-    var rows = 0;
-    var editemplate = "";
-    const mroomid = -1;
-    var HousekeepingID = -1;
+        <script type="text/javascript">
+            var Parentstatus = -1;
+            var ChildStatus = -1;
+            var cstatusid = -1;
+            var pgroupid = -1;
+            var date;
+            var rows = 0;
+            var editemplate = "";
+            const mroomid = -1;
+            var HousekeepingID = -1;
 
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+            var acc = document.getElementsByClassName("accordion");
+            var i;
 
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
 
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-                panel.classList.add("panelhide");
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                        panel.classList.add("panelhide");
 
 
-            } else {
+                    } else {
 
-                panel.classList.add("panel");
-                panel.style.maxHeight = panel.scrollHeight + "px";
+                        panel.classList.add("panel");
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+
+
+                    }
+                });
+
 
 
             }
-        });
 
+            function loadgrid() {
+                var menu_container = $('#js-dashboard_table');
+                $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
+                $.ajax({
+                    url: '/Dashboard/Maintenancedata',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        $('#full_screen_loader').hide();
+                        $('#dashboardview').empty();
+                        $('#dashboardview').html(result);
+                        //openalltabs();
 
+                    },
+                    error: function (xhr, status) {
+                        $('#full_screen_loader').hide();
+                        alertify.error('OOp! something went wrong...');
+                        //alert(status);
+                    },
+                    complete: function () { }
 
-    }
-
-    function loadgrid() {
-        var menu_container = $('#js-dashboard_table');
-        $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
-        $.ajax({
-            url: '/Dashboard/Maintenancedata',
-            contentType: 'application/html; charset=utf-8',
-            type: 'GET',
-            dataType: 'html',
-            success: function (result) {
-                $('#full_screen_loader').hide();
-                $('#dashboardview').empty();
-                $('#dashboardview').html(result);
-                //openalltabs();
-
-            },
-            error: function (xhr, status) {
-                $('#full_screen_loader').hide();
-                alertify.error('OOp! something went wrong...');	
-                //alert(status);
-            },
-            complete: function () { }
-
-        });
-    }
-
-    function editcontrols(roomid) {
-        
-        var templete = editemplate;
-        
-        if (rows > 1) { 
-        for (i = 1; i < rows; i++) {
-            $("#divdynamic").append("<div id='contentdiv_" + (i + 1) + "'  class='layout'>" + templete + "</div>");
-            setcontrolid((i + 1));
-            var message = document.getElementById('hiv_' + roomid).value;
-           
-            if (message != "") {
-                const myArray = JSON.parse(message);
-                if (myArray.length > 0) {
-                    $('#ParendStatus_' + (i + 1) + ' option[value=' + myArray[i].pStatus + ']').attr('selected', 'selected');
-                    $('#ChildStatus_' + (i + 1) + ' option[value=' + myArray[i].cStatus + ']').attr('selected', 'selected');
-                    $('#texdes_' + (i + 1)).val(myArray[i].Description);
-                    $("#texdes_" + (i + 1)).removeAttr("disabled");
-                    $("#ChildStatus_" + (i + 1)).removeAttr("disabled");
-                    $('#hivid_' + (i + 1)).val(myArray[i].statusid);
-                }
+                });
             }
 
-            if ($(".js-maintenance_combo_remove_task").length > 1) {
-                $(".js-maintenance_combo_remove_task").show();
-            }
-        }
-    }
+            function editcontrols(roomid) {
 
+                var templete = editemplate;
 
-    }
+                if (rows > 1) {
+                for (i = 1; i < rows; i++) {
+                    $("#divdynamic").append("<div id='contentdiv_" + (i + 1) + "'  class='layout'>" + templete + "</div>");
+                    setcontrolid((i + 1));
+                    var message = document.getElementById('hiv_' + roomid).value;
 
-    function createcontrols() {
+                    if (message != "") {
+                        const myArray = JSON.parse(message);
+                        if (myArray.length > 0) {
+                            $('#ParendStatus_' + (i + 1) + ' option[value=' + myArray[i].pStatus + ']').attr('selected', 'selected');
+                            $('#ChildStatus_' + (i + 1) + ' option[value=' + myArray[i].cStatus + ']').attr('selected', 'selected');
+                            $('#texdes_' + (i + 1)).val(myArray[i].Description);
+                            $("#texdes_" + (i + 1)).removeAttr("disabled");
+                            $("#ChildStatus_" + (i + 1)).removeAttr("disabled");
+                            $('#hivid_' + (i + 1)).val(myArray[i].statusid);
+                        }
+                    }
 
-        //its mean we have temple to add new task
-        //var templete = $("#contentdiv_1").html();
-        var templete = editemplate;
-        var divno = $(".layout");
-        var nodiv = divno.length;
-        nodiv = nodiv + 1;
-
-        $("#divdynamic").append("<div id='contentdiv_" + nodiv + "'  class='layout'>" + templete + "</div>");
-        setcontrolid(nodiv);
-        if ($(".js-maintenance_combo_remove_task").length > 1) {
-            $(".js-maintenance_combo_remove_task").show();
-        }
-
-    }
-    $(document).ready(function () {       //Error happens here, $ is not defined.
-        alertify.set('notifier', 'position', 'top-center');
-        //$("#dashboardview").load('@Url.Content("/Dashboard/Maintenancedata")');
-
-        loadgrid();
-
-        
-        //$("#btnShowModal").click(function () {
-        //    $("#loginModal").modal('show');
-        //});
-
-        $("#btnHideModal").click(function () {
-            $("#loginModal").modal('hide');
-        });
-
-
-        $("#js-maintenance_addtask_btn").click(function () {
-            //alertify.notify('Working please wait...');
-            //alertify.success("helow")
-            //alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
-            createcontrols();
-            
-
-        });
-
-    });
-
-
-    function setcontroldata(id) {
-        var index = 0;
-        $("#contentdiv_" + id).find('select, textarea,span')
-            .each(function () {
-
-                if (index == 0) {
-                    $(this).attr('id', 'ParendStatus_' + id)
-                } else if (index == 2) {
-                    $(this).attr('id', 'ChildStatus_' + id)
-
-                }
-                else if (index == 3) {
-                    $(this).attr('id', 'btndelete_' + id)
-
-                }
-                else if (index == 5) {
-                    $(this).attr('id', 'texdes_' + id)
-                }
-
-                index++;
-
-            });
-
-
-
-
-    }
-
-
-    function setcontrolid(id) {
-        var index = 0;
-        $("#contentdiv_" + id).find('select, textarea,span,input:hidden')
-            .each(function () {
-
-                if (index == 0) {
-                    $(this).attr('id', 'ParendStatus_' + id)
-                } else if (index == 2) {
-                    $(this).attr('id', 'ChildStatus_' + id)
-
-                }
-                else if (index == 3) {
-                    $(this).attr('id', 'btndelete_' + id)
-
-                }
-                 else if (index == 5) {
-                    $(this).attr('id', 'texdes_' + id)
-                }
-                
-                else if (index == 6) {
-                    $(this).attr('id', 'hivid_' + id)
-                }
-                
-                //alert(index);
-
-
-                index++;
-
-            });
-
-
-
-
-    }
-
-
-    var AddRooms = function () {
-        $("#roomModalBody").load("/Home/CreateRoom", function () {
-            $("#create-room").modal("show");
-        })
-    }
-
-
-    function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid,dt,count) {
-        
-        $('#full_screen_loader').show();
-        document.getElementById('hbuildingid').value = buildingid;
-        document.getElementById('hroomid').value = roomid;
-        
-        Parentstatus = ps;
-        ChildStatus = cs;
-        cstatusid = id;
-        pgroupid = groupid;
-        date = dt;
-        rows = count;
-       
-
-        $.ajax({
-            url: '/Dashboard/CreateMaintenancedialog',
-            contentType: 'application/html; charset=utf-8',
-            type: 'GET',
-            dataType: 'html',
-            success: function (result) {
-                $('#full_screen_loader').hide();
-                $('#dialogbody').html(result);
-                
-                editemplate = $("#contentdiv_1").html();
-                
-                document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-                var message = document.getElementById('hiv_' + roomid).value;
-                
-                if (message != "") {
-                    const myArray = JSON.parse(message);
-                    if (myArray.length > 0) {
-                        $('#ParendStatus_1 option[value=' + myArray[0].pStatus + ']').attr('selected', 'selected');
-                        $('#ChildStatus_1 option[value=' + myArray[0].cStatus + ']').attr('selected', 'selected');
-                        $('#texdes_1 ').val(myArray[0].Description);
-                        $("#texdes_1").removeAttr("disabled");
-                        $("#ChildStatus_1").removeAttr("disabled");
-                        $('#hivid_1 ').val(myArray[0].statusid);
+                    if ($(".js-maintenance_combo_remove_task").length > 1) {
+                        $(".js-maintenance_combo_remove_task").show();
                     }
                 }
-                //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
-                //$('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
-
-                
-                $("#loginModal").modal('show');
-                editcontrols(roomid);
-                
-            },
-            error: function (xhr, status) {
-                $('#full_screen_loader').hide();
-                alertify.error('OOp! something went wrong...');	
-                //alert(status);
-            },
-            complete: function () { }
-
-        });
-        //.done()(function (result) {
-        //    alert(result);
-        //    $('#dialogbody').html(result);
-        //    $("#loginModal").modal('show');
-        //})
-        //    .fail()(function (xhr, status) {
-        //    alert(status);
-        //})
-
-
-        //$("#dialogbody").load("/Dashboard/Createdialog", function () {
-        //    $("#loginModal").modal('show');
-        //})
-
-
-    }
-
-
-    function show_status_in_model_mob(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid, dt, count,hkeepingid) {
-
-        
-        $('#full_screen_loader').show();
-        document.getElementById('hbuildingid').value = buildingid;
-        document.getElementById('hroomid').value = roomid;
-
-        Parentstatus = ps;
-        ChildStatus = cs;
-        cstatusid = id;
-        pgroupid = groupid;
-        date = dt;
-        rows = count;
-        HousekeepingID = hkeepingid
-
-        $.ajax({
-            url: '/Dashboard/CreateMaintenancedialogmob?Groupid=' + pgroupid + '&CurrentStatusID=' + HousekeepingID + '',
-            contentType: 'application/html; charset=utf-8',
-            type: 'GET',
-            dataType: 'html',
-            success: function (result) {
-                $('#full_screen_loader').hide();       
-                $('#mobdialogbody').html(result);
-                document.getElementById('h4_mob').innerHTML = buildingname + " >> " + mrooms;
-              
-                $("#mobloginModal").modal('show');
-                
-
-            },
-            error: function (xhr, status) {
-                $('#full_screen_loader').hide();
-                alertify.error('OOp! something went wrong...');
-                //alert(status);
-            },
-            complete: function () { }
-
-        });
-        //.done()(function (result) {
-        //    alert(result);
-        //    $('#dialogbody').html(result);
-        //    $("#loginModal").modal('show');
-        //})
-        //    .fail()(function (xhr, status) {
-        //    alert(status);
-        //})
-
-
-        //$("#dialogbody").load("/Dashboard/Createdialog", function () {
-        //    $("#loginModal").modal('show');
-        //})
-
-
-    }
-
-    // custom function open the tabs
-    function openalltabs() {
-        
-        var acc = document.getElementsByClassName("accordion");
-
-        var i;
-        for (i = 0; i < acc.length; i++) {
-            acc[i].classList.toggle("active");
-            var panel = acc[i].nextElementSibling;
-            panel.classList.add("panel");
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-
-    }
-    function savestatus() {
-
-       // $('.comments').removeClass("validation-failed");
-        var div = $(".layout");
-        
-        var list = [];
-        
-        for (i = 0; i < div.length; i++) {
-            statussave = {
-                intParentStatus: -1,
-                intChildStatus: 0,
-                Description: "",
-                intBuildingID: document.getElementById('hbuildingid').value,
-                intRoomID : document.getElementById('hroomid').value,
-                intStatusID: "-1",
-                isGroupID: pgroupid,
-                intSeqID : "-1",
-               
-            };
-            var id = $(div[i]).attr("id").split("_");
-            statussave.intParentStatus = $("#ParendStatus_" + id[1]).val();
-            if ($("#ParendStatus_" + id[1]).val() != -1) {
-                statussave.intStatusID = $("#ParendStatus_" + id[1]).val();
-            }
-            statussave.intChildStatus = $("#ChildStatus_" + id[1]).val();
-            statussave.intSeqID = $("#hivid_" + id[1]).val();
-            
-            if ($("#texdes_" + id[1]).val().length > 0) {
-                statussave.Description = $("#texdes_" + id[1]).val();
-            }
-            else {
-
-                $("#texdes_" + id[1]).addClass("validation-failed");
-                return;
             }
 
-            list.push(statussave);
-        }
 
-       // alert(JSON.stringify(list));
+            }
 
-        $.ajax({
-            url: '/Dashboard/SaveSelectedMaintenanceStatus',
-            type: 'POST',
-            data: { 'statusDetails': JSON.stringify(list), 'statusid': cstatusid, 'dt': date },
-            dataType: 'json',
+            function createcontrols() {
 
-            success: function (d) {
-                $("#loginModal").modal('hide');
-                alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                //its mean we have temple to add new task
+                //var templete = $("#contentdiv_1").html();
+                var templete = editemplate;
+                var divno = $(".layout");
+                var nodiv = divno.length;
+                nodiv = nodiv + 1;
+
+                $("#divdynamic").append("<div id='contentdiv_" + nodiv + "'  class='layout'>" + templete + "</div>");
+                setcontrolid(nodiv);
+                if ($(".js-maintenance_combo_remove_task").length > 1) {
+                    $(".js-maintenance_combo_remove_task").show();
+                }
+
+            }
+            $(document).ready(function () {       //Error happens here, $ is not defined.
+                alertify.set('notifier', 'position', 'top-center');
+                //$("#dashboardview").load('@Url.Content("/Dashboard/Maintenancedata")');
+
                 loadgrid();
 
-            },
-            error: function (r) {
 
-                alert(r);
+                //$("#btnShowModal").click(function () {
+                //    $("#loginModal").modal('show');
+                //});
+
+                $("#btnHideModal").click(function () {
+                    $("#loginModal").modal('hide');
+                });
+
+
+                $("#js-maintenance_addtask_btn").click(function () {
+                    //alertify.notify('Working please wait...');
+                    //alertify.success("helow")
+                    //alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                    createcontrols();
+
+
+                });
+
+            });
+
+
+            function setcontroldata(id) {
+                var index = 0;
+                $("#contentdiv_" + id).find('select, textarea,span')
+                    .each(function () {
+
+                        if (index == 0) {
+                            $(this).attr('id', 'ParendStatus_' + id)
+                        } else if (index == 2) {
+                            $(this).attr('id', 'ChildStatus_' + id)
+
+                        }
+                        else if (index == 3) {
+                            $(this).attr('id', 'btndelete_' + id)
+
+                        }
+                        else if (index == 5) {
+                            $(this).attr('id', 'texdes_' + id)
+                        }
+
+                        index++;
+
+                    });
+
+
+
+
             }
-        });
-
-    }
 
 
+            function setcontrolid(id) {
+                var index = 0;
+                $("#contentdiv_" + id).find('select, textarea,span,input:hidden')
+                    .each(function () {
 
-</script>
+                        if (index == 0) {
+                            $(this).attr('id', 'ParendStatus_' + id)
+                        } else if (index == 2) {
+                            $(this).attr('id', 'ChildStatus_' + id)
+
+                        }
+                        else if (index == 3) {
+                            $(this).attr('id', 'btndelete_' + id)
+
+                        }
+                         else if (index == 5) {
+                            $(this).attr('id', 'texdes_' + id)
+                        }
+
+                        else if (index == 6) {
+                            $(this).attr('id', 'hivid_' + id)
+                        }
+
+                        //alert(index);
+
+
+                        index++;
+
+                    });
+
+
+
+
+            }
+
+
+            var AddRooms = function () {
+                $("#roomModalBody").load("/Home/CreateRoom", function () {
+                    $("#create-room").modal("show");
+                })
+            }
+
+
+            function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid,dt,count) {
+
+                $('#full_screen_loader').show();
+                document.getElementById('hbuildingid').value = buildingid;
+                document.getElementById('hroomid').value = roomid;
+
+                Parentstatus = ps;
+                ChildStatus = cs;
+                cstatusid = id;
+                pgroupid = groupid;
+                date = dt;
+                rows = count;
+
+
+                $.ajax({
+                    url: '/Dashboard/CreateMaintenancedialog',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        $('#full_screen_loader').hide();
+                        $('#dialogbody').html(result);
+
+                        editemplate = $("#contentdiv_1").html();
+
+                        document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                        var message = document.getElementById('hiv_' + roomid).value;
+
+                        if (message != "") {
+                            const myArray = JSON.parse(message);
+                            if (myArray.length > 0) {
+                                $('#ParendStatus_1 option[value=' + myArray[0].pStatus + ']').attr('selected', 'selected');
+                                $('#ChildStatus_1 option[value=' + myArray[0].cStatus + ']').attr('selected', 'selected');
+                                $('#texdes_1 ').val(myArray[0].Description);
+                                $("#texdes_1").removeAttr("disabled");
+                                $("#ChildStatus_1").removeAttr("disabled");
+                                $('#hivid_1 ').val(myArray[0].statusid);
+                            }
+                        }
+                        //$('#ParendStatus_1 option[value=' + ps + ']').attr('selected', 'selected');
+                        //$('#ChildStatus_1 option[value=' + cs + ']').attr('selected', 'selected');
+
+
+                        $("#loginModal").modal('show');
+                        editcontrols(roomid);
+
+                    },
+                    error: function (xhr, status) {
+                        $('#full_screen_loader').hide();
+                        alertify.error('OOp! something went wrong...');
+                        //alert(status);
+                    },
+                    complete: function () { }
+
+                });
+                //.done()(function (result) {
+                //    alert(result);
+                //    $('#dialogbody').html(result);
+                //    $("#loginModal").modal('show');
+                //})
+                //    .fail()(function (xhr, status) {
+                //    alert(status);
+                //})
+
+
+                //$("#dialogbody").load("/Dashboard/Createdialog", function () {
+                //    $("#loginModal").modal('show');
+                //})
+
+
+            }
+
+
+            function show_status_in_model_mob(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid, dt, count,hkeepingid) {
+
+
+                $('#full_screen_loader').show();
+                document.getElementById('hbuildingid').value = buildingid;
+                document.getElementById('hroomid').value = roomid;
+
+                Parentstatus = ps;
+                ChildStatus = cs;
+                cstatusid = id;
+                pgroupid = groupid;
+                date = dt;
+                rows = count;
+                HousekeepingID = hkeepingid
+
+                $.ajax({
+                    url: '/Dashboard/CreateMaintenancedialogmob?Groupid=' + pgroupid + '&CurrentStatusID=' + HousekeepingID + '',
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        $('#full_screen_loader').hide();
+                        $('#mobdialogbody').html(result);
+                        document.getElementById('h4_mob').innerHTML = buildingname + " >> " + mrooms;
+
+                        $("#mobloginModal").modal('show');
+
+
+                    },
+                    error: function (xhr, status) {
+                        $('#full_screen_loader').hide();
+                        alertify.error('OOp! something went wrong...');
+                        //alert(status);
+                    },
+                    complete: function () { }
+
+                });
+                //.done()(function (result) {
+                //    alert(result);
+                //    $('#dialogbody').html(result);
+                //    $("#loginModal").modal('show');
+                //})
+                //    .fail()(function (xhr, status) {
+                //    alert(status);
+                //})
+
+
+                //$("#dialogbody").load("/Dashboard/Createdialog", function () {
+                //    $("#loginModal").modal('show');
+                //})
+
+
+            }
+
+            // custom function open the tabs
+            function openalltabs() {
+
+                var acc = document.getElementsByClassName("accordion");
+
+                var i;
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].classList.toggle("active");
+                    var panel = acc[i].nextElementSibling;
+                    panel.classList.add("panel");
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+
+            }
+            function savestatus() {
+
+               // $('.comments').removeClass("validation-failed");
+                var div = $(".layout");
+
+                var list = [];
+
+                for (i = 0; i < div.length; i++) {
+                    statussave = {
+                        intParentStatus: -1,
+                        intChildStatus: 0,
+                        Description: "",
+                        intBuildingID: document.getElementById('hbuildingid').value,
+                        intRoomID : document.getElementById('hroomid').value,
+                        intStatusID: "-1",
+                        isGroupID: pgroupid,
+                        intSeqID : "-1",
+
+                    };
+                    var id = $(div[i]).attr("id").split("_");
+                    statussave.intParentStatus = $("#ParendStatus_" + id[1]).val();
+                    if ($("#ParendStatus_" + id[1]).val() != -1) {
+                        statussave.intStatusID = $("#ParendStatus_" + id[1]).val();
+                    }
+                    statussave.intChildStatus = $("#ChildStatus_" + id[1]).val();
+                    statussave.intSeqID = $("#hivid_" + id[1]).val();
+
+                    if ($("#texdes_" + id[1]).val().length > 0) {
+                        statussave.Description = $("#texdes_" + id[1]).val();
+                    }
+                    else {
+
+                        $("#texdes_" + id[1]).addClass("validation-failed");
+                        return;
+                    }
+
+                    list.push(statussave);
+                }
+
+               // alert(JSON.stringify(list));
+
+                $.ajax({
+                    url: '/Dashboard/SaveSelectedMaintenanceStatus',
+                    type: 'POST',
+                    data: { 'statusDetails': JSON.stringify(list), 'statusid': cstatusid, 'dt': date },
+                    dataType: 'json',
+
+                    success: function (d) {
+                        $("#loginModal").modal('hide');
+                        alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                        loadgrid();
+
+                    },
+                    error: function (r) {
+
+                        alert(r);
+                    }
+                });
+
+            }
+
+
+
+        </script>

@@ -18,6 +18,18 @@
     .cxm1-p-1 {
         padding: 4px 10px;
     }
+
+    .chatdivscroll {
+      
+        margin: 4px, 4px;
+        padding: 4px;
+        height: 300px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: justify;
+    }
+
+   
 </style>
 
 <div class="row cxm-no-gutters cxm-bg-white 6 js-model_area_btns_div" style="font-size: 25px;">
@@ -35,8 +47,108 @@
 </div>
 
 <div id="divdetails" class="hidden-sm hidden-md hidden-lg js-model_status_area cal_less_60_height" style="overflow: auto !important; height: 500px; background-color: #d2d6de;color:#000;position: relative;">
-   
 </div>
+
+
+<div class="row cxm-equal-cols" id="js-chat_body_div" style="display: flex;">
+    <div class="col-12">
+
+        <div class="box box-default  xhidden" style="margin-top:0px;margin-bottom:0px;">
+            <div class="box-header">
+
+                <div class="box-tools pull-right hidden-sm-down">
+                    <button type="button" class="btn btn-box-tool" style="margin-top: -5px;margin-right: -5px;" onclick="close_chat_section_again();" data-widget="xcollapse"><i class="fa fa-times text-danger"></i></button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+
+            <div id="divchat" class="box-body cxm-chat-bx">
+                <div class="cxm-scrollnew chatdivscroll" id="js-chatbox-body">
+                    <div id="js-chatbox" style="height: 300px;">
+                        <!-- Conversations are loaded here -->
+                        
+                        <div>
+                            <div class=""><span class="text-bold">Ali</span> 05:06 PM</div>
+                            <div class="margin-bottom">this is first</div>
+                        </div>
+
+
+                        <div>
+                            <span class="text-bold">YOU</span> 05:06 PM &nbsp;&nbsp;
+                            <a href="javascript:;" onclick="window.chatbox.deleteComment('690f18c56d34c7eda99649a0c75767f9');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        </div>
+                        <div class="margin-bottom">first response</div>
+
+
+
+                        <div>
+                            <div class=""><span class="text-bold">Ali</span> 05:07 PM</div>
+                            <div class="margin-bottom">yes</div>
+                        </div>
+
+
+                        <div>
+                            <span class="text-bold">YOU</span> 05:07 PM &nbsp;&nbsp;
+                            <a href="javascript:;" onclick="window.chatbox.deleteComment('5121fcfd727252e15c4a60ddff5d714b');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        </div>
+                        <div class="margin-bottom">no</div>
+
+
+
+                        <div>
+                            <span class="text-bold">YOU</span> 05:12 PM &nbsp;&nbsp;
+                            <a href="javascript:;" onclick="window.chatbox.deleteComment('f60b354528c2388284e5b88f5c599776');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        </div>
+                        <div class="margin-bottom">fff</div>
+
+
+
+                        <div>
+                            <span class="text-bold">YOU</span> 05:12 PM &nbsp;&nbsp;
+                            <a href="javascript:;" onclick="window.chatbox.deleteComment('b91d997df1127014e00ecae317945c8d');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        </div>
+                        <div class="margin-bottom">fff</div>
+
+
+
+                        <div>
+                            <span class="text-bold">YOU</span> 05:12 PM &nbsp;&nbsp;
+                            <a href="javascript:;" onclick="window.chatbox.deleteComment('aacd77df0b5a7321e657208b94cf9b51');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                        </div>
+                        <div class="margin-bottom">ggg</div>
+
+
+
+                        <div>
+                            <div class=""><span class="text-bold">Ali</span> 05:12 PM</div>
+                            <div class="margin-bottom">eeet</div>
+                        </div>
+
+                        <div class="cxm-img-bx cxm-img-bx-right">
+                            <div class="cxm-img-bx-content">
+                                <div class="text-teal text-bold text-sm"><span class="text-bold">YOU</span> 05:13 PM</div>
+                                <a href="javascript:;" onclick="window.open('http://dev.roomchecking.imperialchoice.com/site-uploads/chat/1625501623-60e32fb7185ce.png','chatImage','width=800,height=600');">
+                                    <img src="http://dev.roomchecking.imperialchoice.com//realimages/site-uploads/chat_1625501623-60e32fb7185ce_200_200.png" alt="imgALT" class="img-responsive">
+                                </a>
+                                <div class="text-sm"></div>
+                                <div class="text-teal text-sm text-right">
+                                    <a href="javascript:;" onclick="window.chatbox.deleteComment('511f0d8f3ce39115956cb055f3863b4b');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <center>&nbsp;<img style="display: none;" id="js-chat_box-loader" src="http://dev.roomchecking.imperialchoice.com/assets/admin/img/load-indicator.gif"> </center>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <script type="text/javascript">
         function changeselected(id) {
             if (id == 1) {
@@ -44,9 +156,13 @@
                 $('#sp1').css('color', 'blue');
                 $('#sp2').css('color', 'gray');
                 $('#divdetails').show();
+                $('#divchat').hide();
+                $('#divchatfooter').hide();
 
             } else {
                 $('#divdetails').hide();
+                $('#divchat').show();
+                $('#divchatfooter').show();
                 $('#sp1').css('color', 'gray');
                 $('#sp2').css('color', 'blue');
             }
@@ -54,7 +170,12 @@
 
         }
 
-        $(document).ready(function () {
+    $(document).ready(function () {
+        $('#divdetails').show();
+        $('#divchat').hide();
+        $('#divchatfooter').hide();
+        
+
              var myJsgroup = '@ViewBag.Groupid'
             var myJscurrent = '@ViewBag.CurrentSt'
             
