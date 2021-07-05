@@ -470,6 +470,7 @@
     var rows = 0;
     var editemplate = "";
     const mroomid = -1;
+    var HousekeepingID = -1;
 
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -681,6 +682,7 @@
         pgroupid = groupid;
         date = dt;
         rows = count;
+       
 
         $.ajax({
             url: '/Dashboard/CreateMaintenancedialog',
@@ -741,8 +743,9 @@
     }
 
 
-    function show_status_in_model_mob(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid, dt, count) {
+    function show_status_in_model_mob(buildingname, buildingid, mrooms, roomid, ps, cs, id, groupid, dt, count,hkeepingid) {
 
+        
         $('#full_screen_loader').show();
         document.getElementById('hbuildingid').value = buildingid;
         document.getElementById('hroomid').value = roomid;
@@ -753,9 +756,10 @@
         pgroupid = groupid;
         date = dt;
         rows = count;
+        HousekeepingID = hkeepingid
 
         $.ajax({
-            url: '/Dashboard/CreateMaintenancedialogmob',
+            url: '/Dashboard/CreateMaintenancedialogmob?Groupid=' + pgroupid + '&CurrentStatusID=' + HousekeepingID + '',
             contentType: 'application/html; charset=utf-8',
             type: 'GET',
             dataType: 'html',

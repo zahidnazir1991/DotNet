@@ -4,6 +4,22 @@
 @{
 }
 
+<style type="text/css">
+    .cxm-bg-white {
+        background-color: #FFF;
+    }
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    .cxm1-p-1 {
+        padding: 4px 10px;
+    }
+</style>
+
 <div class="row cxm-no-gutters cxm-bg-white 6 js-model_area_btns_div" style="font-size: 25px;">
     <div class="col-6 js-model_area_btn" onclick="changeselected(1);" data-area="status">
         <div class="text-center pad">
@@ -18,18 +34,19 @@
     </div>
 </div>
 
-<div class="hidden-sm hidden-md hidden-lg js-model_status_area cal_less_60_height" style="overflow: auto !important; height: 1129px; background-color: #d2d6de;color:#000">
-    <div>
-        <div class="pad bg-gray mb-2">Room Status</div>
-    </div>
+<div id="divdetails" class="hidden-sm hidden-md hidden-lg js-model_status_area cal_less_60_height" style="overflow: auto !important; height: 500px; background-color: #d2d6de;color:#000;position: relative;">
+   
 </div>
-    <script type="text/javascript">
+<script type="text/javascript">
         function changeselected(id) {
             if (id == 1) {
 
                 $('#sp1').css('color', 'blue');
                 $('#sp2').css('color', 'gray');
+                $('#divdetails').show();
+
             } else {
+                $('#divdetails').hide();
                 $('#sp1').css('color', 'gray');
                 $('#sp2').css('color', 'blue');
             }
@@ -37,6 +54,75 @@
 
         }
 
+        $(document).ready(function () {
+             var myJsgroup = '@ViewBag.Groupid'
+            var myJscurrent = '@ViewBag.CurrentSt'
+            
+            $.ajax({
+                dataType: 'json',
+                url: '/Dashboard/getDetailsofStatus?group=' + myJsgroup + '&statusid=' + myJscurrent+'',
+                type: 'GET',
+                success: function (data) {
+
+                    $("#divdetails").html(data);
+
+                },
+                error: function () {
+                    alert("Request Failed");
+                }
+            });
+        });
+
+        function Maintenance_combo_multi_task(groupid) {
+            //alert($("#group-" + groupid).data("group_id"));
+            var totaldivs = $("#js-maintenance_next_status_btns").children("div");
+            for (var i = 0; i < $("#js-maintenance_next_status_btns").children("div").length; i++) {
+                $("#" + totaldivs[i].id).hide();
+            }
+
+            if (document.getElementById("groupt-" + groupid) !== null) {
+                $("#groupt-" + groupid).show();
+            } else {
+                alertify.notify("No Action Needed for this Status")
+            }
 
 
-    </script>
+
+
+    }
+
+    function changestatus(st, nextst) {
+
+        ajaxrequest(st, nextst)
+        
+    }
+
+    function ajaxrequest(stid,nsid) {
+
+        $.ajax({
+            url: '/Dashboard/updatenextMaintenanceStatus',
+            contentType: 'application/html; charset=utf-8',
+            data: { 'id': stid, 'stid': nsid },
+            type: 'GET',
+            dataType: "json",
+            success: function (result) {
+                $('#full_screen_loader').hide();
+                $("#mobloginModal").modal('hide');
+                alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                window.location.reload();
+                //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
+                //$("#loginModal").modal('show');
+
+            },
+            error: function (xhr, status) {
+                $('#full_screen_loader').hide();
+                alertify.error('OOp! something went wrong...');
+            },
+            complete: function () { }
+
+        });
+
+    }
+
+
+</script>

@@ -47,7 +47,7 @@ namespace RoomCheckingSystem.Controllers
         public ActionResult Dashboard(int? id)
         {
 
-            
+
             return View();
         }
 
@@ -86,10 +86,10 @@ namespace RoomCheckingSystem.Controllers
                  .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
        .ToList();
 
-              
+
 
                     roomdetails.listofRooms = Listroomsstatus;
-                    
+
                 }
 
                 obj.listofRooms = Listrooms;
@@ -105,22 +105,22 @@ namespace RoomCheckingSystem.Controllers
             return PartialView("Createdialog");
         }
 
-        public JsonResult updatenextStatus(int? id , int? stid)
+        public JsonResult updatenextStatus(int? id, int? stid)
         {
             string securedInfo = "";
 
             String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
             SqlConnection connection = new SqlConnection(ConnectionString);
             connection.Open();
-            SqlCommand command = new SqlCommand(" update tblStatusDetails set intStatusID  = '"+ stid + "' , intChildStatus = '" + stid + "' where intSeqID = '" + id + "'", connection);
+            SqlCommand command = new SqlCommand(" update tblStatusDetails set intStatusID  = '" + stid + "' , intChildStatus = '" + stid + "' where intSeqID = '" + id + "'", connection);
             try
             {
                 command.ExecuteNonQuery();
-                
+
             }
             catch (Exception)
             {
-                
+
             }
             finally
             {
@@ -131,7 +131,33 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
-            public PartialViewResult mobdialog(int? id)
+        public JsonResult updatenextMaintenanceStatus(int? id, int? stid)
+        {
+            string securedInfo = "";
+
+            String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand("update tblStatusDetails set intStatusID  = '" + stid + "' , intParentStatus = '" + stid + "' where intSeqID = '" + id + "'", connection);
+            try
+            {
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return Json(securedInfo);
+        }
+
+
+        public PartialViewResult mobdialog(int? id)
         {
 
             SqlParameter[] parms = { new SqlParameter("@currentstatusID", id) };
@@ -193,12 +219,13 @@ namespace RoomCheckingSystem.Controllers
 
         public ActionResult Maintenance(int? id)
         {
-   
+
             return View();
         }
 
 
-       public PartialViewResult Maintenancedata(int? id) {
+        public PartialViewResult Maintenancedata(int? id)
+        {
 
             if (id == null)
             {
@@ -242,24 +269,94 @@ namespace RoomCheckingSystem.Controllers
             icontypedropdown();
 
             return PartialView("Maintenancedata", Listbulidings);
-            }
+        }
 
-        
+
 
         public ActionResult CreateMaintenancedialog()
         {
             Statusmaintenancedropdown();
             //ChildStatusdropdown(0);
             icontypedropdown();
-           
+
             return PartialView("CreateMaintenancedialog");
         }
 
-        public ActionResult CreateMaintenancedialogmob()
+        public ActionResult CreateMaintenancedialogmob(int? Groupid, int? CurrentStatusID)
         {
-            
+            ViewBag.Groupid = Groupid;
+            ViewBag.CurrentSt = CurrentStatusID;
+           
 
             return PartialView("CreateMaintenancedialogmob");
+        }
+        public JsonResult getDetailsofStatus(int? group, int? statusid)
+        {
+            int stid = (int)statusid;
+            int groupid = (int)group;
+            SqlParameter[] parametersstatus = {
+                    new SqlParameter("@currentstatusID", stid),
+                    new SqlParameter("@groupID", groupid)
+                    };
+            var Listroomsstatus = dBContext.spLoadRoomsstatus
+         .FromSqlRaw("EXECUTE dbo.spLoadstatusdetails  @currentstatusID, @groupID", parametersstatus)
+.ToList();
+            string mystring = "<div>";
+            mystring += "<div class='pad bg-gray mb-2' style='padding-top:10px; padding-left:10px;'>Room Status</div>";
+
+
+            // Test purpose using 3 loops after geting time will remove this work
+            foreach (var roomdetails in Listroomsstatus)
+            {
+                mystring += "<div class='row cxm-no-gutters cxm-bg-white mb-2'><div class='col-6' style='padding:10px;'><div class='pad text-uppercase text-sm' style='font-size: 12px;color: #000;'>" + roomdetails.catname + "</div></div>";
+                mystring += "<div class='col-6'><div class='pad cxm-bg-purple text-sm fc1' style='font-size: 12px;padding:10px;background-color:" + roomdetails.StatusColor + " !important; color:#FFFFFF !important;'><span class='" + roomdetails.icon + "'></span>&nbsp;&nbsp;" + roomdetails.StatusName + "</div></div></div>";
+            }
+            mystring += "<div class='pad bg-gray mb-2' style='padding-top:10px; padding-left:10px;'>Job Description</div>";
+
+            foreach (var roomdetails in Listroomsstatus.Where(x => x.isGroupID != -1).ToList())
+            {
+                mystring += "<div class='row cxm-no-gutters mb-2 cxm-bg-white' onclick='Maintenance_combo_multi_task("+ roomdetails.statusid + ");' style='cursor: pointer;'>";
+                mystring += "<div class='col-9'><div class='cxm1-p-1 vertical-center'style='font-size: 12px;color: #000;'>" + roomdetails.Description + "</div></div><div class='col-3'><div class='text-center cxm1-p-1 fc1' style='background-color:" + roomdetails.StatusColor + " !important; color:#FFFFFF !important;'><span class='" + roomdetails.icon + "'></span><div class='text-sm' style='font-size: 12px;'> " + roomdetails.StatusName + "</div></div></div></div>";
+                mystring += "</div>";
+
+            }
+
+            mystring += "<div class='js-model_status_area' id='js-maintenance_next_status_btns' style='margin-top:100px;position: absolute;bottom:0;left:0;width: 100%;'>";
+            foreach (var roomdetails in Listroomsstatus.Where(x => x.isGroupID != -1).ToList())
+            {
+
+                SqlParameter[] parms = { new SqlParameter("@currentstatusID", roomdetails.stID) };
+                var nextstatus = dBContext.spLoadnextRoomsstatus
+        .FromSqlRaw("EXECUTE dbo.spLoadnextmaintenancestatus @currentstatusID", parms)
+        .ToList();
+
+                int nextstatusid = -1;
+                if (nextstatus.Count() > 0)
+                {
+                    nextstatusid = nextstatus.ElementAt(0).ID;
+                }
+                else
+                {
+                    nextstatusid = -1;
+                }
+
+                if (nextstatus.Count() > 0) { 
+                mystring += "<div id = 'groupt-" + roomdetails.statusid + "' class='js-status_btn_groups' onclick='changestatus(" + roomdetails.statusid + "," + nextstatusid + ");' style='display:none;'>";
+                mystring += "<div id = 'group-" + roomdetails.statusid + "' class='pad cxm-bg-purple fc1 btn-block text-center js-room_status_btns' data-group_id='" + roomdetails.statusid + "' data-value='" + nextstatusid + "' is-last='0' style='background-color: " + nextstatus.ElementAt(0).StatusColor + " !important;; cursor: pointer;height: 50px; font-size: 20px;width:100%;padding:10px;' data-before_after='{&quot;enabled&quot;:0}'>" + nextstatus.ElementAt(0).StatusName + "&nbsp;&nbsp; <span class='" + nextstatus.ElementAt(0).icon + "'></span></div></div>";
+            }
+
+            }
+            mystring += "</div>";
+
+
+
+
+
+
+
+
+
+            return new JsonResult(mystring);
         }
 
         public void Statusdropdown()
@@ -309,7 +406,7 @@ namespace RoomCheckingSystem.Controllers
                 dBContext.tblStatusDetails.Remove(del);
                 dBContext.SaveChanges();
             }
-            
+
             return Json("Deleted");
         }
 
@@ -347,9 +444,9 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
-       
 
-        public JsonResult SaveSelectedMaintenanceStatus(string statusDetails,int? statusid,string dt)
+
+        public JsonResult SaveSelectedMaintenanceStatus(string statusDetails, int? statusid, string dt)
         {
             string securedInfo = "";
             List<StatusDetails> reqObj = JsonConvert.DeserializeObject<List<StatusDetails>>(statusDetails);
@@ -362,7 +459,8 @@ namespace RoomCheckingSystem.Controllers
             {
                 groupid = groupid + 1;
             }
-            foreach (StatusDetails obj in reqObj) {
+            foreach (StatusDetails obj in reqObj)
+            {
                 if (obj.intSeqID == -1 || obj.intSeqID == 0)
                 {
                     int? primarykey = dBContext.tblStatusDetails.Max(u => (int?)u.intSeqID);
@@ -384,7 +482,8 @@ namespace RoomCheckingSystem.Controllers
 
 
                 }
-                else {
+                else
+                {
                     var data = dBContext.tblStatusDetails.Find(obj.intSeqID);
                     if (data != null)
                     {
@@ -396,12 +495,12 @@ namespace RoomCheckingSystem.Controllers
                         dBContext.Entry(data).CurrentValues.SetValues(obj);
                         dBContext.SaveChanges();
                     }
-                   
+
                 }
-                
+
             }
-            
-            
+
+
             securedInfo = "Saved Successfully";
 
 
@@ -452,7 +551,7 @@ namespace RoomCheckingSystem.Controllers
             foreach (DataRow newrow in row)
             {
                 RoomStatus item = new RoomStatus();
-               
+
                 item.intSeqID = Convert.ToInt32(newrow["Value"]);
                 item.text = newrow["Text"].ToString();
                 item.isPriority = Convert.ToBoolean(newrow["priorty"]);
@@ -470,7 +569,7 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
-        
+
 
         private void PopulateTreeView(DataRow[] row, Boolean isParent, List<SelectListItem> list, string defaulttext, DataTable dt)
         {
@@ -481,7 +580,7 @@ namespace RoomCheckingSystem.Controllers
                 item.Value = "-1";
                 list.Add(item);
             }
-            for(int i = 0; i < row.Length; i++)
+            for (int i = 0; i < row.Length; i++)
             {
 
                 SelectListItem item = new SelectListItem();
@@ -490,20 +589,21 @@ namespace RoomCheckingSystem.Controllers
                 if (isParent == true)
                 {
                     list.Add(item);
-                    
+
                 }
                 else
                 {
-                    item.Text = item.Text; 
-                   
+                    item.Text = item.Text;
+
                     list.Add(item);
                 }
-               // DataTable dtChild = loadDropdownchilds(Convert.ToInt32(item.Value));
+                // DataTable dtChild = loadDropdownchilds(Convert.ToInt32(item.Value));
                 DataRow[] foundchildsRows = dt.Select("intParentID =" + Convert.ToInt32(item.Value) + "");
-                if (foundchildsRows.Length != 0) {
-                    PopulateTreeView(foundchildsRows, false, list, "",dt);
+                if (foundchildsRows.Length != 0)
+                {
+                    PopulateTreeView(foundchildsRows, false, list, "", dt);
                 }
-                
+
             }
 
         }
