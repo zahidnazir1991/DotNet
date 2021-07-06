@@ -128,6 +128,26 @@ namespace RoomCheckingSystem.Controllers
             return Json(securedInfo);
         }
 
+        public JsonResult getChat(int? id, int? type)
+        {
+            string returnmessage = "";
+            var data = HttpContext.Session.GetComplexData<User>("UserProfile");
+            SqlParameter[] parms = { new SqlParameter("@intGroupID", id),
+            new SqlParameter("@type", type),
+            new SqlParameter("@userid", data.ID)
+            };
+            var listofmessages = dBContext.sploadchat
+    .FromSqlRaw("EXECUTE dbo.sploadchat @intGroupID,@type,@userid", parms)
+    .ToList();
+
+            if (listofmessages.Count() > 0) {
+                return Json(listofmessages);
+            }
+
+            return Json(returnmessage);
+        }
+
+
         public JsonResult saveChat(int? statusID, int? GroupID, int? type, int? roomId, int? buildingID,string description)
         {
             string securedInfo = "";
