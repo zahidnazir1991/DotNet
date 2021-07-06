@@ -246,4 +246,23 @@
     }
 
 
+    function saveChat() {
+
+        $.ajax({
+            url: '/Dashboard/saveChat',
+            type: 'POST',
+            data: { 'statusID': cstatusid, 'GroupID': pgroupid, 'type': 1, 'roomId': document.getElementById('hroomid').value, 'buildingID': document.getElementById('hbuildingid').value, 'description': document.getElementById('js-chat_maintenance_txt').value },
+            dataType: 'json',
+            success: function (d) {
+                alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+               
+            },
+            error: function (r) {
+
+                alert(r);
+            }
+        });;
+    }
+
+
 </script>

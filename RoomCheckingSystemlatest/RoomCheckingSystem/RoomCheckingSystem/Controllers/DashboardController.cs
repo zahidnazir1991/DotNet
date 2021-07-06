@@ -86,8 +86,6 @@ namespace RoomCheckingSystem.Controllers
                  .FromSqlRaw("EXECUTE dbo.spLoadRoomsstatus  @buildingID, @roomID,@CatID", parametersstatus)
        .ToList();
 
-
-
                     roomdetails.listofRooms = Listroomsstatus;
 
                 }
@@ -129,6 +127,97 @@ namespace RoomCheckingSystem.Controllers
 
             return Json(securedInfo);
         }
+
+        public JsonResult saveChat(int? statusID, int? GroupID, int? type, int? roomId, int? buildingID,string description)
+        {
+            string securedInfo = "";
+            String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            var data = dBContext.tblChatMaster.Where(x => x.intGroupID== GroupID).SingleOrDefault();
+            if (data == null)
+            {
+                var max = dBContext.tblChatMaster.DefaultIfEmpty().Max(r => r == null ? 1 : r.intSeqID);
+                
+                SqlCommand command = new SqlCommand("spInsertChatMaster", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@intSeqId", max);
+                command.Parameters.AddWithValue("@currentstatusID", statusID);
+                command.Parameters.AddWithValue("@groupID", GroupID);
+                command.Parameters.AddWithValue("@type", type);
+                command.Parameters.AddWithValue("@userId", type);
+                command.Parameters.AddWithValue("@roomid", roomId);
+                command.Parameters.AddWithValue("@buildingid", buildingID);
+                try
+                {
+                    connection.Open();
+                    //string result = command.ExecuteScalar().ToString();
+                    int count = command.ExecuteNonQuery();
+                    if (count > 0)
+                    {
+                        //connection.Close();
+
+                        SqlCommand cmd = new SqlCommand("spInsertChatDetails", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@currentstatusID", statusID);
+                        cmd.Parameters.AddWithValue("@varDescription", description);
+                        cmd.Parameters.AddWithValue("@varImage", "");
+                        cmd.Parameters.AddWithValue("@type", 1);
+                        cmd.Parameters.AddWithValue("@userId", 7);
+                        cmd.Parameters.AddWithValue("@parentID", max);
+                        int detail = cmd.ExecuteNonQuery();
+                        if (detail > 0)
+                        {
+                            connection.Close();
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string ms = ex.Message.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+
+            else {
+
+                try
+                {
+                 SqlCommand cmd = new SqlCommand("spInsertChatDetails", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@currentstatusID", statusID);
+                cmd.Parameters.AddWithValue("@varDescription", description);
+                cmd.Parameters.AddWithValue("@varImage", "");
+                cmd.Parameters.AddWithValue("@type", 1);
+                cmd.Parameters.AddWithValue("@userId", 7);
+                cmd.Parameters.AddWithValue("@parentID", data.intSeqID);
+                    connection.Open();
+                    int detail = cmd.ExecuteNonQuery();
+                if (detail > 0)
+                {
+                    connection.Close();
+                }
+
+            }
+                catch (Exception ex)
+            {
+                string ms = ex.Message.ToString();
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
+            return Json(securedInfo);
+        }
+
 
 
         public JsonResult updatenextMaintenanceStatus(int? id, int? stid)
