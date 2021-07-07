@@ -42,6 +42,11 @@ namespace RoomCheckingSystem.Controllers
             return View();
         }
 
+        public IActionResult Image()
+        {
+            return View();
+        }
+
         public ActionResult ModalPopUp()
         {
             return View();

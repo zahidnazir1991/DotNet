@@ -200,9 +200,10 @@
     <script src="~/ckeditor/ckeditor.js"></script>
     <script src="~/js/alertify.min.js"></script>
     @RenderSection("Scripts", required: false)
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#leftslider").load('@Url.Content("/Dashboard/LoadMenu")');
+<script type="text/javascript">
+    $(document).ready(function () {
+         $("#leftslider").load('@Url.Content("~/Dashboard/LoadMenu")');
+            //$("#leftslider").load('@Url.Content("/Dashboard/LoadMenu")');
 
             $('.button-left').click(function () {
                 $('.sidebar').toggleClass('fliph');
@@ -215,6 +216,6 @@
             });
 
         });
-    </script>
+</script>
 </body>
 </html>

@@ -1,0 +1,109 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style type="text/css">
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<form action="/action_page.php">
+
+    <label id='load-file' onchange='openFile(event)' class="custom-file-upload">
+        <input type="file" id="file" />
+        <i class="fa fa-camera"></i>
+    </label>
+    <div id="file-content"></div>
+    <input type="text" id="showdata"/>
+    <img id='output' style="width:200px; height:200px;">
+
+
+    @*<input type="file" id="file" />
+        <input type='button' id='load-file' value='Load'>
+        <div id="file-content"></div>>*@
+
+    @*<p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+        <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+        <p><img id="output" width="200" /></p>*@
+
+
+    @*<input type="file" id="imgload">
+        <img src="#" id="imgshow" align="left">*@
+    <script type="text/javascript">
+
+            //(function ($) {
+            //    // Add click event handler to button
+            //    $('#load-file').click(function () {
+            //        if (!window.FileReader) {
+            //            return alert('FileReader API is not supported by your browser.');
+            //        }
+            //        var $i = $('#file'), // Put file input ID here
+            //            input = $i[0]; // Getting the element from jQuery
+            //        if (input.files && input.files[0]) {
+            //            file = input.files[0]; // The file
+            //            fr = new FileReader(); // FileReader instance
+            //            fr.onload = function () {
+            //                // Do stuff on onload, use fr.result for contents of file
+            //                $('#file-content').append($('<div/>').html(fr.result))
+            //            };
+            //            //fr.readAsText( file );
+            //            fr.readAsDataURL(file);
+            //        } else {
+            //            // Handle errors here
+            //            alert("File not selected or browser incompatible.")
+            //        }
+            //    });
+            //})(jQuery);
+
+
+            // tech2
+
+            //var loadFile = function (event) {
+            //    var image = document.getElementById('output');
+            //    image.src = URL.createObjectURL(event.target.files[0]);
+            //};
+
+
+
+        @*$('document').ready(function () {
+            $("#imgload").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imgshow').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });*@
+
+
+
+        var openFile = function (event) {
+            var input = event.target;
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataURL = reader.result;
+                var output = document.getElementById('output');
+                var output1 = document.getElementById('showdata').value = dataURL;
+                
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        };
+    </script>
+
+</form>

@@ -518,7 +518,8 @@
                 var menu_container = $('#js-dashboard_table');
                 $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
                 $.ajax({
-                    url: '/Dashboard/Maintenancedata',
+                    //url: '/Dashboard/Maintenancedata',
+                  url:'@Url.Action("Maintenancedata", "Dashboard")',
                     contentType: 'application/html; charset=utf-8',
                     type: 'GET',
                     dataType: 'html',
@@ -775,7 +776,7 @@
                 HousekeepingID = hkeepingid
 
                 $.ajax({
-                    url: '/Dashboard/CreateMaintenancedialogmob?Groupid=' + pgroupid + '&CurrentStatusID=' + HousekeepingID + '',
+                    url: '~/Dashboard/CreateMaintenancedialogmob?Groupid=' + pgroupid + '&CurrentStatusID=' + HousekeepingID + '',
                     contentType: 'application/html; charset=utf-8',
                     type: 'GET',
                     dataType: 'html',

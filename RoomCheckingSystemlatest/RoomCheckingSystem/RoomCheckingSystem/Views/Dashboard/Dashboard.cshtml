@@ -468,8 +468,9 @@
         var Roomname;
         var stid;
 
+
         $(window).resize(function () {
-            
+
         });
 
         $(document).ready(function () {       //Error happens here, $ is not defined.
@@ -498,7 +499,8 @@
             var menu_container = $('#js-dashboard_table');
             $(menu_container).html("<img src='../images/load-indicator.gif' /> <span class='js-msg'>Working please wait...</span>");
             $.ajax({
-                url: '/Dashboard/Housekeepingdata',
+                //url:'/Dashboard/Housekeepingdata',
+                  url:'@Url.Action("Housekeepingdata", "Dashboard")',
                 contentType: 'application/html; charset=utf-8',
                 type: 'GET',
                 dataType: 'html',
@@ -512,7 +514,7 @@
                 error: function (xhr, status) {
                     $('#full_screen_loader').hide();
                     $('#js-dashboard_table').hide();
-                    alertify.error('OOp! something went wrong...');	
+                    alertify.error('OOp! something went wrong...');
                 },
                 complete: function () { }
 
@@ -528,7 +530,7 @@
 
         function show_status_in_model(buildingname, buildingid, mrooms, roomid, ps, cs, prority, cleaningtime, sid, dialog,stID) {
 
-            
+
 
             $('#full_screen_loader').show();
             document.getElementById('hbuildingid').value = buildingid;
@@ -544,18 +546,19 @@
             if ($(document).width() <= 750) {
                 $.ajax({
                     url: '/Dashboard/mobdialog/' + stID,
+                     
                     contentType: 'application/html; charset=utf-8',
                     type: 'GET',
                     dataType: 'html',
                     success: function (result) {
                         $('#full_screen_loader').hide();
-                        
+
                         $('#dashboardviewmob').html(result);
                         $('#dashboardviewmob').show();
                         $('#dashboardview').hide();
                         //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
                         //$("#loginModal").modal('show');
-                       
+
                     },
                     error: function (xhr, status) {
                         $('#full_screen_loader').hide();
@@ -666,7 +669,7 @@
 
             };
             //alert(JSON.stringify(statusDetails));
-            alertify.notify('Working please wait...');	
+            alertify.notify('Working please wait...');
             $.ajax({
                 url: '/Dashboard/SaveSelectedStatus',
                 type: 'POST',
@@ -683,7 +686,7 @@
 
                 },
                 error: function (r) {
-                    alertify.error('OOp! something went wrong...');	
+                    alertify.error('OOp! something went wrong...');
                     //alert(r);
                 }
             });
