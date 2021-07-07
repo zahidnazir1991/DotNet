@@ -28,9 +28,24 @@
         overflow-y: auto;
         text-align: justify;
     }
+    .chatcontainer {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 7px 14px;
+    }
+    
+
+    .darker {
+        border-color: #ccc;
+        background-color: #ddd;
+    }
 
    
 </style>
+
+<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <div class="row cxm-no-gutters cxm-bg-white 6 js-model_area_btns_div" style="font-size: 25px;">
     <div class="col-6 js-model_area_btn" onclick="changeselected(1);" data-area="status">
@@ -81,6 +96,8 @@
 
 
 <script type="text/javascript">
+
+    var chatlength = 0;
         function changeselected(id) {
             if (id == 1) {
 
@@ -96,7 +113,7 @@
                 $('#divchatfooter').show();
                 $('#sp1').css('color', 'gray');
                 $('#sp2').css('color', 'blue');
-                getchat(34);
+                getchat(pgroupid);
             }
 
 
@@ -189,21 +206,18 @@
             success: function (result) {
                 $('#full_screen_loader').hide();
                 var div = document.getElementById('js-chatbox');
-                for (var i = 0; i < result.length; i++) {     
-                    var html = "<div><span class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate +" &nbsp;&nbsp;<a href='javascript:;' onclick='window.chatbox.deleteComment('f60b354528c2388284e5b88f5c599776');' style='color:#F00; font-size:15px;'> <i class='fa fa-trash-o' aria-hidden='true'></i> </a></div><div class='margin-bottom'>" + result[i].varDescription+"</div>";
+                
+                for (var i = chatlength; i < result.length; i++) {
+                    if (result[i].name == 'You') {
+                        var html = "<div class='chatcontainer'><div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                        div.innerHTML += html
+                    } else {
+                        var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                        div.innerHTML += html
+                    }
 
-                    
-                    div.innerHTML += html
                 }
-                
-                //var returnedData = JSON.parse(response);
-                
-               // $("#mobloginModal").modal('hide');
-                //alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
-                //window.location.reload();
-                //document.getElementById('h4').innerHTML = buildingname + " >> " + mrooms;
-                //$("#loginModal").modal('show');
-
+                chatlength = result.length;
             },
             error: function (xhr, status) {
                 $('#full_screen_loader').hide();
@@ -217,6 +231,11 @@
 
 
     function saveChat() {
+        if (document.getElementById('js-chat_maintenance_txt').value.length < 1) {
+
+            alertify.error("Please Type something");
+
+        } else { 
 
         $.ajax({
             url: '/Dashboard/saveChat',
@@ -224,14 +243,43 @@
             data: { 'statusID': cstatusid, 'GroupID': pgroupid, 'type': 1, 'roomId': document.getElementById('hroomid').value, 'buildingID': document.getElementById('hbuildingid').value, 'description': document.getElementById('js-chat_maintenance_txt').value },
             dataType: 'json',
             success: function (d) {
-                alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
-               
+                ///alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+
+                document.getElementById('js-chat_maintenance_txt').value = "";
+                getchat(pgroupid);
             },
             error: function (r) {
 
                 alert(r);
             }
-        });;
+        });
+    }
+    }
+
+    function deleteComment(commitid) {
+
+        
+
+            $.ajax({
+                url: '/Dashboard/deleteChat',
+                type: 'POST',
+                data: { 'id': commitid, 'type': 1 },
+                dataType: 'json',
+                success: function (d) {
+                    ///alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
+                    chatlength = 0;
+                    $('#js-chatbox').empty();
+                    document.getElementById('js-chat_maintenance_txt').value = "";
+                    
+                    getchat(pgroupid);
+                },
+                error: function (r) {
+
+                    alert(r);
+                }
+            });
+        
+
     }
 
 

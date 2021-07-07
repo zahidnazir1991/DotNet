@@ -12,7 +12,7 @@ namespace RoomCheckingSystem.Models
     {
 
         public int? MasterID { get; set; }
-        public int? DetailsID { get; set; }
+        public int? detailid { get; set; }
         public string? varDescription { get; set; }
         public string? dtDate { get; set; }
         public string? name { get; set; }

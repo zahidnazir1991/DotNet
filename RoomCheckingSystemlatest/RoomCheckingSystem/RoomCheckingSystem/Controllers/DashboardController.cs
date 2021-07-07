@@ -147,6 +147,41 @@ namespace RoomCheckingSystem.Controllers
             return Json(returnmessage);
         }
 
+        public JsonResult deleteChat(int? id, int? type)
+        {
+            string returnmessage = "";
+            String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+                
+                SqlCommand command = new SqlCommand("spdeletechat", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@intID", id);
+                command.Parameters.AddWithValue("@type", type);
+                try
+                {
+                    connection.Open();
+                    //string result = command.ExecuteScalar().ToString();
+                    int count = command.ExecuteNonQuery();
+                    if (count > 0)
+                    {
+                        connection.Close();
+                    returnmessage = "Record Deleted Sucessfully";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string ms = ex.Message.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+           
+
+            return Json(returnmessage);
+        }
+
 
         public JsonResult saveChat(int? statusID, int? GroupID, int? type, int? roomId, int? buildingID,string description)
         {
