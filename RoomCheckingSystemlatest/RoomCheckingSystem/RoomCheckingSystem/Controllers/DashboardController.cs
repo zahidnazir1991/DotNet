@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
@@ -9,10 +10,12 @@ using RoomCheckingSystem.Models;
 using RoomCheckingSystem.Repo;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+
+
 
 namespace RoomCheckingSystem.Controllers
 {
@@ -21,10 +24,12 @@ namespace RoomCheckingSystem.Controllers
 
         private IConfiguration configuration;
         private readonly DBContext dBContext;
-        public DashboardController(IConfiguration configuration, DBContext dBContext)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public DashboardController(IConfiguration configuration, DBContext dBContext, IWebHostEnvironment webHostEnvironment)
         {
             this.configuration = configuration;
             this.dBContext = dBContext;
+            this._webHostEnvironment = webHostEnvironment;
         }
         // GET: DashboardController
         public ActionResult Index()
@@ -183,8 +188,54 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
+
+        public Image LoadBase64(string base64)
+        {
+
+            
+            byte[] bytes = Convert.FromBase64String(base64);
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                image = Image.FromStream(ms);
+            }
+            return image;
+        }
+
+        //Convert base64 to image
+        public System.Drawing.Image AspMantraBase64ToImage(string base64String)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+            return image;
+        }
+
+        private void SaveByteArrayAsImage(string fullOutputPath, string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(base64String);
+
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                image = Image.FromStream(ms);
+            }
+
+            image.Save(fullOutputPath, System.Drawing.Imaging.ImageFormat.Png);
+        }
         public JsonResult saveChat(int? statusID, int? GroupID, int? type, int? roomId, int? buildingID,string description)
         {
+            //Image img = AspMantraBase64ToImage("");
+            //img.Save(Microsoft.AspNetCore.Server.MapPath("~/images/aspmantra.jpg"));
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string contentRootPath = _webHostEnvironment.ContentRootPath;
+            string path = "";
+            path = Path.Combine(webRootPath, "uploadimages/aspmantra.jpg");
+
+            SaveByteArrayAsImage(path, "");
+
             string securedInfo = "";
             String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
             SqlConnection connection = new SqlConnection(ConnectionString);
@@ -192,7 +243,9 @@ namespace RoomCheckingSystem.Controllers
             if (data == null)
             {
                 var max = dBContext.tblChatMaster.DefaultIfEmpty().Max(r => r == null ? 1 : r.intSeqID);
-                
+
+
+
                 SqlCommand command = new SqlCommand("spInsertChatMaster", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@intSeqId", max);
@@ -428,6 +481,11 @@ namespace RoomCheckingSystem.Controllers
 
         public ActionResult CreateMaintenancedialogmob(int? Groupid, int? CurrentStatusID)
         {
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string contentRootPath = _webHostEnvironment.ContentRootPath;
+            string path = "";
+            path = Path.Combine(webRootPath, "uploadimages");
             ViewBag.Groupid = Groupid;
             ViewBag.CurrentSt = CurrentStatusID;
            
