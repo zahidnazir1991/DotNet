@@ -204,16 +204,32 @@
             type: 'GET',
             dataType: "json",
             success: function (result) {
+
+          
                 $('#full_screen_loader').hide();
                 var div = document.getElementById('js-chatbox');
                 
                 for (var i = chatlength; i < result.length; i++) {
                     if (result[i].name == 'You') {
-                        var html = "<div class='chatcontainer'><div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
-                        div.innerHTML += html
+                        if (result[i].img != "noimage") {
+                            var html = "<div class='chatcontainer'> <div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div><img style='height:300px; width:300px;' src='/uploadimages/" + result[i].img + "'/></div><div style ='margin-bottom: 10px;margin-top: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                            div.innerHTML += html
+                        } else {
+                            var html = "<div class='chatcontainer'> <div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                            div.innerHTML += html
+                        }
+                        
+                       
                     } else {
-                        var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
-                        div.innerHTML += html
+
+                        if (result[i].img != "noimage") {
+                            var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div><img style='height:300px; width:300px;' src='/uploadimages/" + result[i].img + "'/></div><div style ='margin-bottom: 10px;margin-top: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                            div.innerHTML += html
+                        } else {
+                            var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                            div.innerHTML += html
+                        }
+                       
                     }
 
                 }

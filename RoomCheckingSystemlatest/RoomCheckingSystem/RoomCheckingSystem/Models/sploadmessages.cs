@@ -16,5 +16,6 @@ namespace RoomCheckingSystem.Models
         public string? varDescription { get; set; }
         public string? dtDate { get; set; }
         public string? name { get; set; }
+        public string? img { get; set; }
     }
 }
