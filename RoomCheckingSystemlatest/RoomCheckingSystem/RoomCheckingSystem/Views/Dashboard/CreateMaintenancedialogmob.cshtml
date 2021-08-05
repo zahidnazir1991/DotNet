@@ -357,14 +357,16 @@
 
         } else { 
 
+            
+
         $.ajax({
             url: '/Dashboard/saveChat',
             type: 'POST',
-            data: { 'statusID': cstatusid, 'GroupID': pgroupid, 'type': 1, 'roomId': document.getElementById('hroomid').value, 'buildingID': document.getElementById('hbuildingid').value, 'description': document.getElementById('js-chat_maintenance_txt').value },
+            data: { 'statusID': cstatusid, 'GroupID': pgroupid, 'type': 1, 'roomId': document.getElementById('hroomid').value, 'buildingID': document.getElementById('hbuildingid').value, 'description': document.getElementById('js-chat_maintenance_txt').value, 'base64string': base64string },
             dataType: 'json',
             success: function (d) {
                 ///alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
-
+                base64string = "";
                 document.getElementById('js-chat_maintenance_txt').value = "";
                 getchat(pgroupid);
             },

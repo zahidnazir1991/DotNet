@@ -10,6 +10,17 @@
 <link href="~/css/dashboard.css" rel="stylesheet" />
 <link href="~/css/maintenance.css" rel="stylesheet" />
 <style>
+    input[type="file"] {
+        display: none;
+    }
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+
     .text-red {
         color: #dd4b39 !important;
     }
@@ -448,13 +459,29 @@
 
         </div>*@
                             <div id="divchatfooter" class="row m-auto w-100">
-                                    <div class="col-12 chatfooter">
-                                        <textarea class="form-control" id="js-chat_maintenance_txt" autocomplete="off" placeholder="Type message..."></textarea>
-                                        <a class="btn-primary" style="position: absolute; right: 2px; bottom: 0; padding: 17px 6px 17px 6px;" 
-                                           onclick="open_image_upload ();"><span class="fa fa-camera" style="color:white;"></span></a>
-                                    </div>
+                                    <div class="col-12 chatfooter" style="padding-right:0px;">
+                                        <div class="row">
+                                            <div class="col-11" style="padding-right: 0px;">
+                                                <textarea class="form-control" id="js-chat_maintenance_txt" autocomplete="off" placeholder="Type message..."></textarea>
+                                            </div>
+                                            <div class="col-1 align-items: flex-start" style="padding-left:0px;">
 
-                                    <div class="col-12 padnew bg-green fc1 btn-block text-center" style="background-color: #00a65a !important; height: 50px; font-size: 20px;" onclick="saveChat()">Send <span class="fa fa-paper-plane"></span></div>
+                                                <label class="btn-primary" style="right: 14px;  padding: 17px 7px 20px 7px;margin-bottom:0px;"
+           onchange='openFile(event)'>
+            <input type="file" id="file" />
+        <span class="fa fa-camera" style="color:white;"></span></label>
+                                            </div>
+                                        </div>
+                                       
+                                    
+                                        @*<a class="btn-primary" style="position: absolute; right: 2px; bottom: 0; padding: 17px 6px 17px 6px;" 
+                                           onchange='openFile(event)'>
+                                            <input type="file" id="file" />
+                                        <span class="fa fa-camera" style="color:white;"></span></a>*@
+
+                                    </div>
+                                
+                                        <div class="col-12 padnew bg-green fc1 btn-block text-center" style="background-color: #00a65a !important; height: 50px; font-size: 20px;" onclick="saveChat()">Send <span class="fa fa-paper-plane"></span></div>
                                     </div>
                                 </div>
 
@@ -485,8 +512,9 @@
             var date;
             var rows = 0;
             var editemplate = "";
-            const mroomid = -1;
+           const mroomid = -1;
             var HousekeepingID = -1;
+            var base64string = "";
 
             var acc = document.getElementsByClassName("accordion");
             var i;
@@ -889,5 +917,22 @@
 
             }
 
+
+            var openFile = function (event) {
+
+                var input = event.target;
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var dataURL = reader.result;
+                    //var output = document.getElementById('output');
+                    //var output1 = document.getElementById('showdata').value = dataURL;
+
+                    //output.src = dataURL;
+                    base64string = dataURL;
+                    //alert(dataURL);
+                };
+                reader.readAsDataURL(input.files[0]);
+            };
 
         </script>
