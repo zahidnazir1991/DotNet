@@ -1,0 +1,32 @@
+﻿@using RoomCheckingSystem.Models;
+@model IEnumerable<Summarydata>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@foreach (Summarydata summary in Model)
+{
+
+        @if (summary.statusname == "Total Jobs")
+        {
+            <div class="cxm-bx-1 small-box bg-green" style="        background-color: @summary.colourname !important;color: #000 !important;">
+                <div class="cxm-count-1">@summary.totaljobs</div>
+                <div class="cxm-ttl-1">@summary.statusname</div>
+            </div>
+        }
+        else
+        {
+            <div class="cxm-bx-1 small-box bg-green" style="background-color:@summary.colourname !important;">
+                <div class="cxm-count-1">@summary.totaljobs</div>
+                <div class="cxm-ttl-1">@summary.statusname</div>
+            </div>
+        }
+
+    
+
+
+
+}

@@ -210,7 +210,9 @@
 
     <div class="row cxm-card-1 margin-bottom hidden-lg-down pt-2">
         <div class="col-sm-4 col-md-6" id="js-desktop_summary" style="padding-top:10px;">
-            <div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
+           
+
+            @*<div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
                 <div class="cxm-count-1">0</div>
                 <div class="cxm-ttl-1">Total Jobs</div>
             </div><div class="cxm-bx-1 small-box bg-green" style="background-color:#008000  !important;">
@@ -223,7 +225,10 @@
             <div class="cxm-bx-1 small-box bg-green" style="background-color:#ff6666 !important; ">
                 <div class="cxm-count-1">1</div>
                 <div class="cxm-ttl-1">Check Out</div>
-            </div>
+            </div>*@
+
+
+
         </div>
 
 
@@ -347,54 +352,7 @@
 
     <div class="hidden-md-up">
         <div id="js-summary_boxes">
-            <div class="cxm-row">
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
-
-                        <div class="inner">
-                            <h3>2</h3>
-                            <p class="make-text_bold">Total Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green " style="background-color:#008000 !important;">
-
-                        <div class="inner">
-                            <h3>0</h3>
-                            <p class="make-text_bold">Completed Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green " style="background-color:#df9300 !important;">
-
-                        <div class="inner">
-                            <h3>2</h3>
-                            <p class="make-text_bold">Running Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="cxm-row">
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green" style="background-color:#ff6666 !important; ">
-                        <div class="inner">
-                            <h3>2</h3>
-                            <p class="make-text_bold">Check Out</p>
-                        </div>
-                        <div class="icon"><i class="fa fa-refresh"></i></div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -488,10 +446,31 @@
                 $("#loginModal").modal('hide');
             });
 
+            loadsummary();
+            loadmobsummary();
+
 
 
 
         });
+
+        function loadmobsummary() {
+            $("#js-summary_boxes").innerHTML = ""
+            $("#js-summary_boxes").load("/Dashboard/getmobSummary?id=1", function () {
+                    
+                })
+
+        }
+
+
+
+        function loadsummary() {
+            $("#js-desktop_summary").innerHTML = ""
+            $("#js-desktop_summary").load("/Dashboard/getSummary?id=1", function () {
+
+            })
+
+        }
 
 
         function loadgrid() {
@@ -681,6 +660,8 @@
                     $("#loginModal").modal('hide');
                     alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
                     loadgrid();
+                    loadsummary();
+                    loadmobsummary();
 
 
 

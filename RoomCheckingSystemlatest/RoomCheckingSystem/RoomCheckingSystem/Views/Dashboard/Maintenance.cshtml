@@ -200,7 +200,7 @@
 
     <div class="row cxm-card-1 margin-bottom hidden-lg-down pt-2">
         <div class="col-sm-4 col-md-6" id="js-desktop_summary" style="padding-top: 23px;">
-            <div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
+            @*<div class="cxm-bx-1 small-box bg-green" style="background-color:#eceef4 !important; color: #000 !important;">
                 <div class="cxm-count-1">0</div>
                 <div class="cxm-ttl-1">Total Jobs</div>
             </div><div class="cxm-bx-1 small-box bg-green" style="background-color:#008000  !important;">
@@ -209,7 +209,7 @@
             </div><div class="cxm-bx-1 small-box bg-green" style="background-color: #008000 !important;">
                 <div class="cxm-count-1">0</div>
                 <div class="cxm-ttl-1">Running Jobs</div>
-            </div>
+            </div>*@
         </div>
 
 
@@ -567,6 +567,14 @@
 
                 });
             }
+            function loadsummary() {
+                $("#js-desktop_summary").innerHTML = ""
+                $("#js-desktop_summary").load("/Dashboard/getSummary?id=2", function () {
+
+                })
+
+            }
+
 
             function editcontrols(roomid) {
 
@@ -620,6 +628,7 @@
                 //$("#dashboardview").load('@Url.Content("/Dashboard/Maintenancedata")');
 
                 loadgrid();
+                loadsummary();
 
 
                 //$("#btnShowModal").click(function () {

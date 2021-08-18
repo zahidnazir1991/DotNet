@@ -1,0 +1,100 @@
+﻿@using RoomCheckingSystem.Models;
+@model IEnumerable<Summarydata>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@functions {
+
+    private int? getvalue(Summarydata item)
+    {
+
+
+        return item.totaljobs;
+    }
+
+}
+<div class="cxm-row">
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+            <div class="inner">
+                <h3>@getvalue(Model.First())</h3>
+                <p class="make-text_bold">Total Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green " style="background-color:#008000 !important;">
+
+            <div class="inner">
+                @{
+
+                    var items = Model.Where(x => x.statusname == "Completed Jobs");
+                    <h3>@getvalue(items.FirstOrDefault())</h3>
+
+                }
+
+
+
+
+
+                <p class="make-text_bold">Completed Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green " style="background-color:#df9300 !important;">
+
+            <div class="inner">
+                @{
+
+                    var itemsrunning = Model.Where(x => x.statusname == "Running Jobs");
+                    <h3>@getvalue(itemsrunning.FirstOrDefault())</h3>
+
+                }
+                <p class="make-text_bold">Running Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+</div>
+@{
+    int index = 0;
+
+}
+<div class="cxm-row">
+    @{
+
+        foreach (Summarydata summary in Model)
+        {
+            if (index > 2)
+            {
+                <div class="cxm-col">
+                    <div class="cxm-bx small-box bg-green" style="background-color:@summary.colourname !important; ">
+                        <div class="inner">
+                            <h3>@summary.totaljobs</h3>
+                            <p class="make-text_bold">@summary.statusname</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-refresh"></i></div>
+                    </div>
+                </div>
+
+                
+            }
+            index++;
+        }
+    }
+
+</div>
+  
+    
