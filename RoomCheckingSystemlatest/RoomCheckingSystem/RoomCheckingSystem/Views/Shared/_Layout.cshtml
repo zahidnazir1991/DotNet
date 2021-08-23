@@ -202,6 +202,7 @@
     @RenderSection("Scripts", required: false)
 <script type="text/javascript">
     $(document).ready(function () {
+        var $window = $(window);
          $("#leftslider").load('@Url.Content("~/Dashboard/LoadMenu")');
             //$("#leftslider").load('@Url.Content("/Dashboard/LoadMenu")');
 
@@ -209,11 +210,55 @@
                 $('.sidebar').toggleClass('fliph');
                 $("maindiv").css({
                     marginLeft: '200px',
-
+                 
                 });
 
+                var currentWindowSize = $window.width();
+                if (currentWindowSize >= 0 && currentWindowSize <= 999) {
+
+                    if ($("#leftslider").is(":visible")) {
+
+                        $("#leftslider").hide();
+                    } else {
+                       
+                        $("#leftslider").show();
+                    }
+
+                    
+                }
+
+                
 
             });
+       
+        var currentWindowSize = $window.width();
+        if (currentWindowSize >= 0 && currentWindowSize <= 999) {
+
+            if ($("#leftslider").is(":visible")) {
+
+                $("#leftslider").hide();
+            } else {
+
+                $("#leftslider").hide();
+            }
+
+
+        } else {
+            $("#leftslider").show();
+        }
+
+        $(window).resize(function () {
+            var currentWindowSize = $window.width();
+            if (currentWindowSize >= 0 && currentWindowSize <= 999) {
+
+                $("#leftslider").hide();
+
+            }
+            else {
+                $("#leftslider").show();
+            }
+        });
+
 
         });
 </script>

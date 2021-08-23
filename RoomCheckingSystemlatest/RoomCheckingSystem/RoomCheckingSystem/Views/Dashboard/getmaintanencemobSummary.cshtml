@@ -1,0 +1,73 @@
+﻿@using RoomCheckingSystem.Models;
+@model IEnumerable<Summarydata>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@functions {
+
+    private int? getvalue(Summarydata item)
+    {
+
+
+        return item.totaljobs;
+    }
+
+}
+<div class="cxm-row">
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+            <div class="inner">
+                @*<h3>1</h3>*@
+                @{
+
+                    var itemstotal = Model.Where(x => x.statusname == "Total Jobs");
+                    <h3>@getvalue(itemstotal.FirstOrDefault())</h3>
+
+                }
+                <p class="make-text_bold">Total Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+            <div class="inner">
+                @*<h3>0</h3>*@
+                @{
+
+                    var itemscompleted = Model.Where(x => x.statusname == "Completed Jobs");
+                    <h3>@getvalue(itemscompleted.FirstOrDefault())</h3>
+
+                }
+                <p class="make-text_bold">Completed Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+
+    <div class="cxm-col">
+        <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
+
+            <div class="inner">
+                @*<h3>1</h3>*@
+                @{
+
+                    var items = Model.Where(x => x.statusname == "Running Jobs");
+                    <h3>@getvalue(items.FirstOrDefault())</h3>
+
+                }
+                <p class="make-text_bold">Running Jobs</p>
+            </div>
+
+            <div class="icon"><i class="fa fa-suitcase"></i></div>
+        </div>
+    </div>
+</div>

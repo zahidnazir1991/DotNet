@@ -330,43 +330,7 @@
 
     <div class="hidden-md-up">
         <div id="js-summary_boxes">
-            <div class="cxm-row">
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
-
-                        <div class="inner">
-                            <h3>1</h3>
-                            <p class="make-text_bold">Total Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
-
-                        <div class="inner">
-                            <h3>0</h3>
-                            <p class="make-text_bold">Completed Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-
-                <div class="cxm-col">
-                    <div class="cxm-bx small-box bg-green only_mobile_shadow" style="background-color:#eceef4 !important; color: #000 !important;">
-
-                        <div class="inner">
-                            <h3>1</h3>
-                            <p class="make-text_bold">Running Jobs</p>
-                        </div>
-
-                        <div class="icon"><i class="fa fa-suitcase"></i></div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="cxm-row"></div>
         </div>
     </div>
@@ -575,6 +539,14 @@
 
             }
 
+            function loadmobsummary() {
+                $("#js-summary_boxes").innerHTML = ""
+                $("#js-summary_boxes").load("/Dashboard/getmaintanencemobSummary?id=2", function () {
+
+                })
+
+            }
+
 
             function editcontrols(roomid) {
 
@@ -629,6 +601,7 @@
 
                 loadgrid();
                 loadsummary();
+                loadmobsummary();
 
 
                 //$("#btnShowModal").click(function () {
@@ -916,6 +889,8 @@
                         $("#loginModal").modal('hide');
                         alertify.notify('<span class="fa fa-check" style="font-size:24px;"></span><br>' + " Good job! Your status has been saved", 'success', 3);
                         loadgrid();
+                        loadsummary();
+                        loadmobsummary();
 
                     },
                     error: function (r) {
