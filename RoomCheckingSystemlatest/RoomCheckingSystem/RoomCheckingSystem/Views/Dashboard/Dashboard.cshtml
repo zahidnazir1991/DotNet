@@ -66,7 +66,7 @@
     .reveal-modal {
         position: fixed;
         margin: 0 auto;
-        top: 25%;
+        top: 0%;
     }
 
     .modal-lg {
@@ -200,7 +200,16 @@
         margin-top: 0px;
         padding-top: 5px;
     }
-
+    .btn-default {
+        background-color: #f4f4f4;
+        color: #444;
+        border-color: #ddd;
+    }
+    .removeshadow {
+        text-decoration: none;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
 </style>
  
 
@@ -362,7 +371,7 @@
         <div class="col-sm-12">
             <div role="dialog" class="modal fade in reveal-modal" tabindex="-1" id="loginModal"
                  data-keyboard="false" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="h4"> </h4>
@@ -378,12 +387,34 @@
                         <div class="modal-footer">
                             <div class="row m-auto w-100">
 
-                                <div class="col-lg-3 col-md-2 text-left cxm-mb-3">
+                                <div class="col-lg-3 col-md-12 text-left col-sm-12">
                                     <button type="button" id="btnsave" onclick="savestatus();" class="btn btn-success btn-block cxm-btn-1">Save</button>
                                 </div>
-                                <div class="col-lg-6 cxm-mb-3 ">
+                                <div class="col-lg-6 col-md-12 col-sm-12" style="text-align:center;">
+                                    <div id="divstartchat" style="display:none">
+
+                                        <a href="javascript:;" onclick="startChat(); return false;" class="btn btn-link text-bold text-block" style="color:#000000;font-weight:bold;"><span class="fa fa-paper-plane"></span> Start Chat</a>
+                                    </div>
+
+                                    <div class="input-group removeshadow" id="js-chat_box_btn" style="display: table;padding-right:0px;padding-left:0px;">
+
+                                        <div style="position:relative;">
+                                            <input name="message" style="float: left; width: 100%; margin-bottom: 0;" class="form-control removeshadow" id="js-chat_txt" autocomplete="off" placeholder="Type message...">
+                                        </div>
+
+                                        <div class="input-group-btn" style="display: table-cell;width: 10%;">
+                                            <a class="btn btn-default btn-flat" role="button" data-toggle="collapse" href="#collapseAttachment" onclick="if($('#collapseAttachment').hasClass('in')){setTimeout (()=>resetEditorFileModule ('#js-chatSeletedImage,#js-chatImageAttachImage img,#js-imageAttachToolBar,#js-chatImageAttachImage')  , 500)}" aria-expanded="false" aria-controls="collapseAttachment"><span class="fa fa-paperclip"></span></a>
+                                        </div>
+
+
+                                        <div class="input-group-btn" style="display: table-cell;width: 10%;">
+                                            <button type="button" class="btn btn-default" id="js-chat_btn" onclick="window.chatbox.postComments();"><i class="fa fa-paper-plane"></i></button>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                                <div class="col-sm-3 cxm-mb-3 ">
+                                <div class="col-lg-3 col-md-12 col-sm-12 ">
                                     <button type="button" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
                                 </div>
 
@@ -705,4 +736,14 @@
             });
 
         }
+
+
+        function startChat() {
+            $('#js-chat_body_div').show();
+        }
+
+        function close_chat_section_again() {
+            $('#js-chat_body_div').hide();
+        }
+        
     </script>
