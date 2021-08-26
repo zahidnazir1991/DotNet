@@ -9,57 +9,94 @@
 @using (Html.BeginForm())
 {
 
-    <div id="contentdiv_1" class="layout">
-        <div class="row" style="margin-top:20px;">
-            <div class="col-sm-5">
-                <div class="form-group">
+<div id="contentdiv_1" class="layout">
+    <div class="row" style="margin-top:20px;">
+        <div class="col-sm-5">
+            <div class="form-group">
 
-                    @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusList as SelectList, new { @id = "ParendStatus", @class = "form-control" })
+                @Html.DropDownListFor(model => model.intParentStatus, ViewBag.statusList as SelectList, new { @id = "ParendStatus", @class = "form-control" })
 
-                </div>
             </div>
-            <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
-            <div class="col-sm-5">
-                <div class="form-group">
+        </div>
+        <div class="col-sm-2 text-center"><span class="fa fa-angle-double-right"></span></div>
+        <div class="col-sm-5">
+            <div class="form-group">
 
-                    @Html.DropDownListFor(model => model.intChildStatus, ViewBag.childstatusList as SelectList, new { @id = "ChildStatus", @class = "form-control" })
+                @Html.DropDownListFor(model => model.intChildStatus, ViewBag.childstatusList as SelectList, new { @id = "ChildStatus", @class = "form-control" })
 
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="js-priority_div">
+
+        <div class="col-sm-6 margin-bottom js-is_priority_div" id="tvpro" style="display:none">
+            <div class="row" style="">
+                <div class="col-sm-12">
+                    <label>
+                        <input type="checkbox" id="js-is_priority" value="1" data-selected_status="" data-selected="" onclick="show_save_btn ();"> Mark with priority
+                    </label>
                 </div>
             </div>
         </div>
 
-        <div class="row" id="js-priority_div">
+        <div class="col-sm-6 margin-bottom js-priority_time_div" id="tvtime" style="display:none">
+            <div class="row" style="">
+                <div class="col-sm-6"><label for="cxmChkout" class="control-label">Cleaning Time</label></div>
+                <div class="col-sm-6">
 
-            <div class="col-sm-6 margin-bottom js-is_priority_div" id="tvpro" style="display:none">
-                <div class="row" style="">
-                    <div class="col-sm-12">
-                        <label>
-                            <input type="checkbox" id="js-is_priority" value="1" data-selected_status="" data-selected="" onclick="show_save_btn ();"> Mark with priority
-                        </label>
+                    <select class="form-control" id="js-priority_time" data-selected_status="" data-selected="" onchange="cleaningtimedropdown()" $('#js-is_priority').prop('checked',false);">
+                        <option value="-1"> - Select - </option>
+
+                        <option value="11:30:00">11:30</option>
+                        <option value="12:00:00">12:00</option>
+                        <option value="12:30:00">12:30</option>
+                        <option value="13:00:00">13:00</option>
+                        <option value="13:30:00">13:30</option>
+                        <option value="14:00:00">14:00</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row cxm-equal-cols" id="js-chat_body_div" style="display: none;">
+        <div class="col-12">
+
+            <div class="box box-default  xhidden">
+                <div class="box-header">
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" style="margin-top: -5px;margin-right: -5px;" onclick="close_chat_section_again();" data-widget="xcollapse"><i class="fa fa-times text-danger"></i></button>
                     </div>
+                    <!-- /.box-tools -->
                 </div>
-            </div>
+                <div class="box-body cxm-chat-bx">
+                    <div class="cxm-scroll" id="js-chatbox-body">
+                        <div id="js-chatbox" style="height: 250px;">
+                            <!-- Conversations are loaded here -->
 
-            <div class="col-sm-6 margin-bottom js-priority_time_div" id="tvtime" style="display:none">
-                <div class="row" style="">
-                    <div class="col-sm-6"><label for="cxmChkout" class="control-label">Cleaning Time</label></div>
-                    <div class="col-sm-6">
+                            <div>
+                                <span class="text-bold">YOU</span> 05:49 PM &nbsp;&nbsp;
+                                <a href="javascript:;" onclick="window.chatbox.deleteComment('d2eb78976d745be80b7658bfeb5f7bec');" style="color:#F00; font-size:15px;"> <i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                            </div>
+                            <div class="margin-bottom">ddggd</div>
 
-                        <select class="form-control" id="js-priority_time" data-selected_status="" data-selected="" onchange = "cleaningtimedropdown()" $('#js-is_priority').prop('checked',false);">
-                            <option value="-1"> - Select - </option>
 
-                            <option value="11:30:00">11:30</option>
-                            <option value="12:00:00">12:00</option>
-                            <option value="12:30:00">12:30</option>
-                            <option value="13:00:00">13:00</option>
-                            <option value="13:30:00">13:30</option>
-                            <option value="14:00:00">14:00</option>
-                        </select>
+
+
+                        </div>
+
                     </div>
+
+                    <center>&nbsp;<img style="display: none;" id="js-chat_box-loader" src="http://dev.roomchecking.imperialchoice.com/assets/admin/img/load-indicator.gif"> </center>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
+
+
+</div>
         }
 
         <script type="text/javascript">
