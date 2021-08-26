@@ -42,6 +42,8 @@
         color: #555;
     }
 
+    
+
     .cxm-clock1 {
         font-size:15px;
         position: absolute;
@@ -210,6 +212,21 @@
         box-shadow: none !important;
         font-size: 14px;
     }
+
+    .chatcontainer {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 7px 14px;
+    }
+
+
+    .darker {
+        border-color: #ccc;
+        background-color: #ddd;
+    }
+
 </style>
  
 
@@ -387,16 +404,16 @@
                         <div class="modal-footer">
                             <div class="row m-auto w-100">
 
-                                <div class="col-lg-3 col-md-12 text-left col-sm-12">
-                                    <button type="button" id="btnsave" onclick="savestatus();" class="btn btn-success btn-block cxm-btn-1">Save</button>
+                                <div id="dvsavebutton" class="col-lg-3 col-md-12 text-left col-sm-12">
+                                    <button type="button" id="btnsave" onclick="savestatus('');" class="btn btn-success btn-block cxm-btn-1">Save</button>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12" style="text-align:center;">
-                                    <div id="divstartchat" style="display:none">
+                                <div id="divchatmaster" class="col-lg-6 col-md-12 col-sm-12" style="text-align:center;">
+                                    <div id="divstartchat" style="display:block">
 
                                         <a href="javascript:;" onclick="startChat(); return false;" class="btn btn-link text-bold text-block" style="color:#000000;font-weight:bold;"><span class="fa fa-paper-plane"></span> Start Chat</a>
                                     </div>
 
-                                    <div class="input-group removeshadow" id="js-chat_box_btn" style="display: table;padding-right:0px;padding-left:0px;">
+                                    <div class="input-group removeshadow" id="js-chat_box_btn" style="display: none;padding-right:0px;padding-left:0px;">
 
                                         <div style="position:relative;">
                                             <input name="message" style="float: left; width: 100%; margin-bottom: 0;" class="form-control removeshadow" id="js-chat_txt" autocomplete="off" placeholder="Type message...">
@@ -408,14 +425,14 @@
 
 
                                         <div class="input-group-btn" style="display: table-cell;width: 10%;">
-                                            <button type="button" class="btn btn-default" id="js-chat_btn" onclick="window.chatbox.postComments();"><i class="fa fa-paper-plane"></i></button>
+                                            <button type="button" class="btn btn-default" id="js-chat_btn" onclick="savechat();"><i class="fa fa-paper-plane"></i></button>
                                         </div>
                                     </div>
 
 
                                 </div>
                                 <div class="col-lg-3 col-md-12 col-sm-12 ">
-                                    <button type="button" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
+                                    <button type="button" onclick="close_chat_section_again();" class="btn btn-danger btn-block cxm-btn-1" data-dismiss="modal">Close</button>
                                 </div>
 
                             </div>
@@ -663,9 +680,6 @@
             $checkboxvalue = $('#js-is_priority').prop('checked');
 
 
-
-
-
             var statusDetails = {
 
                 intParentStatus: $parent,
@@ -738,12 +752,97 @@
         }
 
 
+
+
         function startChat() {
             $('#js-chat_body_div').show();
+            var element = document.getElementById("dvsavebutton");
+            element.classList.remove("col-lg-3");
+            $('#dvsavebutton').hide();
+            var chatmaster = document.getElementById("divchatmaster");
+            chatmaster.classList.remove("col-lg-3");
+            chatmaster.classList.add("col-lg-9");
+            $('#divstartchat').hide();
+            $("#js-chat_box_btn").css("display", "table");
+            getchat(35);
+
+            
+
+            
         }
 
         function close_chat_section_again() {
             $('#js-chat_body_div').hide();
+            var element = document.getElementById("dvsavebutton");
+            element.classList.add("col-lg-3");
+            $('#dvsavebutton').show();
+
+            var chatmaster = document.getElementById("divchatmaster");
+            chatmaster.classList.remove("col-lg-9");
+            chatmaster.classList.add("col-lg-6");
+            $('#divstartchat').show();
+            $("#js-chat_box_btn").css("display", "none");
         }
+
+        function getchat(groupid) {
+            var chatlength = 0;
+            $.ajax({
+                url: '/Dashboard/getChat',
+                contentType: 'application/html; charset=utf-8',
+                data: { 'id': groupid, 'type': 2 },
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+
+
+                    $('#full_screen_loader').hide();
+                    var div = document.getElementById('js-chatbox');
+
+                    for (var i = chatlength; i < result.length; i++) {
+                        if (result[i].name == 'You') {
+                            if (result[i].img != "noimage") {
+                                var html = "<div class='chatcontainer'> <div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div><img id=img" + i + " onclick='expendimage(" + i + ");' style='height:300px; width:300px;' src='/uploadimages/" + result[i].img + "'/></div><div style ='margin-bottom: 10px;margin-top: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                                div.innerHTML += html
+                            } else {
+                                var html = "<div class='chatcontainer'> <div style='font-size: 12px;'><span style='font-weight: bold;' class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp; <a href='javascript:;' onclick='deleteComment(" + result[i].detailid + ");' style='color:#F00; font-size:15px;'> <i class='fa fa-trash' aria-hidden='true'></i> </a></div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                                div.innerHTML += html
+                            }
+
+
+                        } else {
+
+                            if (result[i].img != "noimage") {
+                                var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div><img id=img" + i + " style='height:300px; width:300px;' src='/uploadimages/" + result[i].img + "'/></div><div style ='margin-bottom: 10px;margin-top: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                                div.innerHTML += html
+                            } else {
+                                var html = "<div class='chatcontainer darker'><div style='font-size: 12px;'><span style='font-weight: bold;'class='text-bold'>" + result[i].name + "</span> " + result[i].dtDate + " &nbsp;&nbsp;</div><div style ='margin-bottom: 10px;' class='margin-bottom'>" + result[i].varDescription + "</div></div>";
+                                div.innerHTML += html
+                            }
+
+                        }
+
+                    }
+                    chatlength = result.length;
+                },
+                error: function (xhr, status) {
+                    $('#full_screen_loader').hide();
+                    alertify.error('OOp! something went wrong...');
+                },
+                complete: function () { }
+
+            });
+
+        }
+
+        function savechat() {
+
+            var message = $('#js-chat_txt').val();
+            savestatus();
+            
+
+           
+
+        }
+
         
     </script>
