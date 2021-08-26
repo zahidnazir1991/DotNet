@@ -361,6 +361,108 @@ namespace RoomCheckingSystem.Controllers
         }
 
 
+        public JsonResult saveChathousekeeping(int? statusID, int? GroupID, int? type, int? roomId, int? buildingID, string description)
+        {
+            string imagename = "";
+            
+            string securedInfo = "";
+            String ConnectionString = configuration.GetConnectionString("roomcheckingconnection");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            var data = dBContext.tblChatMaster.Where(x => x.intStatusID == statusID).SingleOrDefault();
+            if (data == null)
+            {
+                var max = dBContext.tblChatMaster.DefaultIfEmpty().Max(r => r == null ? 1 : r.intSeqID);
+
+
+
+                SqlCommand command = new SqlCommand("spInsertChatMaster", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@intSeqId", (max + 1));
+                command.Parameters.AddWithValue("@currentstatusID", statusID);
+                command.Parameters.AddWithValue("@groupID", GroupID);
+                command.Parameters.AddWithValue("@type", type);
+                command.Parameters.AddWithValue("@userId", 7);
+                command.Parameters.AddWithValue("@roomid", roomId);
+                command.Parameters.AddWithValue("@buildingid", buildingID);
+                try
+                {
+                    connection.Open();
+                    //string result = command.ExecuteScalar().ToString();
+                    int count = command.ExecuteNonQuery();
+                    if (count > 0)
+                    {
+                        //connection.Close();
+
+                        SqlCommand cmd = new SqlCommand("spInsertChatDetails", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@currentstatusID", statusID);
+                        cmd.Parameters.AddWithValue("@varDescription", description);
+                        //if (base64string != null && base64string != "")
+                        //{
+                        //    cmd.Parameters.AddWithValue("@varImage", imagename);
+                        //}
+                        cmd.Parameters.AddWithValue("@type", 1);
+                        cmd.Parameters.AddWithValue("@userId", 7);
+                        cmd.Parameters.AddWithValue("@parentID", (max + 1));
+                        int detail = cmd.ExecuteNonQuery();
+                        if (detail > 0)
+                        {
+                            connection.Close();
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string ms = ex.Message.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+
+            else
+            {
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("spInsertChatDetails", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@currentstatusID", statusID);
+                    cmd.Parameters.AddWithValue("@varDescription", description);
+                    //if (base64string != null && base64string != "")
+                    //{
+                    //    cmd.Parameters.AddWithValue("@varImage", imagename);
+                    //}
+                    cmd.Parameters.AddWithValue("@type", 1);
+                    cmd.Parameters.AddWithValue("@userId", 7);
+                    cmd.Parameters.AddWithValue("@parentID", data.intSeqID);
+                    connection.Open();
+                    int detail = cmd.ExecuteNonQuery();
+                    if (detail > 0)
+                    {
+                        connection.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    string ms = ex.Message.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+
+            return Json(securedInfo);
+        }
+
+
 
         public JsonResult updatenextMaintenanceStatus(int? id, int? stid)
         {
@@ -398,12 +500,10 @@ namespace RoomCheckingSystem.Controllers
 
             return PartialView("mobdialog", nextstatus);
         }
-
-        public JsonResult SaveSelectedStatus(string statusDetails, int? id)
+        // id is tblstatus primary key
+        public JsonResult SaveSelectedStatus(string statusDetails, int? id,string comment)
         {
             string securedInfo = "";
-
-
 
             StatusDetails reqObj = JsonConvert.DeserializeObject<StatusDetails>(statusDetails);
 
@@ -422,6 +522,10 @@ namespace RoomCheckingSystem.Controllers
                 reqObj.dtDate = DateTime.Now;
                 reqObj.intCatID = 1;
                 //shift.dtCreationDate = DateTime.Now.ToString();
+                if (comment.Length > 0) {
+                    saveChathousekeeping(id, reqObj.isGroupID, 1, reqObj.intRoomID, reqObj.intBuildingID, reqObj.Description);
+                }
+                
                 dBContext.tblStatusDetails.Add(reqObj);
                 dBContext.SaveChanges();
             }
