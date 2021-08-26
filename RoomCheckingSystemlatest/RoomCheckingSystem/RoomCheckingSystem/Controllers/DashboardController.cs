@@ -58,7 +58,49 @@ namespace RoomCheckingSystem.Controllers
             return View();
         }
 
+        public PartialViewResult getSummary(int? id)
+        {
 
+            SqlParameter[] parms = { new SqlParameter("@intGroupID", 1),
+            new SqlParameter("@type", id),
+            new SqlParameter("@userid", 7)
+
+            };
+            var Listsummary = dBContext.sploadsummary.FromSqlRaw("EXECUTE dbo.sploadsummary @intGroupID,@type,@userid", parms)
+    .ToList();
+
+            return PartialView("getSummary", Listsummary);
+        }
+
+
+        public PartialViewResult getmobSummary(int? id)
+        {
+
+            SqlParameter[] parms = { new SqlParameter("@intGroupID", 1),
+            new SqlParameter("@type", id),
+            new SqlParameter("@userid", 7)
+
+            };
+            var Listsummary = dBContext.sploadsummary.FromSqlRaw("EXECUTE dbo.sploadsummary @intGroupID,@type,@userid", parms)
+    .ToList();
+
+            return PartialView("getmobSummary", Listsummary);
+        }
+
+
+        public PartialViewResult getmaintanencemobSummary(int? id)
+        {
+
+            SqlParameter[] parms = { new SqlParameter("@intGroupID", 1),
+            new SqlParameter("@type", id),
+            new SqlParameter("@userid", 7)
+
+            };
+            var Listsummary = dBContext.sploadsummary.FromSqlRaw("EXECUTE dbo.sploadsummary @intGroupID,@type,@userid", parms)
+    .ToList();
+
+            return PartialView("getmaintanencemobSummary", Listsummary);
+        }
 
         public PartialViewResult Housekeepingdata(int? id)
         {
@@ -484,6 +526,9 @@ namespace RoomCheckingSystem.Controllers
 
             return PartialView("CreateMaintenancedialogmob");
         }
+
+
+
         public JsonResult getDetailsofStatus(int? group, int? statusid)
         {
             int stid = (int)statusid;
