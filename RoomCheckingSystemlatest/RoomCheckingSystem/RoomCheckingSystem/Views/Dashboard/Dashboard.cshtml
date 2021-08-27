@@ -227,6 +227,10 @@
         background-color: #ddd;
     }
 
+    .validation-failed {
+        border: 1px solid #eb340a !important;
+        background-color: #faebe7 !important;
+    }
 </style>
  
 
@@ -668,7 +672,7 @@
             var $parent = $('#ParendStatus').val();
             var $child = $('#ChildStatus').val();
             var $clearningtime = $('#js-priority_time').val();
-            var status = "";
+            var status = "-1";
             if ($parent != -1 && $child != -1) {
                 status = $child;
             }
@@ -688,8 +692,8 @@
                 isproritysetting: $checkboxvalue,
                 intBuildingID: buildingid,
                 intRoomID: roomid,
-                intStatusID: status,
-                stmessage: message
+                intStatusID: status
+                
 
 
             };
@@ -698,7 +702,7 @@
             $.ajax({
                 url: '/Dashboard/SaveSelectedStatus',
                 type: 'POST',
-                data: { 'statusDetails': JSON.stringify(statusDetails), 'id': statusID },
+                data: { 'statusDetails': JSON.stringify(statusDetails), 'id': statusID, 'comment': message },
                 dataType: 'json',
 
                 success: function (d) {
@@ -836,9 +840,21 @@
         }
 
         function savechat() {
-
+            var $parent = $('#ParendStatus').val();
+            var $child = $('#ChildStatus').val();
             var message = $('#js-chat_txt').val();
-            savestatus(message);
+            if ($parent == -1 && $child == -1) {
+                alertify.error("Please select status first!");
+            }
+            else if (message.length < 1) {
+                $('#js-chat_txt').addClass("validation-failed");
+                alertify.error("Please provide comment!");
+            }
+            else {
+                savestatus(message);
+            }
+
+            
             
 
            
