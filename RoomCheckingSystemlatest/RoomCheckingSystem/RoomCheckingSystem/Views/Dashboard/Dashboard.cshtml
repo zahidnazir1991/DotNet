@@ -663,7 +663,7 @@
             }
 
         }
-        function savestatus() {
+        function savestatus(message) {
 
             var $parent = $('#ParendStatus').val();
             var $child = $('#ChildStatus').val();
@@ -688,7 +688,8 @@
                 isproritysetting: $checkboxvalue,
                 intBuildingID: buildingid,
                 intRoomID: roomid,
-                intStatusID: status
+                intStatusID: status,
+                stmessage: message
 
 
             };
@@ -837,7 +838,7 @@
         function savechat() {
 
             var message = $('#js-chat_txt').val();
-            savestatus();
+            savestatus(message);
             
 
            
